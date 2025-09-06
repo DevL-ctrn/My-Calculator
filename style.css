@@ -120,13 +120,7 @@ body {
               no-repeat center center/cover;
 }
 
-.home__tlt::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  z-index: 1;
-}
+
 
 .home__tit,
 .home__p,
@@ -201,5 +195,6 @@ body {
     width: 100%;
   }
 }
+
 
 
