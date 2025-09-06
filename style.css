@@ -22,7 +22,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,0.6);
   backdrop-filter: blur(8px);
   z-index: 1000;
 }
@@ -37,17 +37,20 @@ body {
 }
 
 .navbar-logo {
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: 1.7rem;
+  font-weight: 700;
   color: #fff;
   text-decoration: none;
 }
 
-/* ===== MENU ===== */
 .navbar-menu {
   display: flex;
   list-style: none;
   gap: 20px;
+}
+
+.navbar-menu li {
+  position: relative;
 }
 
 .navbar-menu li a {
@@ -88,7 +91,7 @@ body {
   padding: 8px 12px;
 }
 
-/* ===== HAMBURGUER (MOBILE) ===== */
+/* ===== HAMBURGUER MOBILE ===== */
 .navbar-toggle {
   display: none;
   flex-direction: column;
@@ -126,14 +129,14 @@ body {
   align-items: center;
   text-align: center;
 
-  /* Imagem de fundo */
+  /* imagem de fundo */
   background-image: url('https://images.unsplash.com/photo-1520975922071-a3a6b1e73f2d?auto=format&fit=crop&w=1600&q=80');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-/* Overlay escuro para contraste do texto */
+/* Overlay escuro */
 .home__tlt::before {
   content: "";
   position: absolute;
@@ -153,12 +156,14 @@ body {
   font-size: 42px;
   font-weight: 700;
   margin-bottom: 20px;
+  line-height: 1.2;
 }
 
 .home__p {
   font-size: 18px;
   margin-bottom: 30px;
   color: #f0f0f0;
+  max-width: 600px;
 }
 
 .home__btn {
@@ -179,14 +184,14 @@ body {
 
 /* ===== RESPONSIVIDADE ===== */
 
-/* Tablet */
+/* Tablets */
 @media (max-width: 1024px) {
   .home__tit { font-size: 36px; }
   .home__p { font-size: 16px; }
   .home__btn { padding: 12px 24px; }
 }
 
-/* Mobile */
+/* Celulares */
 @media (max-width: 768px) {
   .navbar-menu {
     display: none;
@@ -206,9 +211,7 @@ body {
     display: flex;
   }
 
-  .navbar-toggle {
-    display: flex;
-  }
+  .navbar-toggle { display: flex; }
 
   .home__tit { font-size: 28px; }
   .home__p { font-size: 14px; }
@@ -223,3 +226,4 @@ body {
   .home__p { font-size: 13px; }
   .home__btn { padding: 10px 18px; font-size: 14px; }
 }
+
