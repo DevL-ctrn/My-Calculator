@@ -177,7 +177,7 @@ body {
 
     body {
     font-family: "Jost", serif;
-    min-height: 300vh;
+    min-height: 600vh;
     background: url('https://wallpaperaccess.com/full/237630.jpg') no-repeat center center/cover;
 }
     .navbar-menu {
@@ -236,4 +236,5 @@ body {
         padding: 12px;
     }
 }
+
 
