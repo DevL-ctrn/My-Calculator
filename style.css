@@ -10,7 +10,7 @@
 body {
   font-family: "Jost", sans-serif;
   
-  background: url("https://wallpaperaccess.com/full/237630.jpg") no-repeat center center/cover;
+  background-color: green;
 }
 
 /* ===== NAVBAR ===== */
@@ -193,6 +193,7 @@ body {
     width: 100%;
   }
 }
+
 
 
 
