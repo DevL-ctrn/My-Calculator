@@ -23,7 +23,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 182, 193, 0.3); /* pink suave */
+  background: rgba(238, 143, 157, 0.521);
   backdrop-filter: blur(12px);
   z-index: 1000;
 }
@@ -221,4 +221,5 @@ body {
   .home__p { font-size: 13px; }
   .home__btn { padding: 10px 18px; font-size: 14px; }
 }
+
 
