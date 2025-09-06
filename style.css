@@ -201,39 +201,26 @@ body {
         display: flex;
     }
 
-    .home__tlt {
-        padding: 100px 20px;
-    }
-
     .home__tit {
         font-size: 32px;
     }
-
     .home__p {
         font-size: 16px;
+    }
+    .home__btn {
+        padding: 12px 20px;
     }
 }
 
 @media (max-width: 480px) {
-    .navbar-container {
-        padding: 0 1rem;
-    }
-
-    .navbar-logo {
-        font-size: 1.6rem;
-    }
-
     .home__tit {
         font-size: 26px;
     }
-
-    .home__tlt {
-        padding: 80px 15px;
+    .home__p {
+        font-size: 14px;
     }
-
     .home__btn {
         width: 100%;
-        padding: 12px;
     }
 }
 
