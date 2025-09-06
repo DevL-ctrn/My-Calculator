@@ -202,6 +202,24 @@ body{
 
 }
 
+    .home__tlt {
+    padding: 193px;
+    align-content: center;
+    text-align: center;
+    background-image: url(https://i.pinimg.com/736x/bf/f5/cf/bff5cf56178ac09f22e012dad48f338e.jpg);
+    
+    text-align: center;
+    align-content: center;
+    background-position: center;
+    background-blend-mode: overlay;
+
+}
+
+.home__tit {
+    font-size: 50px;
+    color: white;
+}
+
 .navbar-container .navbar-menu{
     display: none;
    flex-direction: column;
@@ -245,6 +263,7 @@ body{
 
 
 }
+
 
 
 
