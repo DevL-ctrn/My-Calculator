@@ -9,7 +9,8 @@
 
 body {
   font-family: "Jost", sans-serif;
-   background: url('https://wallpaperaccess.com/full/237630.jpg') no-repeat center center/cover;
+  background-color: #111;
+  color: #fff;
 }
 
 /* ===== NAVBAR ===== */
@@ -21,7 +22,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
- 
+  background: rgba(0,0,0,0.7);
   backdrop-filter: blur(6px);
   z-index: 1000;
 }
@@ -115,9 +116,17 @@ body {
   align-items: center;
   text-align: center;
 
+  background: url("https://images.unsplash.com/photo-1520975922071-a3a6b1e73f2d?auto=format&fit=crop&w=1200&q=80")
+              no-repeat center center/cover;
 }
 
-
+.home__tlt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1;
+}
 
 .home__tit,
 .home__p,
@@ -192,6 +201,7 @@ body {
     width: 100%;
   }
 }
+
 
 
 
