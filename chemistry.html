@@ -1,0 +1,44 @@
+<DOCTYPE html>
+    <html lang = "en">
+        <head>
+            <meta charset = "UTF-8">
+            <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+            <title>Responsive NavBar with Hamburguer Menu</title>
+
+            <link rel="stylesheet" href = "chemistry.css">
+
+
+        </head>
+
+        <body>
+            
+<div class="mathscont">
+        <h2>Calculadora de Química</h2>
+
+    <label for="chemCalcType">O que deseja calcular?</label>
+    <select id="chemCalcType" onchange="updateChemistryInputs()">
+        <option value="">--Escolha--</option>
+        <option value="molarMass">Massa molar</option>
+        <option value="moles">Número de moles</option>
+        <option value="concentration">Concentração</option>
+        <option value="idealGas">Gás ideal</option>
+         <option value="percentComposition">Composição percentual</option>
+          
+      
+        
+
+    </select>
+
+    <div id="chemInputsContainer"></div> <br>
+
+    <button onclick="calculateChemistry()">Calcular</button>
+
+    <p class="chemResult" id="chemResult"></p>
+</div>
+
+
+
+</body>
+
+        <script src="chemistry.js"></script>
+    </html>

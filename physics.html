@@ -1,0 +1,55 @@
+<DOCTYPE html>
+    <html lang = "en">
+        <head>
+            <meta charset = "UTF-8">
+            <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+            <title>Responsive NavBar with Hamburguer Menu</title>
+
+            <link rel="stylesheet" href = "physics.css">
+
+
+        </head>
+
+        <body>
+            
+<div class="mathscont">
+        <h2>Calculadora de Física</h2>
+
+    <label for="calcType">O que deseja calcular?</label>
+    <select id="calcType" onchange="updatePhysicsInputs()">
+        <option value="">--Escolha--</option>
+        <option value="motion">Velocidade/Distância/Tempo</option>
+        <option value="force">Força/Massa/Aceleração</option>
+        <option value="kineticEnergy">Energia Cinética</option>
+        <option value="weight">Peso</option>
+         <option value="acceleration">Aceleração/Velocidades/Tempo/Deslocamento</option>
+          <option value="potentialEnergy">Energia Potencial</option>
+          <option value="pressure">Pressão</option>
+          <option value="work">Trabalho</option>
+          <option value="coulomb">Lei de Couloumb</option>
+          <option value="ohm">Resistência/Intensidade/Voltagem</option>
+          <option value="power">Potência</option>
+          <option value="density">Densidade</option>
+          <option value="idealGas">Gás ideal</option>
+          <option value="angularVelocity">Velocidade Angular</option>
+          <option value="centripetal">Aceleração Centrípeta</option>
+          <option value="periodFrequency">Período/Frequência</option>
+       
+      
+        
+
+    </select>
+
+    <div id="inputsContainer"></div> <br>
+
+    <button onclick="calculatePhysics()">Calcular</button>
+
+    <p class="result" id="result"></p>
+</div>
+
+
+
+</body>
+
+        <script src="physics.js"></script>
+    </html>

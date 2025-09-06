@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap?');
+body {
+    font-family:"Jost", serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+       background: url('https://www.horobox.com/Cms_Data/Contents/SampleBusiness/Media/Haberler/What-is-Time/what-is-time-4.jpg') no-repeat center center/cover;
+}
+
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    width: 350px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: rgb(68, 204, 170);
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-align: left;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="date"], select {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 15px;
+    border: none;
+    background-color: rgb(68, 204, 170);
+    color: #fff;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: rgb(68, 204, 170);
+}
+
+#dateResult {
+    margin-top: 20px;
+    font-weight: bold;
+    color: rgb(68, 204, 170);
+}

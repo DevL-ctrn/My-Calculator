@@ -1,0 +1,41 @@
+<DOCTYPE html>
+    <html lang = "en">
+        <head>
+            <meta charset = "UTF-8">
+            <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+            <title>Responsive NavBar with Hamburguer Menu</title>
+
+            <link rel="stylesheet" href = "computing.css">
+
+
+        </head>
+
+        <body>
+            
+<div class="mathscont">
+        <h2>Calculadora de Computação</h2>
+
+    <label for="computeCalcType">O que deseja calcular?</label>
+    <select id="computeCalcType" onchange="updateComputingInputs()">
+        <option value="">--Escolha--</option>
+        <option value="storage">Conversão de armazenamento</option>
+        <option value="numberBase">Conversão de bases numéricas</option>
+        <option value="logicOp">Operações Lógicas</option>
+        <option value="bandwidth">Velocidade/Largura de banda</option>
+        
+
+    </select>
+
+    <div id="computeInputsContainer"></div> <br>
+
+    <button onclick="calculateComputing()">Calcular</button>
+
+    <p class="computeResult" id="computeResult"></p>
+</div>
+
+
+
+</body>
+
+        <script src="computing.js"></script>
+    </html>
