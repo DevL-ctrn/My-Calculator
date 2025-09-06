@@ -76,7 +76,7 @@ body {
   position: absolute;
   top: 100%;
   left: 0;
-  background: rgba(255, 182, 193, 0.95);
+  background: rgba(190, 52, 73, 0.95);
   border-radius: 8px;
   display: none;
   flex-direction: column;
@@ -109,7 +109,7 @@ body {
   width: 28px;
   height: 3px;
   margin: 4px 0;
-  background: #fff;
+  background: rgba(238, 143, 157, 0.521);
   transition: 0.4s;
 }
 
@@ -140,7 +140,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 182, 193, 0.5); /* overlay suave rosa */
+  background: rgba(238, 143, 157, 0.521); /* overlay suave rosa */
   z-index: 1;
 }
 
@@ -169,7 +169,7 @@ body {
   padding: 12px 28px;
   font-size: 16px;
   font-weight: 600;
-  background: #ffb6c1;
+  background: rgba(238, 143, 157, 0.521);
   color: #111;
   border: none;
   border-radius: 12px;
@@ -178,7 +178,7 @@ body {
 }
 
 .home__btn:hover {
-  background: #ff69b4;
+  background: rgba(238, 143, 157, 0.521);
 }
 
 /* ===== RESPONSIVIDADE ===== */
@@ -221,3 +221,4 @@ body {
   .home__p { font-size: 13px; }
   .home__btn { padding: 10px 18px; font-size: 14px; }
 }
+
