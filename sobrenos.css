@@ -28,7 +28,7 @@ body {
   z-index: 1000;
 }
 
-.navbar-contain {
+.navbar-container {
   width: 100%;
   max-width: 1200px;
   padding: 0 1rem;
@@ -242,7 +242,7 @@ ul li {
 
 /* Pequenos celulares */
 @media (max-width: 480px) {
-  .navbar-contain { padding: 0 1rem; }
+  .navbar-container { padding: 0 1rem; }
   .navbar-logo { font-size: 1.5rem; }
   .home__tit { font-size: 24px; }
   .home__p { font-size: 13px; }
@@ -260,5 +260,6 @@ ul li {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
+
 
 
