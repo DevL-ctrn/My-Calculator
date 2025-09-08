@@ -12,6 +12,7 @@ body {
   min-height: 100vh;
   color: #fff;
   background: #111;
+   background: url('https://wallpaperaccess.com/full/237630.jpg') no-repeat center center/cover;
 }
 
 /* ===== NAVBAR ===== */
@@ -126,6 +127,15 @@ body {
 
 }
 
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
 
 h1 {
     color: #007BFF;
@@ -195,6 +205,7 @@ ul li {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
+
 
 
 
