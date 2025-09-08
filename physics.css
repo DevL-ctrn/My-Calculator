@@ -82,6 +82,14 @@ button:hover { background-color: rgb(229, 40, 40); }
 
 
 @media (max-width: 880px){
+    .mathscont {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    width: 500px;
+
+}
 .navbar {
     backdrop-filter: none;
 
@@ -127,4 +135,5 @@ button:hover { background-color: rgb(229, 40, 40); }
     padding: 3px 15px; 
     
 }
+
 
