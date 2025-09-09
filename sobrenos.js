@@ -1,5 +1,7 @@
-function showMessage() {
-    const message = document.getElementById('message');
-    message.textContent = "Nossa calculadora foi desenvolvida com tecnologia moderna, visando facilidade e precisão para todos os usuários!";
-    message.classList.remove('hidden');
-}
+const navbarToggle = document.querySelector('.navbar-toggle');
+const navbarMenu = document.querySelector ('.navbar-menu');
+
+navbarToggle.addEventListener('click', () => {
+    navbarToggle.classList.toggle ('active');
+    navbarMenu.classList.toggle ('active');
+})
