@@ -10,7 +10,6 @@
 body {
   font-family: 'Jost', sans-serif;
   min-height: 100vh;
-  color: #fff;
   background: #111;
 }
 
@@ -255,6 +254,7 @@ ul li {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
+
 
 
 
