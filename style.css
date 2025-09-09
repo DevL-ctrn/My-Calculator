@@ -169,7 +169,7 @@ body {
   padding: 12px 28px;
   font-size: 16px;
   font-weight: 600;
-  background: rgba(238, 143, 157, 0.521);
+  background: rgba(51, 20, 249, 0.3);
   color: #111;
   border: none;
   border-radius: 12px;
@@ -199,7 +199,7 @@ body {
     width: 220px;
     height: calc(100vh - 70px);
     padding: 2rem 1rem;
-    background: rgba(255, 182, 193, 0.97);
+    background: rgba(51, 20, 249, 0.3);
     box-shadow: -2px 0 8px rgba(0,0,0,0.5);
     z-index: 1000;
   }
@@ -221,6 +221,7 @@ body {
   .home__p { font-size: 13px; }
   .home__btn { padding: 10px 18px; font-size: 14px; }
 }
+
 
 
 
