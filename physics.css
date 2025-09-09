@@ -87,7 +87,7 @@ button:hover { background-color: rgb(229, 40, 40); }
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    width: 500px;
+    width: 400px;
 
 }
 .navbar {
@@ -135,5 +135,6 @@ button:hover { background-color: rgb(229, 40, 40); }
     padding: 3px 15px; 
     
 }
+
 
 
