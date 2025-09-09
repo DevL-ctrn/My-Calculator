@@ -61,4 +61,20 @@ button:hover {
     margin-top: 20px;
     font-weight: bold;
     color: rgb(68, 204, 170);
+
 }
+
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        max-width: 95%;
+        width: 100%;
+    }
+    h2 {
+        font-size: 20px;
+    }
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
