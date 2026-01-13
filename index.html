@@ -1,254 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Contacte-nos</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-<style>
-    :root {
-        --main: #3c3a47;         
-        --accent: #c4a27a;        
-        --bg: #f5f3ee;           
-        --white: #ffffff;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Arial";
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <title>Pedido de verificação</title>
+  </head>
+  <style>
+   
 
     body {
-        background: var(--bg);
-        padding: 70px 0;
-        color: var(--main);
-        overflow-x: hidden;
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, rgb(219, 218, 218), rgb(240, 223, 191));
+      min-height: 100vh;
     }
 
-    .container {
-        width: 92%;
-        max-width: 1280px;
-        margin: auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-        gap: 70px;
-        align-items: center;
+    h1{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(240, 156, 1);
+    font-size: 35px;
+    }
+    main {
+      text-align: center;
+      justify-content: center;
+      margin-top: 70px;
+    }
+    .cards{
+      display: flex;
+      gap: 30px;
+      padding:16px;
+      justify-content: center;
     }
 
-    /* LEFT SECTION */
-    .left {
-        animation: fadeIn 1s ease forwards;
-        opacity: 0;
-        padding-left: 10px;
+    .preencher{
+      width:50px;
+      height:50px;
+      padding: 20px;
+      border-radius: 5px ;
+      border-color: orange;
+      outline: none;
+      text-align: center;
+      line-height: 55px;
+      font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      font-size: 50px;
     }
 
-    @keyframes fadeIn {
-        to { opacity: 1; }
+      .button {
+      background: orange;
+      border: none;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 15px;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     
     }
-
-    .left h1 {
-        font-size: 50px;
-        font-weight: 1300;
-        margin-bottom: 20px;
-        letter-spacing: -1px;
-        color: var(--accent);
+    .counter{
+      font-weight: bolder;
     }
+  
+    </style>
 
-    .left p {
-        font-size: 18px;
-        line-height: 1.8;
-        color: #4c4a57;
-        max-width: 480px;
-        margin-bottom: 35px;
-    }
+     <body>
+      <main>
+      <h1>CÓDIGO DE VERIFICAÇÃO</h1>
+      <p>Enviamos um código verificação de 6 dígitos para o número <b>** *** *657.</b> </p>
 
-    .contact-info {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        margin-top: 20px;
-        font-size: 16px;
-    }
+      <div class="cards">
+        <input class="preencher" type="text" maxlength="1">
+        <input class="preencher" type="text" maxlength="1">
+        <input class="preencher" type="text" maxlength="1">
+       <input class="preencher" type="text" maxlength="1">
+        <input class="preencher" type="text" maxlength="1">
+        <input class="preencher" type="text" maxlength="1">
+      </div>
+      <p>
+      <span id="contador-area">
+        Não recebeste o código? Poderá solicitar dentro de <b><span id="counter"> </span></b>
+      </span> 
 
-    /* FORM CARD (elegante, com cortes franceses inclinados) */
-    .form-wrapper {
-        position: relative;
-        transform: skew(-3deg);
-    }
+        <span id="reenviar-area" style="display: none;">
+         <a href="#" id="reenviar" style="text-decoration: none; color: black "> <u><b>Reenviar</b></u></a>
+        </span>
+       </p> <br>
+      <button class="button">
+        <span> Verificar Código</span>
+      </button>
+    </main>
+     </body>
 
-    .form-card {
-        background: var(--white);
-        padding: 30px 20px;
-        border-radius: 24px;
-        border-top: 4px solid #c4a27a;
-        color: #c4a27a;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.07);
-        transform: skew(3deg);
-        animation: slideUp 0.9s ease forwards;
-        opacity: 0;
-    }
+     <script>
+  const inputs = document.querySelectorAll(".preencher");
 
-    @keyframes slideUp {
-        to {
-            opacity: 1;
-            transform: skew(3deg) translateY(0);
-        }
-    }
+  inputs.forEach((input, index) => {
 
-    .left h1, .left p {
-    animation: fadeSlide 1.1s ease forwards;
-    opacity: 0;
-}
+    // Quando digita um número
+    input.addEventListener("input", () => {
+      // aceita só números
+      input.value = input.value.replace(/[^0-9]/g, "");
 
-@keyframes fadeSlide {
-    0% {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+      // se digitou algo, vai para o próximo
+      if (input.value && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      }
+    });
 
+    // Quando apaga
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && !input.value && index > 0) {
+        inputs[index - 1].focus();
+      }
+    });
 
-    .form-card h2 {
-        font-size: 32px;
-        font-weight: 600;
-        margin-bottom: 40px;
-        color: var(--main);
-        text-align: center;
-    }
+  });
 
-    /* INPUTS */
-    .input-group {
-        margin-bottom: 28px;
-    }
+   let tempoInicial = 60;
+  let tempo = tempoInicial;
+  let intervalo;
 
-    .input-group label {
-        font-size: 13px;
-        font-weight: 600;
-        display: block;
-        margin-bottom: 10px;
-        color: var(--main);
-    }
+  const contador = document.getElementById("counter");
+  const reenviarArea = document.getElementById("reenviar-area");
+  const contadorArea = document.getElementById("contador-area");
+  const reenviarLink = document.getElementById("reenviar");
 
-    .input-group input,
-    .input-group textarea {
-        width: 100%;
-        padding: 8px;
-        
-        border: 1px solid #d6d3cc;
-        background: #faf9f7;
-        font-size: 16px;
-        transition: 0.3s;
-    }
+  function formatarTempo(segundos) {
+    const min = String(Math.floor(segundos / 60)).padStart(2, "0");
+    const sec = String(segundos % 60).padStart(2, "0");
+    return `${min}:${sec}`;
+  }
 
-    .input-group input:focus,
-    .input-group textarea:focus {
-        border-color: var(--accent);
-        box-shadow: 0 0 12px rgba(196,162,122,0.25);
-        background: var(--white);
-    }
+  function iniciarContador() {
+    tempo = tempoInicial;
+    contador.textContent = formatarTempo(tempo);
 
-    textarea {
-        resize: none;
-        height: 150px;
-    }
+    // Estado inicial
+    contadorArea.style.display = "inline";
+    reenviarArea.style.display = "none";
 
-    /* BUTTON */
-    .btn {
-        width: 100%;
-        background: linear-gradient(135deg, var(--accent), #b69066);
-        color: var(--white);
-        padding: 17px;
-       
-        font-size: 18px;
-        font-weight: 600;
-        border: none;
-        cursor: pointer;
-        transition: 0.3s ease;
-        letter-spacing: 0.4px;
-    }
+    intervalo = setInterval(() => {
+      tempo--;
+      contador.textContent = formatarTempo(tempo);
 
-    .btn:hover {
-        opacity: 0.9;
-        transform: translateY(-2px);
-    }
+      if (tempo === 0) {
+        clearInterval(intervalo);
 
-    /* SUCCESS MESSAGE */
-    .success-message {
-        display: none;
-        margin-top: 28px;
-        padding: 18px;
-        background: #eafbe8;
-        border-left: 4px solid #52a45a;
-        color: #2d6e32;
-        font-size: 15px;
-        border-radius: 10px;
-    }
-</style>
-</head>
+        // Quando acaba o tempo
+        contadorArea.style.display = "none";
+        reenviarArea.style.display = "inline";
+      }
+    }, 1000);
+  }
 
-<body>
+  reenviarLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    iniciarContador();
 
-<div class="container">
+    // Aqui chamarias o backend
+    console.log("Código reenviado");
+  });
 
-    <!-- LEFT SIDE -->
-    <div class="left">
-        <h1><b>Contacte-nos</b></h1>
-        <p>
-            Conte connosco para qualquer questão, apoio ou parceria. A nossa equipa está pronta para ajudar com total atenção.
-        </p>
-
-        
-      
-    </div>
-
-
-    <!-- RIGHT SIDE FORM -->
-    <div class="form-wrapper">
-        <div class="form-card">
-
-            <form id="contactForm" action="https://formsubmit.co/kwetobread@gmail.com" method="POST">
-
-                <input type="hidden" name="_captcha" value="false">
-                
-
-                <div class="input-group">
-                   <label for="name">Nome Completo</label>
-                  <input type="text" id="name" name="name" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="message">Mensagem</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-
-                <button type="submit" class="btn">Enviar</button>
-            </form>
-            <p id="success-message" style="display: none; color: green; text-align: center; margin-top: 1rem;">
-        A sua mensagem foi submetida com sucesso.
-      </p>
-        </div>
-    </div>
-
-</div>
-
-<script>
+  iniciarContador();
 
 </script>
 
-</body>
-</html>
+
 
 
 
