@@ -14,7 +14,7 @@ body {
   color:#333;
 }
 
-/* Inputs */
+
 input[type="date"] {
   font-family:'Inter',sans-serif;
   font-weight:600;
@@ -32,7 +32,7 @@ input[type="date"]:focus{outline:none;border-color:#b5651d;box-shadow:0 0 6px rg
 
 h2{margin:0;font-weight:600;}
 
-/* Card */
+
 .card{
   background:#fff;
   border-radius:16px;
@@ -44,18 +44,17 @@ h2{margin:0;font-weight:600;}
 }
 .divider{border:none;height:1px;background:#eee;margin:15px 0;}
 
-/* Produto */
 .product-name{font-weight:600;margin-bottom:10px;text-align:center;}
-.product-name span{color:#b5651d;} /* nome do produto em castanho */
+.product-name span{color:#b5651d;}
 
-/* Título da tabela */
+
 .table-title{font-weight:600;text-align:center;margin-bottom:10px;}
 
-/* Seleção de data */
+
 .date-selector{display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:20px;}
 .date-selector label{font-weight:600;}
 
-/* Tabela */
+
 table{border-collapse:collapse;margin:0 auto;width:95%;max-width:900px;}
 td{
   border:1px solid #a0521a;
@@ -73,7 +72,7 @@ td.full{background:#ff4d4f;color:white;cursor:not-allowed;}
 td.green{background:#d9f7be;}
 td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:500;}
 
-/* Modal */
+
 .modal{display:none;position:fixed;z-index:10;left:0;top:0;width:100%;height:100%;overflow:auto;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;}
 .modal-content{background:white;border-radius:10px;padding:20px;width:90%;max-width:500px;text-align:center;}
 .close{float:right;font-size:25px;font-weight:bold;cursor:pointer;}
@@ -81,11 +80,11 @@ td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:
 .time-circle.full{background:#ff4d4f;color:white;cursor:not-allowed;}
 .time-circle:hover:not(.full){transform:scale(1.1);}
 
-/* Horário selecionado */
+
 .selected-time-container{display:none;text-align:center;margin-top:15px;font-weight:600;}
 .selected-time-container span{color:#b5651d;font-weight:600;}
 
-/* Mobile */
+
 @media(max-width:600px){
   td{height:70px;font-size:12px;padding:6px;}
   td .slot-label{font-size:12px;}
@@ -97,7 +96,7 @@ td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:
 <body>
 
 <div class="card">
-  <!-- Produto 1 -->
+  
   <div class="table-title"><h2>Horários de Levantamento</h2></div>
   <hr class="divider">
   <div class="product-name">Produto: <span>Pão de Teste</span></div>
@@ -115,7 +114,7 @@ td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:
 
   <hr class="divider" style="margin-top:30px;">
 
-  <!-- Produto 2 -->
+ 
   <div class="product-name">Produto: <span>Arrufada</span></div> <br>
 
   <div class="date-selector">
@@ -129,7 +128,7 @@ td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:
 
   <div class="selected-time-container" id="selectedTime2">Horário de retirada: <span id="selectedHour2"></span></div>
 
-  <!-- Modal único -->
+
   <div id="modal" class="modal">
     <div class="modal-content">
       <span id="closeBtn" class="close">&times;</span>
@@ -138,7 +137,7 @@ td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:
     </div>
   </div>
 
-  <!-- 🔥 NOVO PRODUTO 3 (ADICIONADO) -->
+
   <hr class="divider" style="margin-top:30px;">
 
   <div class="product-name">Produto: <span>Bolo de Ananás</span></div> <br>
@@ -159,7 +158,7 @@ td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:
 
 
 <script>
-// ================== CONFIG ==================
+
 
 const horariosCache = {
   p1: {},
@@ -167,7 +166,7 @@ const horariosCache = {
   p3: {}
 };
 
-// CONFIGS (mantive iguais aos teus)
+
 const slotConfig1 = {1:{start:"08:00",end:"08:12"},2:{start:"08:12",end:"08:25"},3:{start:"08:25",end:"09:00"},
 4:{start:"09:00",end:"09:45"},5:{start:"09:45",end:"10:10"},6:{start:"10:10",end:"10:20"},
 7:{start:"10:20",end:"10:50"},8:{start:"10:50",end:"11:30"},9:{start:"11:30",end:"12:00"},
@@ -194,9 +193,7 @@ const slotCapacity3 = {
 21:2,22:0,23:1,24:1,25:0
 };
 
-// ================== FUNÇÕES ==================
 
-// 🔥 HORÁRIOS FIXOS (SEM RANDOM)
 function gerarHorarios(start, end, capacidade){
   let arr=[];
   let [h,m]=start.split(":").map(Number);
@@ -209,7 +206,7 @@ function gerarHorarios(start, end, capacidade){
   while(h<eh || (h===eh && m<em)){
     let time = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
 
-    let full = index >= capacidade; // 🔥 regra fixa
+    let full = index >= capacidade; 
 
     arr.push({ time, full });
 
@@ -221,7 +218,7 @@ function gerarHorarios(start, end, capacidade){
   return arr;
 }
 
-// 🔥 GERAR CACHE UMA VEZ
+
 function gerarTudo(){
   for(let i=1;i<=25;i++){
     horariosCache.p1[i] = gerarHorarios(slotConfig1[i].start, slotConfig1[i].end, slotCapacity1[i]);
@@ -230,7 +227,7 @@ function gerarTudo(){
   }
 }
 
-// GERAR TABELA
+
 function gerarTabela(gridId, config, capacity){
   const grid=document.getElementById(gridId);
   grid.innerHTML="";
@@ -260,13 +257,13 @@ function gerarTabela(gridId, config, capacity){
   }
 }
 
-// CONVERTER TEMPO
+
 function toMin(t){
   let [h,m]=t.split(":").map(Number);
   return h*60+m;
 }
 
-// 🔥 ENCONTRAR MAIS PRÓXIMO (USANDO CACHE)
+
 function encontrarMaisProximo(target, cache){
   let melhor=null;
   let menor=Infinity;
@@ -287,7 +284,6 @@ function encontrarMaisProximo(target, cache){
   return melhor;
 }
 
-// ================== MODAL ==================
 
 const modal=document.getElementById("modal");
 const timesDiv=document.getElementById("times");
@@ -300,7 +296,7 @@ function ativarModal(gridId, cacheKey, selectedId, hourId, isMain=false){
     td.onclick=()=>{
       let id=td.dataset.id;
 
-      let horarios = horariosCache[cacheKey][id]; // 🔥 USAR CACHE
+      let horarios = horariosCache[cacheKey][id]; 
 
       timesDiv.innerHTML="";
 
@@ -315,7 +311,7 @@ function ativarModal(gridId, cacheKey, selectedId, hourId, isMain=false){
             document.getElementById(selectedId).style.display="block";
             modal.style.display="none";
 
-            // 🔥 INTELIGÊNCIA
+           
             if(isMain){
               let prox2 = encontrarMaisProximo(h.time, horariosCache.p2);
               let prox3 = encontrarMaisProximo(h.time, horariosCache.p3);
@@ -341,7 +337,6 @@ function ativarModal(gridId, cacheKey, selectedId, hourId, isMain=false){
   });
 }
 
-// ================== INICIAR ==================
 
 gerarTudo();
 
@@ -349,14 +344,14 @@ gerarTabela("grid1",slotConfig1,slotCapacity1);
 gerarTabela("grid2",slotConfig2,slotCapacity2);
 gerarTabela("grid3",slotConfig3,slotCapacity3);
 
-// Produto 1 controla tudo
+
 ativarModal("grid1","p1","selectedTime1","selectedHour1",true);
 
-// Outros independentes
+
 ativarModal("grid2","p2","selectedTime2","selectedHour2");
 ativarModal("grid3","p3","selectedTime3","selectedHour3");
 
-// ================== DATAS ==================
+
 
 const d1=document.getElementById("dateSelect1");
 const d2=document.getElementById("dateSelect2");
@@ -372,7 +367,7 @@ let today=new Date().toISOString().split("T")[0];
   d.max=max.toISOString().split("T")[0];
 });
 
-// sincronizar
+
 d1.addEventListener("input",()=>{
   d2.value=d1.value;
   d3.value=d1.value;
