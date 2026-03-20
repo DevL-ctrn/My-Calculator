@@ -14,7 +14,7 @@ body {
   color:#333;
 }
 
-/* Inputs */
+
 input[type="date"] {
   font-family:'Inter',sans-serif;
   font-weight:600;
@@ -32,7 +32,7 @@ input[type="date"]:focus{outline:none;border-color:#b5651d;box-shadow:0 0 6px rg
 
 h2{margin:0;font-weight:600;}
 
-/* Card */
+
 .card{
   background:#fff;
   border-radius:16px;
@@ -44,18 +44,18 @@ h2{margin:0;font-weight:600;}
 }
 .divider{border:none;height:1px;background:#eee;margin:15px 0;}
 
-/* Produto */
-.product-name{font-weight:600;margin-bottom:10px;text-align:center;}
-.product-name span{color:#b5651d;} /* nome do produto em castanho */
 
-/* Título da tabela */
+.product-name{font-weight:600;margin-bottom:10px;text-align:center;}
+.product-name span{color:#b5651d;}
+
+
 .table-title{font-weight:600;text-align:center;margin-bottom:10px;}
 
-/* Seleção de data */
+
 .date-selector{display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:20px;}
 .date-selector label{font-weight:600;}
 
-/* Tabela */
+
 table{border-collapse:collapse;margin:0 auto;width:95%;max-width:900px;}
 td{
   border:1px solid #a0521a;
@@ -73,7 +73,7 @@ td.full{background:#ff4d4f;color:white;cursor:not-allowed;}
 td.green{background:#d9f7be;}
 td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:500;}
 
-/* Modal */
+
 .modal{display:none;position:fixed;z-index:10;left:0;top:0;width:100%;height:100%;overflow:auto;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;}
 .modal-content{background:white;border-radius:10px;padding:20px;width:90%;max-width:500px;text-align:center;}
 .close{float:right;font-size:25px;font-weight:bold;cursor:pointer;}
@@ -81,11 +81,11 @@ td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:
 .time-circle.full{background:#ff4d4f;color:white;cursor:not-allowed;}
 .time-circle:hover:not(.full){transform:scale(1.1);}
 
-/* Horário selecionado */
+
 .selected-time-container{display:none;text-align:center;margin-top:15px;font-weight:600;}
 .selected-time-container span{color:#b5651d;font-weight:600;}
 
-/* Mobile */
+
 @media(max-width:600px){
   td{height:70px;font-size:12px;padding:6px;}
   td .slot-label{font-size:12px;}
@@ -97,7 +97,7 @@ td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:
 <body>
 
 <div class="card">
-  <!-- Produto 1 -->
+
   <div class="table-title"><h2>Horários de Levantamento</h2></div>
   <hr class="divider">
   <div class="product-name">Produto: <span>Pão de Teste</span></div>
@@ -115,7 +115,7 @@ td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:
 
   <hr class="divider" style="margin-top:30px;">
 
-  <!-- Produto 2 -->
+
   <div class="product-name">Produto: <span>Arrufada</span></div> <br>
 
   <div class="date-selector">
@@ -129,7 +129,7 @@ td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:
 
   <div class="selected-time-container" id="selectedTime2">Horário de retirada: <span id="selectedHour2"></span></div>
 
-  <!-- Modal único -->
+ 
   <div id="modal" class="modal">
     <div class="modal-content">
       <span id="closeBtn" class="close">&times;</span>
@@ -138,92 +138,130 @@ td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:
     </div>
   </div>
 
+  
+  <hr class="divider" style="margin-top:30px;">
+
+  <div class="product-name">Produto: <span>Bolo de Ananás</span></div> <br>
+
+  <div class="date-selector">
+    <label for="dateSelect3">Seleccione a data:</label>
+    <input type="date" id="dateSelect3">
+  </div>
+
+  <table>
+    <tbody id="grid3"></tbody>
+  </table>
+
+  <div class="selected-time-container" id="selectedTime3">
+    Horário de retirada: <span id="selectedHour3"></span>
+  </div>
 </div>
 
 <script>
-// CONFIGURAÇÃO DOS PRODUTOS
-const slotConfig1 = {1:{start:"08:00",end:"08:12"},2:{start:"08:12",end:"08:25"},3:{start:"08:25",end:"09:00"},
+
+const slotConfig1 = {
+  1:{start:"08:00",end:"08:12"},2:{start:"08:12",end:"08:25"},3:{start:"08:25",end:"09:00"},
   4:{start:"09:00",end:"09:45"},5:{start:"09:45",end:"10:10"},6:{start:"10:10",end:"10:20"},7:{start:"10:20",end:"10:50"},
   8:{start:"10:50",end:"11:30"},9:{start:"11:30",end:"12:00"},10:{start:"12:00",end:"12:15"},11:{start:"12:15",end:"13:00"},
   12:{start:"13:00",end:"13:20"},13:{start:"13:20",end:"14:10"},14:{start:"14:10",end:"14:30"},15:{start:"14:30",end:"15:00"},
   16:{start:"15:00",end:"15:40"},17:{start:"15:40",end:"16:00"},18:{start:"16:00",end:"16:50"},19:{start:"16:50",end:"17:10"},
   20:{start:"17:10",end:"17:45"},21:{start:"17:45",end:"18:00"},22:{start:"18:00",end:"18:20"},23:{start:"18:20",end:"19:00"},
-  24:{start:"19:00",end:"19:25"},25:{start:"19:25",end:"20:00"}};
+  24:{start:"19:00",end:"19:25"},25:{start:"19:25",end:"20:00"}
+};
+const slotCapacity1 = {
+  1:12,2:15,3:5,4:0,5:18,6:7,7:0,8:3,9:3,10:10,
+  11:2,12:0,13:9,14:6,15:6,16:4,17:0,18:11,19:1,20:5,21:8,22:0,23:13,24:2,25:7
+};
 
-const slotCapacity1 = {1:12,2:15,3:5,4:0,5:18,6:7,7:0,8:3,9:3,10:10,
-  11:2,12:0,13:9,14:6,15:6,16:4,17:0,18:11,19:1,20:5,21:8,22:0,23:13,24:2,25:7};
 
-const slotConfig2 = {1:{start:"08:30",end:"08:50"},2:{start:"08:50",end:"09:20"},3:{start:"09:20",end:"09:50"},
-4:{start:"09:50",end:"10:30"},5:{start:"10:30",end:"11:00"},6:{start:"11:00",end:"11:30"},7:{start:"11:30",end:"12:00"},
-8:{start:"12:00",end:"12:30"},9:{start:"12:30",end:"13:00"},10:{start:"13:00",end:"13:30"},11:{start:"13:30",end:"14:00"},
-12:{start:"14:00",end:"14:30"},13:{start:"14:30",end:"15:00"},14:{start:"15:00",end:"15:30"},15:{start:"15:30",end:"16:00"},
-16:{start:"16:00",end:"16:30"},17:{start:"16:30",end:"17:00"},18:{start:"17:00",end:"17:30"},19:{start:"17:30",end:"18:00"},
-20:{start:"18:00",end:"18:30"},21:{start:"18:30",end:"19:00"},22:{start:"19:00",end:"19:30"},23:{start:"19:30",end:"20:00"},
-24:{start:"20:00",end:"20:30"},25:{start:"20:30",end:"21:00"}};
+const slotConfig2 = {
+  1:{start:"08:30",end:"08:50"},2:{start:"08:50",end:"09:20"},3:{start:"09:20",end:"09:50"},
+  4:{start:"09:50",end:"10:30"},5:{start:"10:30",end:"11:00"},6:{start:"11:00",end:"11:30"},7:{start:"11:30",end:"12:00"},
+  8:{start:"12:00",end:"12:30"},9:{start:"12:30",end:"13:00"},10:{start:"13:00",end:"13:30"},11:{start:"13:30",end:"14:00"},
+  12:{start:"14:00",end:"14:30"},13:{start:"14:30",end:"15:00"},14:{start:"15:00",end:"15:30"},15:{start:"15:30",end:"16:00"},
+  16:{start:"16:00",end:"16:30"},17:{start:"16:30",end:"17:00"},18:{start:"17:00",end:"17:30"},19:{start:"17:30",end:"18:00"},
+  20:{start:"18:00",end:"18:30"},21:{start:"18:30",end:"19:00"},22:{start:"19:00",end:"19:30"},23:{start:"19:30",end:"20:00"},
+  24:{start:"20:00",end:"20:30"},25:{start:"20:30",end:"21:00"}
+};
+const slotCapacity2 = {
+  1:10,2:0,3:8,4:0,5:5,6:12,7:0,8:7,9:3,10:0,11:5,12:0,13:9,14:6,15:6,16:4,17:0,18:11,19:1,20:5,21:8,22:0,23:13,24:2,25:7
+};
 
-const slotCapacity2 = {1:10,2:0,3:8,4:0,5:5,6:12,7:0,8:7,9:3,10:0,11:5,12:0,13:9,14:6,15:6,16:4,17:0,18:11,19:1,20:5,21:8,22:0,23:13,24:2,25:7};
 
-// GERAR TABELAS
+const slotConfig3 = {
+  1:{start:"09:00",end:"09:30"},2:{start:"09:30",end:"10:00"},3:{start:"10:00",end:"10:30"},
+  4:{start:"10:30",end:"11:00"},5:{start:"11:00",end:"11:30"},6:{start:"11:30",end:"12:00"},
+  7:{start:"12:00",end:"12:30"},8:{start:"12:30",end:"13:00"},9:{start:"13:00",end:"13:30"},
+  10:{start:"13:30",end:"14:00"},11:{start:"14:00",end:"14:30"},12:{start:"14:30",end:"15:00"},
+  13:{start:"15:00",end:"15:30"},14:{start:"15:30",end:"16:00"},15:{start:"16:00",end:"16:30"},
+  16:{start:"16:30",end:"17:00"},17:{start:"17:00",end:"17:30"},18:{start:"17:30",end:"18:00"},
+  19:{start:"18:00",end:"18:30"},20:{start:"18:30",end:"19:00"},21:{start:"19:00",end:"19:30"},
+  22:{start:"19:30",end:"20:00"},23:{start:"20:00",end:"20:30"},24:{start:"20:30",end:"21:00"},
+  25:{start:"21:00",end:"21:30"}
+};
+const slotCapacity3 = {
+  1:5,  2:0,  3:4,  4:0,  5:6,
+  6:3,  7:0,  8:2,  9:7, 10:1,
+  11:0, 12:0, 13:3, 14:6, 15:2,
+  16:4, 17:0, 18:5, 19:1, 20:0,
+  21:6, 22:0, 23:4, 24:2, 25:0
+};
+
+
 function gerarTabela(gridId, slotConfig, slotCapacity){
-  const grid=document.getElementById(gridId);
+  const grid = document.getElementById(gridId);
+  grid.innerHTML = "";
   for(let r=0;r<5;r++){
-    const tr=document.createElement("tr");
+    const tr = document.createElement("tr");
     for(let c=0;c<5;c++){
-      const id=r*5+c+1;
-      const td=document.createElement("td");
-      const capacity=slotCapacity[id];
-      const isFull=capacity===0;
-      td.className=isFull?"full":"green";
-      td.dataset.id=id;
-
-      const labelText=isFull?"Indisponível":capacity+" produtos restantes";
-      td.innerHTML=`<div>${slotConfig[id].start} - ${slotConfig[id].end}</div>
-                    <div class="remaining">${labelText}</div>`;
+      const id = r*5+c+1;
+      const td = document.createElement("td");
+      const capacity = slotCapacity[id];
+      td.className = capacity===0 ? "full" : "green";
+      td.dataset.id = id;
+      td.innerHTML = `<div>${slotConfig[id].start} - ${slotConfig[id].end}</div>
+                      <div class="remaining">${capacity===0?"Indisponível":capacity+" produtos restantes"}</div>`;
       tr.appendChild(td);
     }
     grid.appendChild(tr);
   }
 }
 
-// GERAR HORÁRIOS
 function gerarHorarios(start,end,slotId){
-  let arr=[];
-  let [h,m]=start.split(":").map(Number);
-  let [eh,em]=end.split(":").map(Number);
+  const arr = [];
+  let [h,m] = start.split(":").map(Number);
+  const [eh,em] = end.split(":").map(Number);
 
   while(h<eh || (h===eh && m<em)){
-    let time=`${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
-    let full=(slotId+h+m)%7===0;
-    arr.push({time,full});
-    m++; if(m===60){m=0;h++;}
+    const time = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
+    const full = (slotId+h+m)%7===0;
+    arr.push({time, full});
+    m++; if(m===60){ m=0; h++; }
   }
   return arr;
 }
 
-// CONVERTER HORA PARA MINUTOS
 function toMinutes(t){
-  const [h,m]=t.split(":").map(Number);
+  const [h,m] = t.split(":").map(Number);
   return h*60+m;
 }
 
-// ENCONTRAR HORÁRIO MAIS PRÓXIMO (Produto 2)
-function encontrarMaisProximo(targetTime){
-  let melhor=null;
-  let menorDiff=Infinity;
 
-  Object.keys(slotConfig2).forEach(id=>{
-    if(slotCapacity2[id]===0) return;
+function encontrarMaisProximo(slotConfig, slotCapacity, targetTime){
+  let melhor = null;
+  let menorDiff = Infinity;
 
-    const cfg=slotConfig2[id];
-    const horarios=gerarHorarios(cfg.start,cfg.end,id);
+  Object.keys(slotConfig).forEach(id=>{
+    if(slotCapacity[id]===0) return;
+    const cfg = slotConfig[id];
+    const horarios = gerarHorarios(cfg.start,cfg.end,id);
 
     horarios.forEach(h=>{
       if(h.full) return;
-
-      const diff=Math.abs(toMinutes(h.time)-toMinutes(targetTime));
+      const diff = Math.abs(toMinutes(h.time)-toMinutes(targetTime));
       if(diff<menorDiff){
-        menorDiff=diff;
-        melhor=h.time;
+        menorDiff = diff;
+        melhor = h.time;
       }
     });
   });
@@ -231,41 +269,47 @@ function encontrarMaisProximo(targetTime){
   return melhor;
 }
 
-// MODAL
-const modal=document.getElementById("modal");
-const timesDiv=document.getElementById("times");
-const closeBtn=document.getElementById("closeBtn");
 
-// ATIVAR MODAL
+const modal = document.getElementById("modal");
+const timesDiv = document.getElementById("times");
+const closeBtn = document.getElementById("closeBtn");
+
 function ativarModal(gridId, slotConfig, slotCapacity, selectedTimeId, selectedHourId, isProduct1=false){
-  const selectedTime=document.getElementById(selectedTimeId);
-  const selectedHour=document.getElementById(selectedHourId);
+  const selectedTime = document.getElementById(selectedTimeId);
+  const selectedHour = document.getElementById(selectedHourId);
 
   document.querySelectorAll(`#${gridId} td.green`).forEach(td=>{
-    td.onclick=()=>{
-      const id=td.dataset.id;
-      const config=slotConfig[id];
+    td.onclick = ()=>{
+      const id = td.dataset.id;
+      const config = slotConfig[id];
 
-      timesDiv.innerHTML="";
-      const horarios=gerarHorarios(config.start,config.end,id);
+      timesDiv.innerHTML = "";
+      const horarios = gerarHorarios(config.start, config.end, id);
 
       horarios.forEach(t=>{
-        const d=document.createElement("div");
-        d.className="time-circle"+(t.full?" full":"");
-        d.innerText=t.time;
+        const d = document.createElement("div");
+        d.className = "time-circle" + (t.full?" full":"");
+        d.innerText = t.time;
 
         if(!t.full){
-          d.onclick=()=>{
-            selectedHour.innerText=t.time;
-            selectedTime.style.display="block";
-            modal.style.display="none";
+          d.onclick = ()=>{
+            selectedHour.innerText = t.time;
+            selectedTime.style.display = "block";
+            modal.style.display = "none";
 
-            // 🔥 AQUI ESTÁ A INTELIGÊNCIA
             if(isProduct1){
-              const prox=encontrarMaisProximo(t.time);
-              if(prox){
-                document.getElementById("selectedHour2").innerText=prox;
-                document.getElementById("selectedTime2").style.display="block";
+              
+              const prox2 = encontrarMaisProximo(slotConfig2, slotCapacity2, t.time);
+              if(prox2){
+                document.getElementById("selectedHour2").innerText = prox2;
+                document.getElementById("selectedTime2").style.display = "block";
+              }
+
+              
+              const prox3 = encontrarMaisProximo(slotConfig3, slotCapacity3, t.time);
+              if(prox3){
+                document.getElementById("selectedHour3").innerText = prox3;
+                document.getElementById("selectedTime3").style.display = "block";
               }
             }
           };
@@ -274,215 +318,42 @@ function ativarModal(gridId, slotConfig, slotCapacity, selectedTimeId, selectedH
         timesDiv.appendChild(d);
       });
 
-      modal.style.display="flex";
+      modal.style.display = "flex";
     };
   });
 }
 
-closeBtn.onclick=()=>modal.style.display="none";
-window.onclick=e=>{if(e.target===modal) modal.style.display="none";};
+closeBtn.onclick = ()=> modal.style.display = "none";
+window.onclick = e => { if(e.target===modal) modal.style.display="none"; };
 
-// INICIAR
-gerarTabela("grid1",slotConfig1,slotCapacity1);
-gerarTabela("grid2",slotConfig2,slotCapacity2);
 
-// Produto 1 com inteligência
-ativarModal("grid1",slotConfig1,slotCapacity1,"selectedTime1","selectedHour1",true);
+gerarTabela("grid1", slotConfig1, slotCapacity1);
+gerarTabela("grid2", slotConfig2, slotCapacity2);
+gerarTabela("grid3", slotConfig3, slotCapacity3);
 
-// Produto 2 normal
-ativarModal("grid2",slotConfig2,slotCapacity2,"selectedTime2","selectedHour2");
+ativarModal("grid1", slotConfig1, slotCapacity1, "selectedTime1", "selectedHour1", true);
+ativarModal("grid2", slotConfig2, slotCapacity2, "selectedTime2", "selectedHour2");
+ativarModal("grid3", slotConfig3, slotCapacity3, "selectedTime3", "selectedHour3");
 
-// DATAS
-const dateSelect1=document.getElementById("dateSelect1");
-const dateSelect2=document.getElementById("dateSelect2");
 
-const today=new Date();
-dateSelect1.min=today.toISOString().split("T")[0];
-dateSelect2.min=today.toISOString().split("T")[0];
+const dateSelect1 = document.getElementById("dateSelect1");
+const dateSelect2 = document.getElementById("dateSelect2");
+const dateSelect3 = document.getElementById("dateSelect3");
 
-const maxDate=new Date(today);
-maxDate.setDate(today.getDate()+7);
+const today = new Date();
+const maxDate = new Date(today);
+maxDate.setDate(today.getDate() + 7);
 
-dateSelect1.max=maxDate.toISOString().split("T")[0];
-dateSelect2.max=maxDate.toISOString().split("T")[0];
-
-// Sincronizar datas
-dateSelect1.addEventListener("input",()=>{
-  dateSelect2.value=dateSelect1.value;
+[dateSelect1, dateSelect2, dateSelect3].forEach(d=>{
+  d.min = today.toISOString().split("T")[0];
+  d.max = maxDate.toISOString().split("T")[0];
 });
-</script><script>
-// CONFIGURAÇÃO DOS PRODUTOS
-const slotConfig1 = {1:{start:"08:00",end:"08:12"},2:{start:"08:12",end:"08:25"},3:{start:"08:25",end:"09:00"},
-  4:{start:"09:00",end:"09:45"},5:{start:"09:45",end:"10:10"},6:{start:"10:10",end:"10:20"},7:{start:"10:20",end:"10:50"},
-  8:{start:"10:50",end:"11:30"},9:{start:"11:30",end:"12:00"},10:{start:"12:00",end:"12:15"},11:{start:"12:15",end:"13:00"},
-  12:{start:"13:00",end:"13:20"},13:{start:"13:20",end:"14:10"},14:{start:"14:10",end:"14:30"},15:{start:"14:30",end:"15:00"},
-  16:{start:"15:00",end:"15:40"},17:{start:"15:40",end:"16:00"},18:{start:"16:00",end:"16:50"},19:{start:"16:50",end:"17:10"},
-  20:{start:"17:10",end:"17:45"},21:{start:"17:45",end:"18:00"},22:{start:"18:00",end:"18:20"},23:{start:"18:20",end:"19:00"},
-  24:{start:"19:00",end:"19:25"},25:{start:"19:25",end:"20:00"}};
 
-const slotCapacity1 = {1:12,2:15,3:5,4:0,5:18,6:7,7:0,8:3,9:3,10:10,
-  11:2,12:0,13:9,14:6,15:6,16:4,17:0,18:11,19:1,20:5,21:8,22:0,23:13,24:2,25:7};
-
-const slotConfig2 = {1:{start:"08:30",end:"08:50"},2:{start:"08:50",end:"09:20"},3:{start:"09:20",end:"09:50"},
-4:{start:"09:50",end:"10:30"},5:{start:"10:30",end:"11:00"},6:{start:"11:00",end:"11:30"},7:{start:"11:30",end:"12:00"},
-8:{start:"12:00",end:"12:30"},9:{start:"12:30",end:"13:00"},10:{start:"13:00",end:"13:30"},11:{start:"13:30",end:"14:00"},
-12:{start:"14:00",end:"14:30"},13:{start:"14:30",end:"15:00"},14:{start:"15:00",end:"15:30"},15:{start:"15:30",end:"16:00"},
-16:{start:"16:00",end:"16:30"},17:{start:"16:30",end:"17:00"},18:{start:"17:00",end:"17:30"},19:{start:"17:30",end:"18:00"},
-20:{start:"18:00",end:"18:30"},21:{start:"18:30",end:"19:00"},22:{start:"19:00",end:"19:30"},23:{start:"19:30",end:"20:00"},
-24:{start:"20:00",end:"20:30"},25:{start:"20:30",end:"21:00"}};
-
-const slotCapacity2 = {1:10,2:0,3:8,4:0,5:5,6:12,7:0,8:7,9:3,10:0,11:5,12:0,13:9,14:6,15:6,16:4,17:0,18:11,19:1,20:5,21:8,22:0,23:13,24:2,25:7};
-
-// GERAR TABELAS
-function gerarTabela(gridId, slotConfig, slotCapacity){
-  const grid=document.getElementById(gridId);
-  for(let r=0;r<5;r++){
-    const tr=document.createElement("tr");
-    for(let c=0;c<5;c++){
-      const id=r*5+c+1;
-      const td=document.createElement("td");
-      const capacity=slotCapacity[id];
-      const isFull=capacity===0;
-      td.className=isFull?"full":"green";
-      td.dataset.id=id;
-
-      const labelText=isFull?"Indisponível":capacity+" produtos restantes";
-      td.innerHTML=`<div>${slotConfig[id].start} - ${slotConfig[id].end}</div>
-                    <div class="remaining">${labelText}</div>`;
-      tr.appendChild(td);
-    }
-    grid.appendChild(tr);
-  }
-}
-
-// GERAR HORÁRIOS
-function gerarHorarios(start,end,slotId){
-  let arr=[];
-  let [h,m]=start.split(":").map(Number);
-  let [eh,em]=end.split(":").map(Number);
-
-  while(h<eh || (h===eh && m<em)){
-    let time=`${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
-    let full=(slotId+h+m)%7===0;
-    arr.push({time,full});
-    m++; if(m===60){m=0;h++;}
-  }
-  return arr;
-}
-
-// CONVERTER HORA PARA MINUTOS
-function toMinutes(t){
-  const [h,m]=t.split(":").map(Number);
-  return h*60+m;
-}
-
-// ENCONTRAR HORÁRIO MAIS PRÓXIMO (Produto 2)
-function encontrarMaisProximo(targetTime){
-  let melhor=null;
-  let menorDiff=Infinity;
-
-  Object.keys(slotConfig2).forEach(id=>{
-    if(slotCapacity2[id]===0) return;
-
-    const cfg=slotConfig2[id];
-    const horarios=gerarHorarios(cfg.start,cfg.end,id);
-
-    horarios.forEach(h=>{
-      if(h.full) return;
-
-      const diff=Math.abs(toMinutes(h.time)-toMinutes(targetTime));
-      if(diff<menorDiff){
-        menorDiff=diff;
-        melhor=h.time;
-      }
-    });
-  });
-
-  return melhor;
-}
-
-// MODAL
-const modal=document.getElementById("modal");
-const timesDiv=document.getElementById("times");
-const closeBtn=document.getElementById("closeBtn");
-
-// ATIVAR MODAL
-function ativarModal(gridId, slotConfig, slotCapacity, selectedTimeId, selectedHourId, isProduct1=false){
-  const selectedTime=document.getElementById(selectedTimeId);
-  const selectedHour=document.getElementById(selectedHourId);
-
-  document.querySelectorAll(`#${gridId} td.green`).forEach(td=>{
-    td.onclick=()=>{
-      const id=td.dataset.id;
-      const config=slotConfig[id];
-
-      timesDiv.innerHTML="";
-      const horarios=gerarHorarios(config.start,config.end,id);
-
-      horarios.forEach(t=>{
-        const d=document.createElement("div");
-        d.className="time-circle"+(t.full?" full":"");
-        d.innerText=t.time;
-
-        if(!t.full){
-          d.onclick=()=>{
-            selectedHour.innerText=t.time;
-            selectedTime.style.display="block";
-            modal.style.display="none";
-
-            // 🔥 AQUI ESTÁ A INTELIGÊNCIA
-            if(isProduct1){
-              const prox=encontrarMaisProximo(t.time);
-              if(prox){
-                document.getElementById("selectedHour2").innerText=prox;
-                document.getElementById("selectedTime2").style.display="block";
-              }
-            }
-          };
-        }
-
-        timesDiv.appendChild(d);
-      });
-
-      modal.style.display="flex";
-    };
-  });
-}
-
-closeBtn.onclick=()=>modal.style.display="none";
-window.onclick=e=>{if(e.target===modal) modal.style.display="none";};
-
-// INICIAR
-gerarTabela("grid1",slotConfig1,slotCapacity1);
-gerarTabela("grid2",slotConfig2,slotCapacity2);
-
-// Produto 1 com inteligência
-ativarModal("grid1",slotConfig1,slotCapacity1,"selectedTime1","selectedHour1",true);
-
-// Produto 2 normal
-ativarModal("grid2",slotConfig2,slotCapacity2,"selectedTime2","selectedHour2");
-
-// DATAS
-const dateSelect1=document.getElementById("dateSelect1");
-const dateSelect2=document.getElementById("dateSelect2");
-
-const today=new Date();
-dateSelect1.min=today.toISOString().split("T")[0];
-dateSelect2.min=today.toISOString().split("T")[0];
-
-const maxDate=new Date(today);
-maxDate.setDate(today.getDate()+7);
-
-dateSelect1.max=maxDate.toISOString().split("T")[0];
-dateSelect2.max=maxDate.toISOString().split("T")[0];
-
-// Sincronizar datas
-dateSelect1.addEventListener("input",()=>{
-  dateSelect2.value=dateSelect1.value;
+dateSelect1.addEventListener("input", ()=>{
+  dateSelect2.value = dateSelect1.value;
+  dateSelect3.value = dateSelect1.value;
 });
 </script>
 
 </body>
 </html>
-
-
