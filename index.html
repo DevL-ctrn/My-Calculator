@@ -1,212 +1,488 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-MZ">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <title>Pedido de verificação</title>
-  </head>
-  <style>
-   
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KwetoBread - Slots de Retirada</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family:'Inter',sans-serif;
+  background:#f9f9f9;
+  margin:0;
+  padding:20px;
+  color:#333;
+}
 
-    body {
-     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, rgb(219, 218, 218), rgb(240, 223, 191));
-      min-height: 100vh;
+/* Inputs */
+input[type="date"] {
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:16px;
+  padding:10px 15px;
+  border:2px solid #b5651d;
+  border-radius:8px;
+  cursor:pointer;
+  color:#333;
+  background:#fff;
+  transition:0.2s;
+}
+input[type="date"]:hover{border-color:#a0521a;}
+input[type="date"]:focus{outline:none;border-color:#b5651d;box-shadow:0 0 6px rgba(181,101,29,0.4);}
+
+h2{margin:0;font-weight:600;}
+
+/* Card */
+.card{
+  background:#fff;
+  border-radius:16px;
+  padding:20px;
+  width:95%;
+  max-width:900px;
+  margin:0 auto 30px auto;
+  box-shadow:0 4px 20px rgba(0,0,0,0.08);
+}
+.divider{border:none;height:1px;background:#eee;margin:15px 0;}
+
+/* Produto */
+.product-name{font-weight:600;margin-bottom:10px;text-align:center;}
+.product-name span{color:#b5651d;} /* nome do produto em castanho */
+
+/* Título da tabela */
+.table-title{font-weight:600;text-align:center;margin-bottom:10px;}
+
+/* Seleção de data */
+.date-selector{display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:20px;}
+.date-selector label{font-weight:600;}
+
+/* Tabela */
+table{border-collapse:collapse;margin:0 auto;width:95%;max-width:900px;}
+td{
+  border:1px solid #a0521a;
+  width:18%;
+  height:90px;
+  text-align:center;
+  vertical-align:middle;
+  cursor:pointer;
+  font-weight:600;
+  position:relative;
+  transition:0.2s;
+}
+td:hover{transform:scale(1.05);}
+td.full{background:#ff4d4f;color:white;cursor:not-allowed;}
+td.green{background:#d9f7be;}
+td .remaining{position:absolute;bottom:5px;right:5px;font-size:12px;font-weight:500;}
+
+/* Modal */
+.modal{display:none;position:fixed;z-index:10;left:0;top:0;width:100%;height:100%;overflow:auto;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;}
+.modal-content{background:white;border-radius:10px;padding:20px;width:90%;max-width:500px;text-align:center;}
+.close{float:right;font-size:25px;font-weight:bold;cursor:pointer;}
+.time-circle{width:50px;height:42px;border-radius:12px;background:#d9f7be;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;font-weight:600;margin:5px;transition:0.2s;}
+.time-circle.full{background:#ff4d4f;color:white;cursor:not-allowed;}
+.time-circle:hover:not(.full){transform:scale(1.1);}
+
+/* Horário selecionado */
+.selected-time-container{display:none;text-align:center;margin-top:15px;font-weight:600;}
+.selected-time-container span{color:#b5651d;font-weight:600;}
+
+/* Mobile */
+@media(max-width:600px){
+  td{height:70px;font-size:12px;padding:6px;}
+  td .slot-label{font-size:12px;}
+  td .remaining{font-size:10px!important;bottom:5px;right:5px;left:5px;text-align:right;}
+  .modal-content{max-width:300px;}
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <!-- Produto 1 -->
+  <div class="table-title"><h2>Horários de Levantamento</h2></div>
+  <hr class="divider">
+  <div class="product-name">Produto: <span>Pão de Teste</span></div>
+
+  <div class="date-selector">
+    <label for="dateSelect1">Seleccione a data:</label>
+    <input type="date" id="dateSelect1">
+  </div>
+
+  <table>
+    <tbody id="grid1"></tbody>
+  </table>
+
+  <div class="selected-time-container" id="selectedTime1">Horário de retirada: <span id="selectedHour1"></span></div>
+
+  <hr class="divider" style="margin-top:30px;">
+
+  <!-- Produto 2 -->
+  <div class="product-name">Produto: <span>Arrufada</span></div> <br>
+
+  <div class="date-selector">
+    <label for="dateSelect2">Seleccione a data:</label>
+    <input type="date" id="dateSelect2">
+  </div>
+
+  <table>
+    <tbody id="grid2"></tbody>
+  </table>
+
+  <div class="selected-time-container" id="selectedTime2">Horário de retirada: <span id="selectedHour2"></span></div>
+
+  <!-- Modal único -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span id="closeBtn" class="close">&times;</span>
+      <h2>Selecione o horário disponível</h2>
+      <div id="times"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// CONFIGURAÇÃO DOS PRODUTOS
+const slotConfig1 = {1:{start:"08:00",end:"08:12"},2:{start:"08:12",end:"08:25"},3:{start:"08:25",end:"09:00"},
+  4:{start:"09:00",end:"09:45"},5:{start:"09:45",end:"10:10"},6:{start:"10:10",end:"10:20"},7:{start:"10:20",end:"10:50"},
+  8:{start:"10:50",end:"11:30"},9:{start:"11:30",end:"12:00"},10:{start:"12:00",end:"12:15"},11:{start:"12:15",end:"13:00"},
+  12:{start:"13:00",end:"13:20"},13:{start:"13:20",end:"14:10"},14:{start:"14:10",end:"14:30"},15:{start:"14:30",end:"15:00"},
+  16:{start:"15:00",end:"15:40"},17:{start:"15:40",end:"16:00"},18:{start:"16:00",end:"16:50"},19:{start:"16:50",end:"17:10"},
+  20:{start:"17:10",end:"17:45"},21:{start:"17:45",end:"18:00"},22:{start:"18:00",end:"18:20"},23:{start:"18:20",end:"19:00"},
+  24:{start:"19:00",end:"19:25"},25:{start:"19:25",end:"20:00"}};
+
+const slotCapacity1 = {1:12,2:15,3:5,4:0,5:18,6:7,7:0,8:3,9:3,10:10,
+  11:2,12:0,13:9,14:6,15:6,16:4,17:0,18:11,19:1,20:5,21:8,22:0,23:13,24:2,25:7};
+
+const slotConfig2 = {1:{start:"08:30",end:"08:50"},2:{start:"08:50",end:"09:20"},3:{start:"09:20",end:"09:50"},
+4:{start:"09:50",end:"10:30"},5:{start:"10:30",end:"11:00"},6:{start:"11:00",end:"11:30"},7:{start:"11:30",end:"12:00"},
+8:{start:"12:00",end:"12:30"},9:{start:"12:30",end:"13:00"},10:{start:"13:00",end:"13:30"},11:{start:"13:30",end:"14:00"},
+12:{start:"14:00",end:"14:30"},13:{start:"14:30",end:"15:00"},14:{start:"15:00",end:"15:30"},15:{start:"15:30",end:"16:00"},
+16:{start:"16:00",end:"16:30"},17:{start:"16:30",end:"17:00"},18:{start:"17:00",end:"17:30"},19:{start:"17:30",end:"18:00"},
+20:{start:"18:00",end:"18:30"},21:{start:"18:30",end:"19:00"},22:{start:"19:00",end:"19:30"},23:{start:"19:30",end:"20:00"},
+24:{start:"20:00",end:"20:30"},25:{start:"20:30",end:"21:00"}};
+
+const slotCapacity2 = {1:10,2:0,3:8,4:0,5:5,6:12,7:0,8:7,9:3,10:0,11:5,12:0,13:9,14:6,15:6,16:4,17:0,18:11,19:1,20:5,21:8,22:0,23:13,24:2,25:7};
+
+// GERAR TABELAS
+function gerarTabela(gridId, slotConfig, slotCapacity){
+  const grid=document.getElementById(gridId);
+  for(let r=0;r<5;r++){
+    const tr=document.createElement("tr");
+    for(let c=0;c<5;c++){
+      const id=r*5+c+1;
+      const td=document.createElement("td");
+      const capacity=slotCapacity[id];
+      const isFull=capacity===0;
+      td.className=isFull?"full":"green";
+      td.dataset.id=id;
+
+      const labelText=isFull?"Indisponível":capacity+" produtos restantes";
+      td.innerHTML=`<div>${slotConfig[id].start} - ${slotConfig[id].end}</div>
+                    <div class="remaining">${labelText}</div>`;
+      tr.appendChild(td);
     }
-
-    h1{
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(240, 156, 1);
-    font-size: 35px;
-    }
-    main {
-      text-align: center;
-      justify-content: center;
-      margin-top: 70px;
-    }
-    .cards{
-      display: flex;
-      gap: 30px;
-      padding:16px;
-      justify-content: center;
-    }
-
-    .preencher{
-      width:50px;
-      height:50px;
-      padding: 20px;
-      border-radius: 5px ;
-      border-color: orange;
-      outline: none;
-      text-align: center;
-      line-height: 55px;
-      font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-      font-size: 50px;
-    }
-
-      .button {
-      background: orange;
-      border: none;
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 15px;
-      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-     
-    }
-    .counter{
-      font-weight: bolder;
-    }
-  @media (max-width: 480px) {
-
-  h1 {
-    font-size: 24px;
-  }
-
-  p {
-    font-size: 14px;
-    padding: 0 10px;
-  }
-
-  .cards {
-    gap: 8px;
-  }
-
-  .preencher {
-    width: 12px;
-    height: 12px;
-    font-size: 16px;
-  }
-
-  .button {
-    padding: 0.8rem 1.5rem;
-    font-size: 14px;
-  }
-
-  main {
-    margin-top: 40px;
+    grid.appendChild(tr);
   }
 }
 
-    </style>
+// GERAR HORÁRIOS
+function gerarHorarios(start,end,slotId){
+  let arr=[];
+  let [h,m]=start.split(":").map(Number);
+  let [eh,em]=end.split(":").map(Number);
 
-     <body>
-      <main>
-      <h1>CÓDIGO DE VERIFICAÇÃO</h1>
-      <p>Enviamos um código verificação de 6 dígitos para o número <b>** *** *657.</b> </p>
+  while(h<eh || (h===eh && m<em)){
+    let time=`${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
+    let full=(slotId+h+m)%7===0;
+    arr.push({time,full});
+    m++; if(m===60){m=0;h++;}
+  }
+  return arr;
+}
 
-      <div class="cards">
-        <input class="preencher" type="text" maxlength="1">
-        <input class="preencher" type="text" maxlength="1">
-        <input class="preencher" type="text" maxlength="1">
-       <input class="preencher" type="text" maxlength="1">
-        <input class="preencher" type="text" maxlength="1">
-        <input class="preencher" type="text" maxlength="1">
-      </div>
-      <p>
-      <span id="contador-area">
-        Não recebeste o código? Poderá solicitar dentro de <b><span id="counter"> </span></b>
-      </span> 
+// CONVERTER HORA PARA MINUTOS
+function toMinutes(t){
+  const [h,m]=t.split(":").map(Number);
+  return h*60+m;
+}
 
-        <span id="reenviar-area" style="display: none;">
-         <a href="#" id="reenviar" style="text-decoration: none; color: black "> <u><b>Reenviar</b></u></a>
-        </span>
-       </p> <br>
-      <button class="button">
-        <span> Verificar Código</span>
-      </button>
-    </main>
-     </body>
+// ENCONTRAR HORÁRIO MAIS PRÓXIMO (Produto 2)
+function encontrarMaisProximo(targetTime){
+  let melhor=null;
+  let menorDiff=Infinity;
 
-     <script>
-  const inputs = document.querySelectorAll(".preencher");
+  Object.keys(slotConfig2).forEach(id=>{
+    if(slotCapacity2[id]===0) return;
 
-  inputs.forEach((input, index) => {
+    const cfg=slotConfig2[id];
+    const horarios=gerarHorarios(cfg.start,cfg.end,id);
 
-    // Quando digita um número
-    input.addEventListener("input", () => {
-      // aceita só números
-      input.value = input.value.replace(/[^0-9]/g, "");
+    horarios.forEach(h=>{
+      if(h.full) return;
 
-      // se digitou algo, vai para o próximo
-      if (input.value && index < inputs.length - 1) {
-        inputs[index + 1].focus();
+      const diff=Math.abs(toMinutes(h.time)-toMinutes(targetTime));
+      if(diff<menorDiff){
+        menorDiff=diff;
+        melhor=h.time;
       }
     });
+  });
 
-    // Quando apaga
-    input.addEventListener("keydown", (e) => {
-      if (e.key === "Backspace" && !input.value && index > 0) {
-        inputs[index - 1].focus();
+  return melhor;
+}
+
+// MODAL
+const modal=document.getElementById("modal");
+const timesDiv=document.getElementById("times");
+const closeBtn=document.getElementById("closeBtn");
+
+// ATIVAR MODAL
+function ativarModal(gridId, slotConfig, slotCapacity, selectedTimeId, selectedHourId, isProduct1=false){
+  const selectedTime=document.getElementById(selectedTimeId);
+  const selectedHour=document.getElementById(selectedHourId);
+
+  document.querySelectorAll(`#${gridId} td.green`).forEach(td=>{
+    td.onclick=()=>{
+      const id=td.dataset.id;
+      const config=slotConfig[id];
+
+      timesDiv.innerHTML="";
+      const horarios=gerarHorarios(config.start,config.end,id);
+
+      horarios.forEach(t=>{
+        const d=document.createElement("div");
+        d.className="time-circle"+(t.full?" full":"");
+        d.innerText=t.time;
+
+        if(!t.full){
+          d.onclick=()=>{
+            selectedHour.innerText=t.time;
+            selectedTime.style.display="block";
+            modal.style.display="none";
+
+            // 🔥 AQUI ESTÁ A INTELIGÊNCIA
+            if(isProduct1){
+              const prox=encontrarMaisProximo(t.time);
+              if(prox){
+                document.getElementById("selectedHour2").innerText=prox;
+                document.getElementById("selectedTime2").style.display="block";
+              }
+            }
+          };
+        }
+
+        timesDiv.appendChild(d);
+      });
+
+      modal.style.display="flex";
+    };
+  });
+}
+
+closeBtn.onclick=()=>modal.style.display="none";
+window.onclick=e=>{if(e.target===modal) modal.style.display="none";};
+
+// INICIAR
+gerarTabela("grid1",slotConfig1,slotCapacity1);
+gerarTabela("grid2",slotConfig2,slotCapacity2);
+
+// Produto 1 com inteligência
+ativarModal("grid1",slotConfig1,slotCapacity1,"selectedTime1","selectedHour1",true);
+
+// Produto 2 normal
+ativarModal("grid2",slotConfig2,slotCapacity2,"selectedTime2","selectedHour2");
+
+// DATAS
+const dateSelect1=document.getElementById("dateSelect1");
+const dateSelect2=document.getElementById("dateSelect2");
+
+const today=new Date();
+dateSelect1.min=today.toISOString().split("T")[0];
+dateSelect2.min=today.toISOString().split("T")[0];
+
+const maxDate=new Date(today);
+maxDate.setDate(today.getDate()+7);
+
+dateSelect1.max=maxDate.toISOString().split("T")[0];
+dateSelect2.max=maxDate.toISOString().split("T")[0];
+
+// Sincronizar datas
+dateSelect1.addEventListener("input",()=>{
+  dateSelect2.value=dateSelect1.value;
+});
+</script><script>
+// CONFIGURAÇÃO DOS PRODUTOS
+const slotConfig1 = {1:{start:"08:00",end:"08:12"},2:{start:"08:12",end:"08:25"},3:{start:"08:25",end:"09:00"},
+  4:{start:"09:00",end:"09:45"},5:{start:"09:45",end:"10:10"},6:{start:"10:10",end:"10:20"},7:{start:"10:20",end:"10:50"},
+  8:{start:"10:50",end:"11:30"},9:{start:"11:30",end:"12:00"},10:{start:"12:00",end:"12:15"},11:{start:"12:15",end:"13:00"},
+  12:{start:"13:00",end:"13:20"},13:{start:"13:20",end:"14:10"},14:{start:"14:10",end:"14:30"},15:{start:"14:30",end:"15:00"},
+  16:{start:"15:00",end:"15:40"},17:{start:"15:40",end:"16:00"},18:{start:"16:00",end:"16:50"},19:{start:"16:50",end:"17:10"},
+  20:{start:"17:10",end:"17:45"},21:{start:"17:45",end:"18:00"},22:{start:"18:00",end:"18:20"},23:{start:"18:20",end:"19:00"},
+  24:{start:"19:00",end:"19:25"},25:{start:"19:25",end:"20:00"}};
+
+const slotCapacity1 = {1:12,2:15,3:5,4:0,5:18,6:7,7:0,8:3,9:3,10:10,
+  11:2,12:0,13:9,14:6,15:6,16:4,17:0,18:11,19:1,20:5,21:8,22:0,23:13,24:2,25:7};
+
+const slotConfig2 = {1:{start:"08:30",end:"08:50"},2:{start:"08:50",end:"09:20"},3:{start:"09:20",end:"09:50"},
+4:{start:"09:50",end:"10:30"},5:{start:"10:30",end:"11:00"},6:{start:"11:00",end:"11:30"},7:{start:"11:30",end:"12:00"},
+8:{start:"12:00",end:"12:30"},9:{start:"12:30",end:"13:00"},10:{start:"13:00",end:"13:30"},11:{start:"13:30",end:"14:00"},
+12:{start:"14:00",end:"14:30"},13:{start:"14:30",end:"15:00"},14:{start:"15:00",end:"15:30"},15:{start:"15:30",end:"16:00"},
+16:{start:"16:00",end:"16:30"},17:{start:"16:30",end:"17:00"},18:{start:"17:00",end:"17:30"},19:{start:"17:30",end:"18:00"},
+20:{start:"18:00",end:"18:30"},21:{start:"18:30",end:"19:00"},22:{start:"19:00",end:"19:30"},23:{start:"19:30",end:"20:00"},
+24:{start:"20:00",end:"20:30"},25:{start:"20:30",end:"21:00"}};
+
+const slotCapacity2 = {1:10,2:0,3:8,4:0,5:5,6:12,7:0,8:7,9:3,10:0,11:5,12:0,13:9,14:6,15:6,16:4,17:0,18:11,19:1,20:5,21:8,22:0,23:13,24:2,25:7};
+
+// GERAR TABELAS
+function gerarTabela(gridId, slotConfig, slotCapacity){
+  const grid=document.getElementById(gridId);
+  for(let r=0;r<5;r++){
+    const tr=document.createElement("tr");
+    for(let c=0;c<5;c++){
+      const id=r*5+c+1;
+      const td=document.createElement("td");
+      const capacity=slotCapacity[id];
+      const isFull=capacity===0;
+      td.className=isFull?"full":"green";
+      td.dataset.id=id;
+
+      const labelText=isFull?"Indisponível":capacity+" produtos restantes";
+      td.innerHTML=`<div>${slotConfig[id].start} - ${slotConfig[id].end}</div>
+                    <div class="remaining">${labelText}</div>`;
+      tr.appendChild(td);
+    }
+    grid.appendChild(tr);
+  }
+}
+
+// GERAR HORÁRIOS
+function gerarHorarios(start,end,slotId){
+  let arr=[];
+  let [h,m]=start.split(":").map(Number);
+  let [eh,em]=end.split(":").map(Number);
+
+  while(h<eh || (h===eh && m<em)){
+    let time=`${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
+    let full=(slotId+h+m)%7===0;
+    arr.push({time,full});
+    m++; if(m===60){m=0;h++;}
+  }
+  return arr;
+}
+
+// CONVERTER HORA PARA MINUTOS
+function toMinutes(t){
+  const [h,m]=t.split(":").map(Number);
+  return h*60+m;
+}
+
+// ENCONTRAR HORÁRIO MAIS PRÓXIMO (Produto 2)
+function encontrarMaisProximo(targetTime){
+  let melhor=null;
+  let menorDiff=Infinity;
+
+  Object.keys(slotConfig2).forEach(id=>{
+    if(slotCapacity2[id]===0) return;
+
+    const cfg=slotConfig2[id];
+    const horarios=gerarHorarios(cfg.start,cfg.end,id);
+
+    horarios.forEach(h=>{
+      if(h.full) return;
+
+      const diff=Math.abs(toMinutes(h.time)-toMinutes(targetTime));
+      if(diff<menorDiff){
+        menorDiff=diff;
+        melhor=h.time;
       }
     });
-
   });
 
-   let tempoInicial = 60;
-  let tempo = tempoInicial;
-  let intervalo;
+  return melhor;
+}
 
-  const contador = document.getElementById("counter");
-  const reenviarArea = document.getElementById("reenviar-area");
-  const contadorArea = document.getElementById("contador-area");
-  const reenviarLink = document.getElementById("reenviar");
+// MODAL
+const modal=document.getElementById("modal");
+const timesDiv=document.getElementById("times");
+const closeBtn=document.getElementById("closeBtn");
 
-  function formatarTempo(segundos) {
-    const min = String(Math.floor(segundos / 60)).padStart(2, "0");
-    const sec = String(segundos % 60).padStart(2, "0");
-    return `${min}:${sec}`;
-  }
+// ATIVAR MODAL
+function ativarModal(gridId, slotConfig, slotCapacity, selectedTimeId, selectedHourId, isProduct1=false){
+  const selectedTime=document.getElementById(selectedTimeId);
+  const selectedHour=document.getElementById(selectedHourId);
 
-  function iniciarContador() {
-    tempo = tempoInicial;
-    contador.textContent = formatarTempo(tempo);
+  document.querySelectorAll(`#${gridId} td.green`).forEach(td=>{
+    td.onclick=()=>{
+      const id=td.dataset.id;
+      const config=slotConfig[id];
 
-    // Estado inicial
-    contadorArea.style.display = "inline";
-    reenviarArea.style.display = "none";
+      timesDiv.innerHTML="";
+      const horarios=gerarHorarios(config.start,config.end,id);
 
-    intervalo = setInterval(() => {
-      tempo--;
-      contador.textContent = formatarTempo(tempo);
+      horarios.forEach(t=>{
+        const d=document.createElement("div");
+        d.className="time-circle"+(t.full?" full":"");
+        d.innerText=t.time;
 
-      if (tempo === 0) {
-        clearInterval(intervalo);
+        if(!t.full){
+          d.onclick=()=>{
+            selectedHour.innerText=t.time;
+            selectedTime.style.display="block";
+            modal.style.display="none";
 
-        // Quando acaba o tempo
-        contadorArea.style.display = "none";
-        reenviarArea.style.display = "inline";
-      }
-    }, 1000);
-  }
+            // 🔥 AQUI ESTÁ A INTELIGÊNCIA
+            if(isProduct1){
+              const prox=encontrarMaisProximo(t.time);
+              if(prox){
+                document.getElementById("selectedHour2").innerText=prox;
+                document.getElementById("selectedTime2").style.display="block";
+              }
+            }
+          };
+        }
 
-  reenviarLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    iniciarContador();
+        timesDiv.appendChild(d);
+      });
 
-    // Aqui chamarias o backend
-    console.log("Código reenviado");
+      modal.style.display="flex";
+    };
   });
+}
 
-  iniciarContador();
+closeBtn.onclick=()=>modal.style.display="none";
+window.onclick=e=>{if(e.target===modal) modal.style.display="none";};
 
+// INICIAR
+gerarTabela("grid1",slotConfig1,slotCapacity1);
+gerarTabela("grid2",slotConfig2,slotCapacity2);
+
+// Produto 1 com inteligência
+ativarModal("grid1",slotConfig1,slotCapacity1,"selectedTime1","selectedHour1",true);
+
+// Produto 2 normal
+ativarModal("grid2",slotConfig2,slotCapacity2,"selectedTime2","selectedHour2");
+
+// DATAS
+const dateSelect1=document.getElementById("dateSelect1");
+const dateSelect2=document.getElementById("dateSelect2");
+
+const today=new Date();
+dateSelect1.min=today.toISOString().split("T")[0];
+dateSelect2.min=today.toISOString().split("T")[0];
+
+const maxDate=new Date(today);
+maxDate.setDate(today.getDate()+7);
+
+dateSelect1.max=maxDate.toISOString().split("T")[0];
+dateSelect2.max=maxDate.toISOString().split("T")[0];
+
+// Sincronizar datas
+dateSelect1.addEventListener("input",()=>{
+  dateSelect2.value=dateSelect1.value;
+});
 </script>
 
-
-
-
-
-
-
-
-
-
-
+</body>
+</html>
 
 
