@@ -1,28 +1,613 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <title>Calculadora de Datas</title>
-    <link rel="stylesheet" href="time.css">
- <meta name="google-adsense-account" content="ca-pub-4253165491802314">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horários de Levantamento</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --border: #C8C8C4;
+    --text: #1A1A1A;
+    --text-muted: #6B6B6B;
+    --green-bg: #D4EDDA;
+    --green-border: #81C995;
+    --red-bg: #FADADD;
+    --red-border: #F1A0A0;
+    --accent: #2A6EBB;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  body {
+    background: var(--bg);
+    font-family:  Arial, sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem 6rem 1rem;
+  }
+
+  .page { max-width: 960px; margin: 0 auto; }
+
+  h1 {
+    font-size: 22px; font-weight: 600;
+    margin-bottom: 1.75rem; letter-spacing: -0.3px;
+    text-align: center;
+  }
+
+  .product-card {
+    background: var(--surface);
+    border: 2px solid  rgb(238, 237, 235);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .product-header {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .product-header-left { display: flex; align-items: center; gap: 10px; }
+
+  .product-badge {
+    background:  rgb(248, 206, 155); color:  rgb(112, 63, 2);
+    border: 1px solid rgb(248, 206, 155); border-radius: var(--radius-sm);
+    padding: 3px 11px; font-size: 12px; font-weight: 600;
+  }
+
+  .product-name { font-size: 16px; font-weight: 600; }
+
+  .date-row { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
+  .date-row label { font-size: 13px; color: var(--text-muted); }
+  .date-row input[type=date] {
+    font-size: 13px; padding: 6px 10px;
+    border-radius: var(--radius-sm); border: 1px solid var(--border);
+    background: #FAFAFA; color: rgb(112, 63, 2); cursor: pointer; outline: none;
+  }
+  .date-row input[type=date]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(42,110,187,.12);
+  }
+
+  .section-label {
+    font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .6px; color: var(--text-muted); margin-bottom: 8px;
+  }
+
+  .slots-table {
+    width: 100%; border-collapse: collapse;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm); overflow: hidden;
+    margin-bottom: 1.25rem; table-layout: fixed;
+  }
+
+  .slots-table td {
+    width: 20%; border: 1px solid var(--border);
+    padding: 0; vertical-align: top;
+  }
+
+  .slots-table td.empty  { background: #F5F5F2; }
+  td.available           { background: var(--green-bg); }
+  td.unavailable         { background: var(--red-bg); }
+
+  .slot-box {
+    width: 100%; min-height: 80px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 8px 8px 26px 8px;
+    position: relative;
+    cursor: pointer; border: none; background: transparent;
+    text-align: center; font-family: inherit;
+    transition: filter .12s;
+  }
+
+  .slot-box:hover            { filter: brightness(0.93); }
+  .slot-box:active           { filter: brightness(0.85); }
+  .slot-box.unavailable      { cursor: not-allowed; }
+
+  .slot-box.selected::after {
+    content: ''; position: absolute; inset: 0;
+    border: 2.5px solid #1A1A1A; pointer-events: none;
+  }
+
+  .slot-time-text {
+    font-size: 14px; font-weight: 700;
+    color: #1A1A1A; line-height: 1.4;
+    font-variant-numeric: tabular-nums; text-align: center;
+  }
+
+  .slot-count-label {
+    position: absolute; bottom: 4px; right: 5px;
+    font-size: 9px; font-weight: 500;
+    color: #1A1A1A; text-align: right; line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .confirm-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: white;
+    border-top: 1.5px solid var(--border);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    z-index: 100;
+  }
+
+  .confirm-summary {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .btn-confirm {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background:  rgb(112, 63, 2);
+    color: white;
+    border: none;
+    padding: 13px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all .15s;
+    white-space: nowrap;
+    
+  }
+  a {
+  text-decoration: none;
+}
+  .btn-confirm:hover:not(:disabled) { background:  rgb(112, 63, 2); transform: translateY(-1px);  }
+  .btn-confirm:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+  @media (max-width: 600px) {
+    .slot-box { min-height: 62px; padding: 6px 4px 28px 4px; }
+    .slot-time-text { font-size: 11px; }
+    .slot-count-label { font-size: 8px; bottom: 3px; right: 3px; white-space: normal; max-width: 95%; }
+  }
+
+  @media (max-width: 400px) {
+    .slot-box { min-height: 56px; }
+    .slot-time-text { font-size: 10px; }
+    .slot-count-label { font-size: 7px; }
+  }
+
+  .popup-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 1000; align-items: center; justify-content: center;
+  }
+  .popup-overlay.open { display: flex; }
+
+  .popup-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    width: 90%; max-width: 520px;
+    max-height: 85vh; overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,.18);
+    position: relative;
+  }
+
+  .popup-title {
+    font-size: 14px; font-weight: 600;
+    margin-bottom: 1rem; padding-right: 28px;
+  }
+
+  .popup-close {
+    position: absolute; top: 14px; right: 14px;
+    background: none; border: none; cursor: pointer;
+    font-size: 18px; color: var(--text-muted); line-height: 1;
+    padding: 2px 6px; border-radius: 4px;
+  }
+  .popup-close:hover { background: #F0F0EC; }
+
+  .times-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .time-btn {
+    padding: 5px 11px; border-radius: var(--radius-sm);
+    border: 1.5px solid transparent;
+    cursor: pointer; font-size: 12px; font-weight: 600;
+    font-family: Arial, sans-serif ; font-variant-numeric: tabular-nums;
+    transition: filter .1s;
+  }
+  .time-btn:hover:not(.unavailable)  { filter: brightness(0.90); }
+  .time-btn:active:not(.unavailable) { filter: brightness(0.80); }
+
+  .time-btn.available {
+    background: var(--green-bg); border-color: var(--green-border); color: #1A1A1A;
+  }
+  .time-btn.unavailable {
+    background: var(--red-bg); border-color: var(--red-border); color: #1A1A1A;
+    cursor: not-allowed; opacity: .75;
+  }
+  .time-btn.selected { outline: 2.5px solid #1A1A1A; outline-offset: 1px; }
+
+  .result-msg {
+    font-size: 14px; font-weight: 500;
+    margin-top: .75rem; padding: .75rem 1rem;
+    background: #EEF7EE; border-left: 3px solid  rgb(152, 88, 9);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .result-msg strong { color: rgb(112, 63, 2); font-variant-numeric: tabular-nums; }
+
+  .auto-tag {
+    font-size: 11px; font-weight: 600;
+    background: #DDEEFF; color: #1A4A88;
+    border-radius: 4px; padding: 2px 8px;
+  }
+
+  .edit-btn {
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    background: none; border: 1px solid #C5D9F5;
+    border-radius: var(--radius-sm); padding: 2px 10px;
+    cursor: pointer; margin-left: 4px; font-family: Arial, sans-serif;
+  }
+  .edit-btn:hover { background: #EEF2FB; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h2>Calculadora de Datas</h2>
+<div class="page">
+  
+  <div id="products-container"></div>
+</div>
 
-        <label for="startDate">Data inicial:</label>
-        <input type="date" id="startDate">
+<div class="popup-overlay" id="popup-overlay">
+  <div class="popup-box">
+    <button class="popup-close" id="popup-close-btn">✕</button>
+    <div class="popup-title" id="popup-title"></div>
+    <div class="times-grid" id="popup-times-grid"></div>
+  </div>
+</div>
 
-        <label for="endDate">Data final:</label>
-        <input type="date" id="endDate">
+<div class="confirm-bar">
+  <span class="confirm-summary" id="info">Nenhum horário selecionado</span>
+<a href="historico.html" class="btn-confirm-link">
+  <button class="btn-confirm" id="btn-confirm" disabled>
+    Confirmar
+  </button>
+</a>
+</div>
 
-        <button onclick="calculateDates()">Calcular</button>
+<script>
+  // ── Utils ──────────────────────────────────────────────────────────────────
+  function fmt(m) {
+    return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+  }
 
-        <p id="dateResult"></p>
-    </div>
+  function genTimes(range) {
+    const [s, e] = range.split('-');
+    const [sh, sm] = s.split(':').map(Number);
+    const [eh, em] = e.split(':').map(Number);
+    const r = [];
+    for (let m = sh * 60 + sm; m <= eh * 60 + em; m++) r.push(fmt(m));
+    return r;
+  }
 
-    <script src="time.js"></script>
+  function toMins(t) {
+    const [h, m] = t.split(':').map(Number);
+    return h * 60 + m;
+  }
+
+  function toISO(d) { return d.toISOString().split('T')[0]; }
+  function getMinDate() { return toISO(new Date()); }
+  function getMaxDate() { const d = new Date(); d.setDate(d.getDate() + 7); return toISO(d); }
+
+  // ── Build Slots ───────────────────────────────────────────────────────────
+  function buildSlots(startH, startM, closeH, closeM, slotMin, unavailIdx) {
+    unavailIdx = unavailIdx || [];
+    const slots = [];
+    let cur = startH * 60 + startM;
+    const closing = closeH * 60 + closeM;
+    let idx = 0;
+    while (cur + slotMin <= closing) {
+      const range = fmt(cur) + '-' + fmt(cur + slotMin);
+      const isUnavail = unavailIdx.includes(idx);
+      const count = isUnavail ? 0 : Math.floor(Math.random() * 7) + 1;
+      const unavail = isUnavail ? [] : genTimes(range).filter(() => Math.random() < 0.2);
+      slots.push({ range, count, unavail });
+      cur += slotMin;
+      idx++;
+    }
+    return slots;
+  }
+
+  function getUnavail(slot) {
+    return slot.count === 0 ? genTimes(slot.range) : slot.unavail;
+  }
+
+  // ── Data ──────────────────────────────────────────────────────────────────
+  const PRODUCTS = [
+    { id: 0, name: "Pão Quente",     slots: buildSlots(8,  0, 19, 0, 15, [2, 7, 14, 21, 28, 35]) },
+    { id: 1, name: "Arrofada",       slots: buildSlots(8, 30, 19, 0, 20, [1, 5, 12, 18, 22])     },
+    { id: 2, name: "Bolo de Ananás", slots: buildSlots(9,  0, 19, 0, 12, [3, 8, 15, 20, 27, 33]) }
+  ];
+
+  const state = { dates: {}, selectedSlot: {}, selectedTime: {} };
+
+  // ── Auto-select closest time ──────────────────────────────────────────────
+  function findClosestTime(refTime, pid) {
+    const ref = toMins(refTime);
+    const p = PRODUCTS[pid];
+    let best = null, bestDiff = Infinity;
+    p.slots.forEach((slot, si) => {
+      const unavail = getUnavail(slot);
+      genTimes(slot.range).forEach(t => {
+        if (unavail.includes(t)) return;
+        const d = Math.abs(toMins(t) - ref);
+        if (d < bestDiff) { bestDiff = d; best = { slotIdx: si, time: t }; }
+      });
+    });
+    return best;
+  }
+
+  // ── Popup ─────────────────────────────────────────────────────────────────
+  const overlay  = document.getElementById('popup-overlay');
+  const popTitle = document.getElementById('popup-title');
+  const popGrid  = document.getElementById('popup-times-grid');
+  const popClose = document.getElementById('popup-close-btn');
+
+  popClose.addEventListener('click', closePopup);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closePopup(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
+
+  function closePopup() { overlay.classList.remove('open'); }
+
+  function openPopup(pi, si) {
+    const slot    = PRODUCTS[pi].slots[si];
+    const times   = genTimes(slot.range);
+    const unavail = getUnavail(slot);
+
+    popTitle.textContent = `Horários disponíveis — ${slot.range}`;
+    popGrid.innerHTML = '';
+
+    times.forEach(t => {
+      const avail = !unavail.includes(t);
+      const tb = document.createElement('button');
+      tb.type = 'button';
+      tb.className = 'time-btn ' + (avail ? 'available' : 'unavailable');
+      if (state.selectedTime[pi] === t) tb.classList.add('selected');
+      tb.textContent = t;
+      if (avail) {
+        tb.addEventListener('click', () => {
+          state.selectedTime[pi] = t;
+          state.selectedSlot[pi] = si;
+          if (pi === 0) {
+            PRODUCTS.forEach((_, i) => {
+              if (i === 0) return;
+              const c = findClosestTime(t, i);
+              if (c) { state.selectedSlot[i] = c.slotIdx; state.selectedTime[i] = c.time; }
+            });
+          }
+          closePopup();
+          render();
+        });
+      }
+      popGrid.appendChild(tb);
+    });
+
+    overlay.classList.add('open');
+  }
+
+  // ── Update confirm bar ────────────────────────────────────────────────────
+  function updateConfirm() {
+    const btn  = document.getElementById('btn-confirm');
+    const info = document.getElementById('info');
+    const times = Object.values(state.selectedTime);
+    if (times.length > 0) {
+      btn.disabled = false;
+      info.textContent = 'Selecionado: ' + times.join(', ');
+    } else {
+      btn.disabled = true;
+      info.textContent = 'Nenhum horário selecionado';
+    }
+  }
+
+
+
+  document.getElementById('btn-confirm').addEventListener('click', function () {
+    if (this.disabled) return;
+
+    // Build the payload to save
+    const selections = PRODUCTS.map((prod, pi) => ({
+      id:      prod.id,
+      nome:    prod.name,
+      horario: state.selectedTime[pi] || null,
+      data:    state.dates[pi] || state.dates[0] || null
+    })).filter(s => s.horario); // only products with a selected time
+
+    // Determine latest time (for "prontos até às X")
+    const times = selections.map(s => toMins(s.horario.split('-')[1] || s.horario));
+    const maxTime = Math.max(...times);
+    const prontoAte = fmt(maxTime);
+
+    const payload = {
+      selections,
+      prontoAte,
+      confirmedAt: new Date().toISOString()
+    };
+
+    localStorage.setItem('kweto_horarios', JSON.stringify(payload));
+    showToast('✓ Horários guardados!');
+
+    // Redirect after brief delay so user sees toast
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 1200);
+  });
+
+  // ── Render ────────────────────────────────────────────────────────────────
+  function render() {
+    const container = document.getElementById('products-container');
+    container.innerHTML = '';
+    const minDate = getMinDate(), maxDate = getMaxDate();
+
+    PRODUCTS.forEach((prod, pi) => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+
+      const header = document.createElement('div');
+      header.className = 'product-header';
+      header.innerHTML = `
+        <div class="product-header-left">
+          <span class="product-badge">PRODUTO ${pi + 1}</span>
+          <span class="product-name">${prod.name}</span>
+        </div>`;
+      card.appendChild(header);
+
+      // Função para converter yyyy-mm-dd → dd/mm/yy
+function formatDateBR(isoDate) {
+  if (!isoDate) return '—';
+
+  const [year, month, day] = isoDate.split('-');
+  return `${day}/${month}/${year.slice(2)}`; // dd/mm/yy
+}
+
+// Data
+if (pi === 0) {
+  const dateRow = document.createElement('div');
+  dateRow.className = 'date-row';
+
+  const lbl = document.createElement('label');
+  lbl.textContent = 'Selecionar a data:';
+
+  const inp = document.createElement('input');
+  inp.type = 'date';
+  inp.min = minDate;
+  inp.max = maxDate;
+  inp.value = state.dates[0] || '';
+
+  inp.addEventListener('change', e => {
+    state.dates[0] = e.target.value;
+    render();
+  });
+
+  dateRow.appendChild(lbl);
+  dateRow.appendChild(inp);
+  card.appendChild(dateRow);
+
+} else {
+  const dateRow = document.createElement('div');
+  dateRow.className = 'date-row';
+
+  const lbl = document.createElement('label');
+  lbl.textContent = 'Data:';
+
+  const display = document.createElement('span');
+  display.style.cssText = `
+    font-size:13px;
+    padding:6px 10px;
+    border-radius:6px;
+    border:1px solid #C8C8C4;
+    background:#F0EDE8;
+    color:rgb(112,63,2);
+    font-weight:500
+  `;
+
+  // 👇 AQUI está a correção
+  display.textContent = formatDateBR(state.dates[0]);
+
+  const tag = document.createElement('span');
+ 
+  dateRow.appendChild(lbl);
+  dateRow.appendChild(display);
+  dateRow.appendChild(tag);
+  card.appendChild(dateRow);
+}
+
+      const slbl = document.createElement('div');
+      slbl.className = 'section-label';
+      slbl.textContent = `Slots de retirada — ${prod.slots.length} slots`;
+      card.appendChild(slbl);
+
+      // Tabela 5 colunas
+      const table = document.createElement('table');
+      table.className = 'slots-table';
+      const tbody = document.createElement('tbody');
+      const COLS = 5;
+      const slots = prod.slots;
+
+      for (let row = 0; row < Math.ceil(slots.length / COLS); row++) {
+        const tr = document.createElement('tr');
+        for (let col = 0; col < COLS; col++) {
+          const si = row * COLS + col;
+          const td = document.createElement('td');
+
+          if (si >= slots.length) {
+            td.className = 'empty';
+            tr.appendChild(td);
+            continue;
+          }
+
+          const slot       = slots[si];
+          const isAvail    = slot.count > 0;
+          const isSelected = state.selectedSlot[pi] === si;
+
+          td.className = isAvail ? 'available' : 'unavailable';
+
+          const box = document.createElement('button');
+          box.type = 'button';
+          box.className = 'slot-box' + (isSelected ? ' selected' : '') + (isAvail ? '' : ' unavailable');
+          box.innerHTML = `
+            <span class="slot-time-text">${slot.range}</span>
+            <span class="slot-count-label">${isAvail ? slot.count + ' produtos restantes' : 'Indisponível'}</span>`;
+
+          if (isAvail) {
+            box.addEventListener('click', () => {
+              state.selectedSlot[pi] = si;
+              openPopup(pi, si);
+              render();
+            });
+          }
+
+          td.appendChild(box);
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      }
+
+      table.appendChild(tbody);
+      card.appendChild(table);
+
+      // Resultado
+      const selTime = state.selectedTime[pi];
+      if (selTime) {
+        const isAuto = pi !== 0 && state.selectedTime[0];
+        const msg = document.createElement('div');
+        msg.className = 'result-msg';
+        msg.innerHTML = `Conclusão de preparo: <strong>${selTime}</strong>${isAuto ? ' <span class="auto-tag">AUTOMÁTICO</span>' : ''}`;
+
+        if (pi !== 0) {
+          const editBtn = document.createElement('button');
+          editBtn.className = 'edit-btn';
+          editBtn.textContent = 'Alterar';
+          editBtn.addEventListener('click', () => openPopup(pi, state.selectedSlot[pi]));
+          msg.appendChild(editBtn);
+        }
+
+        card.appendChild(msg);
+      }
+
+      container.appendChild(card);
+    });
+
+    updateConfirm();
+  }
+
+  render();
+</script>
 </body>
-
 </html>
-
