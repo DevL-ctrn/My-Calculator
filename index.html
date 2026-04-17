@@ -241,7 +241,7 @@
     <h1>Horário de Levantamento</h1>
     
   </div>
-    <a class="back-link" href="time.html">← Voltar</a>
+    <div id="back-container"></div>
   <div id="content"></div>
 
 </div>
@@ -289,6 +289,9 @@
   } else {
     const data = JSON.parse(raw);
     const { selections, prontoAte, confirmedAt } = data;
+   document.getElementById('back-container').innerHTML = 
+    `<a class="back-link" href="time.html">← Voltar</a>`;
+
 
   
 
