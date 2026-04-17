@@ -402,19 +402,23 @@
     overlay.classList.add('open');
   }
 
-  // ── Update confirm bar ────────────────────────────────────────────────────
-  function updateConfirm() {
-    const btn  = document.getElementById('btn-confirm');
-    const info = document.getElementById('info');
-    const times = Object.values(state.selectedTime);
-    if (times.length > 0) {
-      btn.disabled = false;
-      info.textContent = 'Selecionado: ' + times.join(', ');
-    } else {
-      btn.disabled = true;
-      info.textContent = 'Nenhum horário selecionado';
-    }
+ function updateConfirm() {
+  const btn  = document.getElementById('btn-confirm');
+  const info = document.getElementById('info');
+  const times = Object.values(state.selectedTime);
+  const dataSeleccionada = state.dates[0] && state.dates[0] !== '';
+
+  if (times.length > 0 && dataSeleccionada) {
+    btn.disabled = false;
+    info.textContent = 'Selecionado: ' + times.join(', ');
+  } else if (times.length > 0 && !dataSeleccionada) {
+    btn.disabled = true;
+    info.textContent = 'Seleccione uma data para confirmar';
+  } else {
+    btn.disabled = true;
+    info.textContent = 'Nenhum horário selecionado';
   }
+}
 
 
 
