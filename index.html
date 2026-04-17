@@ -272,13 +272,13 @@
  
 
   const content  = document.getElementById('content');
-  const subtitle = document.getElementById('subtitle');
+
 
   const raw = localStorage.getItem('kweto_horarios');
 
   if (!raw) {
     // Empty state
-    subtitle.textContent = '';
+ 
     content.innerHTML = `
       <div class="empty-state">
         <i class="fa-regular fa-file"></i>
