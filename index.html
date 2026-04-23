@@ -3,359 +3,779 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Histórico de Levantamentos</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<title>KwetoBread — Finalizar Pedido</title>
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --brown:      #7B3F1E;
-    --brown-dk:   #5C2E12;
-    --brown-lt:   #A0522D;
-    --brown-pale: #F5EDE6;
-    --brown-mist: #EDD9CC;
-    --gold:       #C8883A;
-    --gold-lt:    #F3DEC0;
-    --bg:         #FAF6F2;
-    --surface:    #FFFFFF;
-    --border:     #E2D0C4;
-    --text:       #2A1A10;
-    --text-md:    #5C3D2A;
-    --text-muted: #9A7560;
-    --green-bg:   #EAF5EC;
-    --green-text: #1E6B30;
-    --green-border: #7ABF88;
-    --radius:     14px;
-    --radius-sm:  8px;
-    --shadow:     0 4px 24px rgba(91,42,10,0.10);
-    --shadow-lg:  0 8px 40px rgba(91,42,10,0.16);
-    --sans: 'DM Sans', system-ui, sans-serif;
-    --serif: 'Playfair Display', Georgia, serif;
-  }
-
-  body {
-    background: var(--bg);
-    font-family:  Arial, sans-serif;
-    color: var(--text);
-    min-height: 100vh;
-    padding: 2.5rem 1rem 3rem;
-    background-image:
-      radial-gradient(ellipse at 10% 0%, rgba(200,136,58,.08) 0%, transparent 55%),
-      radial-gradient(ellipse at 90% 100%, rgba(123,63,30,.07) 0%, transparent 55%);
-  }
-
-  .page { max-width: 620px; margin: 0 auto; }
-
-  /* ── Header ── */
-  .page-header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  .page-header h1 {
-    
-    font-size: 26px; font-weight: 700;
-    color: var(--brown-dk);
-    letter-spacing: -0.5px;
-    margin-bottom: 6px;
-  }
-
-  .page-header p {
-    font-size: 14px; color: var(--text-muted);
-    margin-top: 14px; line-height: 1.5;
-  }
-
-  /* ── Back link ── */
-  .back-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    color: var(--brown); font-size: 13px; font-weight: 600;
-    text-decoration: none; margin-bottom: 1.5rem;
-    padding: 6px 12px; border-radius: 8px;
-    border: 1.5px solid var(--brown-mist);
-    background: var(--brown-pale);
-    transition: all .15s;
-  }
-  .back-link:hover { background: var(--brown-mist); border-color: var(--brown); }
-
-  /* ── Order card ── */
-  .order-card {
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    margin-bottom: 1.5rem;
-  }
-
-  /* Card top bar */
-  .order-card-header {
-    background: linear-gradient(135deg, var(--brown-lt) 0%, var(--brown-dk) 100%);
-    padding: 16px 20px;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 12px;
-  }
-  .order-card-header .label {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: .8px; color: rgba(255,255,255,.7);
-    margin-bottom: 2px;
-  }
-  .order-card-header .date-val {
-    font-family: Arial, sans-serif;
-    font-size: 1.1rem; font-weight: 700;
-    color: var(--gold-lt);
-    letter-spacing: -.3px;
-  }
-  .order-status {
-    background: rgba(255,255,255,.18);
-    color: #fff;
-    border-radius: 20px;
-    padding: 4px 12px;
-    font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: .5px;
-    white-space: nowrap;
-    border: 1px solid rgba(255,255,255,.25);
-  }
-
-  /* Product rows */
-  .order-body { padding: 0 20px; }
-
-  .product-row {
-    display: flex; align-items: center;
-    justify-content: space-between;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
-    gap: 12px;
-  }
-  .product-row:last-child { border-bottom: none; }
-
-  .product-row-left {
-    display: flex; align-items: center; gap: 12px; min-width: 0;
-  }
-  .prod-icon {
-    width: 38px; height: 38px; border-radius: 10px;
-    background: var(--brown-pale);
-    border: 1.5px solid var(--brown-mist);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; flex-shrink: 0;
-  }
-  .prod-name {
-    font-size: 15px; font-weight: 700;
-    color: var(--brown-dk);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .prod-num {
-    font-size: 11px; color: var(--text-muted); font-weight: 500;
-    margin-top: 1px;
-  }
-
-  .horario-pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: var(--brown-pale);
-    border: 1.5px solid var(--brown-mist);
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 14px; font-weight: 800;
-    color: var(--brown-dk);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-    flex-shrink: 0;
-    letter-spacing: -.3px;
-  }
- .horario-pill::before {
-  content: "\f017"; /* ícone fa-clock */
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  font-size: 13px;
-  margin-right: 6px;
+:root {
+  --kb-primary:       #D4A017;
+  --kb-primary-dark:  #8B4513;
+  --kb-primary-light: #E8B84B;
+  --kb-bg-primary:    #FAF7F2;
+  --kb-bg-secondary:  #FFFFFF;
+  --kb-bg-tertiary:   #F5EFE6;
+  --kb-border-light:  #E8D9C8;
+  --kb-text-primary:  #1C0F05;
+  --kb-text-secondary:#4A2E18;
+  --kb-text-tertiary: #9A7A5A;
+  --hdr-h: 60px;
+  --nav-h: 56px;
 }
 
-  /* Footer */
-  .order-footer {
-    background: linear-gradient(90deg, var(--brown-pale), var(--gold-lt));
-    border-top: 1.5px solid var(--brown-mist);
-    padding: 14px 20px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .order-footer .check-icon {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--green-bg);
-    border: 1.5px solid var(--green-border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; flex-shrink: 0;
-  }
-  .order-footer .ready-text {
-    font-size: 14px; font-weight: 600;
-    color: var(--green-text);
-  }
-  .order-footer .ready-text span {
-    font-weight: 800;
-    font-variant-numeric: tabular-nums;
-  }
- i {
-  font-size: 20px;
- }
-  /* ── Empty state ── */
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-  }
-  .empty-icon {
-    font-size: 3.5rem; margin-bottom: 16px;
-    display: block;
-    animation: float 3s ease-in-out infinite;
-  }
-  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-  .empty-state h2 {
-    font-family: Arial, sans-serif;
-    font-size: 1.2rem; color: var(--brown-dk);
-    margin-bottom: 8px;
-  }
-  .empty-state p {
-    font-size: 14px; color: var(--text-muted);
-    line-height: 1.6; margin-bottom: 24px;
-  }
-  .btn-go {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: linear-gradient(135deg, var(--brown-lt) 0%, var(--brown-dk) 100%);
-    color: #fff; border: none;
-    padding: 13px 24px; border-radius: 12px;
-    font-size: 14px; font-weight: 600;
-    cursor: pointer; font-family: var(--sans);
-    text-decoration: none;
-    box-shadow: 0 4px 14px rgba(92,46,18,.25);
-    transition: all .18s;
-  }
-  .btn-go:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(92,46,18,.35); }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: var(--kb-bg-primary);
+  color: var(--kb-text-primary);
+  min-height: 100vh;
+}
 
-  /* ── Product emoji map ── */
+/* ── HEADER ── */
+.kb-header {
+  height: var(--hdr-h);
+  background: var(--kb-bg-secondary);
+  border-bottom: 1.5px solid var(--kb-border-light);
+  display: flex; align-items: center;
+  padding: 0 32px; gap: 16px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(139,69,19,.06);
+}
+.kb-header-logo {
+  font-size: 1.3rem; font-weight: 900; color: var(--kb-primary-dark);
+  display: flex; align-items: center; gap: 10px;
+}
+.kb-header-logo i { color: var(--kb-primary); }
+.kb-header-spacer { flex: 1; }
+.kb-header-back {
+  display: flex; align-items: center; gap: 8px;
+  font-size: .85rem; font-weight: 700; color: var(--kb-text-secondary);
+  text-decoration: none; padding: 8px 16px; border-radius: 10px;
+  border: 1.5px solid var(--kb-border-light); background: var(--kb-bg-tertiary);
+  transition: all .15s;
+}
+.kb-header-back:hover { border-color: var(--kb-primary); color: var(--kb-primary-dark); }
+
+/* ── PAGE ── */
+.co-page { padding: 36px 0 100px; }
+.co-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+.co-page-title {
+  font-size: 2rem; font-weight: 900; color: var(--kb-text-primary);
+  display: flex; align-items: center; gap: 14px; margin-bottom: 36px;
+}
+.co-page-title i { color: var(--kb-primary); }
+
+/* ── ALERT ── */
+.co-alert {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 20px; border-radius: 14px;
+  font-size: .9rem; font-weight: 600; margin-bottom: 24px;
+  background: rgba(239,68,68,.08); color: #dc2626;
+  border: 1px solid rgba(239,68,68,.2);
+}
+
+/* ── LAYOUT ── */
+.co-layout {
+  display: grid; grid-template-columns: 1fr 400px;
+  gap: 36px; align-items: start;
+}
+
+/* ── CARDS ── */
+.co-card {
+  background: var(--kb-bg-secondary);
+  border-radius: 20px; border: 1.5px solid var(--kb-border-light);
+  box-shadow: 0 4px 20px rgba(139,69,19,.05);
+  overflow: hidden; margin-bottom: 20px;
+}
+.co-card-head {
+  padding: 18px 22px; background: var(--kb-bg-tertiary);
+  border-bottom: 1.5px solid var(--kb-border-light);
+  display: flex; align-items: center; gap: 12px;
+}
+.co-card-head-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--kb-primary-dark); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+}
+.co-card-head-title { font-size: 1rem; font-weight: 800; color: var(--kb-text-primary); }
+.co-card-body { padding: 22px; }
+
+/* ── DELIVERY TOGGLES ── */
+.co-delivery-toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px; }
+.co-delivery-toggle {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px; border: 2px solid var(--kb-border-light); border-radius: 16px;
+  cursor: pointer; transition: all .2s; background: var(--kb-bg-secondary);
+}
+.co-delivery-toggle input { display: none; }
+.co-delivery-toggle i { font-size: 1.1rem; color: var(--kb-text-tertiary); }
+.co-delivery-toggle span { font-size: .9rem; font-weight: 700; color: var(--kb-text-secondary); }
+.co-delivery-toggle.selected { border-color: var(--kb-primary); background: rgba(212,160,23,.06); }
+.co-delivery-toggle.selected i { color: var(--kb-primary); }
+.co-delivery-toggle.selected span { color: var(--kb-text-primary); }
+
+/* ── ADDRESS FORM ── */
+.co-address-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.co-address-full { grid-column: span 2; }
+.co-input-group { display: flex; flex-direction: column; gap: 6px; }
+.co-input-group label { font-size: .72rem; font-weight: 800; color: var(--kb-text-tertiary); text-transform: uppercase; letter-spacing: .05em; }
+.co-input {
+  padding: 13px 16px; background: var(--kb-bg-primary);
+  border: 2px solid var(--kb-border-light); border-radius: 12px;
+  font-size: .9rem; font-weight: 600; color: var(--kb-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif; outline: none; transition: all .2s;
+}
+.co-input:focus { border-color: var(--kb-primary); box-shadow: 0 0 0 4px rgba(212,160,23,.1); }
+.co-textarea { min-height: 90px; resize: none; line-height: 1.5; }
+
+/* ── PAYMENT METHODS ── */
+.co-pay-methods { display: flex; flex-direction: column; gap: 10px; }
+.co-pay-method {
+  display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+  border: 2px solid var(--kb-border-light); border-radius: 14px;
+  cursor: pointer; transition: all .2s; background: var(--kb-bg-primary);
+}
+.co-pay-method:hover { border-color: var(--kb-primary-light); transform: translateY(-1px); }
+.co-pay-method.selected { border-color: var(--kb-primary); background: rgba(212,160,23,.07); }
+.co-pay-method input { display: none; }
+.co-pay-radio {
+  width: 20px; height: 20px; border: 2.5px solid var(--kb-border-light);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  transition: all .2s; flex-shrink: 0;
+}
+.co-pay-method.selected .co-pay-radio { border-color: var(--kb-primary); background: var(--kb-primary); }
+.co-pay-method.selected .co-pay-radio::after { content: ""; width: 7px; height: 7px; background: #fff; border-radius: 50%; }
+.co-pay-logo {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: var(--kb-bg-tertiary); border: 1px solid var(--kb-border-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: var(--kb-text-tertiary); flex-shrink: 0;
+}
+.co-pay-name { font-size: .95rem; font-weight: 800; color: var(--kb-text-primary); }
+.co-pay-desc { font-size: .75rem; color: var(--kb-text-tertiary); font-weight: 500; margin-top: 2px; }
+
+/* ── PHONE INPUT ── */
+.co-phone-wrap { margin-top: 20px; animation: fadeUp .3s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.co-phone-label { font-size: .8rem; font-weight: 800; color: var(--kb-text-secondary); margin-bottom: 8px; display: block; }
+.co-phone-row {
+  display: flex; border: 2px solid var(--kb-border-light); border-radius: 14px;
+  overflow: hidden; background: var(--kb-bg-primary); transition: all .2s;
+}
+.co-phone-row:focus-within { border-color: var(--kb-primary); box-shadow: 0 0 0 4px rgba(212,160,23,.1); }
+.co-phone-prefix {
+  padding: 0 14px; background: var(--kb-bg-tertiary); border-right: 1px solid var(--kb-border-light);
+  display: flex; align-items: center; font-weight: 800; color: var(--kb-text-secondary); font-size: .9rem;
+}
+.co-phone-input {
+  flex: 1; padding: 13px 16px; border: none; background: transparent;
+  font-size: 1rem; font-weight: 700; color: var(--kb-text-primary); outline: none;
+  font-family: 'Courier New', Courier, monospace; letter-spacing: .05em;
+}
+.co-phone-hint { font-size: .72rem; font-weight: 600; color: var(--kb-text-tertiary); margin-top: 6px; padding-left: 4px; }
+
+/* ── CLIENT ROW ── */
+.co-client-row {
+  display: flex; align-items: center; gap: 14px; padding: 16px;
+  background: var(--kb-bg-tertiary); border-radius: 14px; border: 1px solid var(--kb-border-light);
+}
+.co-client-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--kb-primary) 0%, var(--kb-primary-dark) 100%);
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; font-weight: 900; box-shadow: 0 4px 12px rgba(139,69,19,.25);
+}
+.co-client-name { font-size: 1rem; font-weight: 800; color: var(--kb-text-primary); }
+.co-client-email { font-size: .85rem; color: var(--kb-text-tertiary); font-weight: 500; }
+
+/* ── SECTION HEADER ── */
+.co-section-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 18px; padding-bottom: 10px;
+  border-bottom: 2px solid var(--kb-border-light);
+}
+.co-section-header i { color: var(--kb-primary); font-size: 1.1rem; }
+.co-section-header h2 { font-size: 1rem; font-weight: 900; color: var(--kb-text-primary); text-transform: uppercase; letter-spacing: .05em; }
+
+/* ════════════════════════════════════════════
+   ── PICKUP SECTION ──
+   ════════════════════════════════════════════ */
+.pickup-section-banner {
+  background: linear-gradient(135deg, var(--kb-primary-dark) 0%, #6B3010 100%);
+  border-radius: 20px; padding: 24px 24px 20px;
+  color: #fff; margin-bottom: 20px;
+  position: relative; overflow: hidden;
+}
+.pickup-section-banner::before {
+  content: ""; position: absolute; top: -30px; right: -30px;
+  width: 160px; height: 160px; border-radius: 50%; background: rgba(255,255,255,.05);
+}
+.pickup-section-banner::after {
+  content: ""; position: absolute; bottom: -20px; right: 60px;
+  width: 80px; height: 80px; border-radius: 50%; background: rgba(212,160,23,.15);
+}
+.pickup-banner-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.pickup-banner-icon {
+  width: 48px; height: 48px; border-radius: 13px;
+  background: rgba(212,160,23,.2); border: 1.5px solid rgba(212,160,23,.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: var(--kb-primary); flex-shrink: 0;
+}
+.pickup-banner-text h3 { font-size: 1.1rem; font-weight: 900; margin-bottom: 3px; }
+.pickup-banner-text p { font-size: .82rem; font-weight: 500; opacity: .8; line-height: 1.5; }
+
+/* ── Estado vazio ── */
+.pickup-empty-state {
+  background: rgba(255,255,255,.08); border-radius: 14px;
+  border: 1.5px dashed rgba(255,255,255,.25);
+  padding: 20px 16px; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 14px;
+}
+.pickup-empty-icon {
+  width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem; opacity: .7;
+}
+.pickup-empty-text { font-size: .85rem; font-weight: 600; opacity: .75; line-height: 1.5; }
+.pickup-empty-text strong { display: block; font-size: .92rem; font-weight: 800; opacity: 1; margin-bottom: 2px; }
+
+/* ── Estado confirmado ── */
+.pickup-confirmed-state {
+  background: rgba(255,255,255,.09); border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.18);
+  margin-bottom: 16px; overflow: hidden; display: none;
+}
+.pickup-confirmed-rows { padding: 4px 16px; }
+.pickup-conf-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,.1); gap: 12px;
+}
+.pickup-conf-item:last-child { border-bottom: none; }
+.pickup-conf-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.pickup-conf-emoji { font-size: 1.15rem; }
+.pickup-conf-name { font-size: .85rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pickup-conf-date { font-size: .7rem; opacity: .6; font-weight: 500; }
+.pickup-conf-time {
+  font-size: .85rem; font-weight: 700;
+  background: rgba(212,160,23,.3); color: var(--kb-primary);
+  border: 1px solid rgba(212,160,23,.45);
+  padding: 4px 11px; border-radius: 8px; white-space: nowrap; flex-shrink: 0;
+}
+.pickup-ready-bar {
+  background: rgba(16,185,129,.15); border-top: 1px solid rgba(16,185,129,.3);
+  padding: 12px 16px; display: flex; align-items: center; gap: 10px;
+}
+.pickup-ready-bar i { color: #6EE7B7; font-size: .9rem; flex-shrink: 0; }
+.pickup-ready-bar span { font-size: .82rem; font-weight: 600; color: #D1FAE5; line-height: 1.4; }
+.pickup-ready-bar strong {  font-weight: 800; color: #fff; }
+
+/* ── Botão ── */
+.pickup-banner-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-pickup-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 22px; border-radius: 12px; border: none; cursor: pointer;
+  background: var(--kb-primary); color: #fff;
+  font-size: .88rem; font-weight: 800; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  text-decoration: none; transition: all .2s;
+  box-shadow: 0 4px 14px rgba(212,160,23,.3);
+}
+.btn-pickup-primary:hover { filter: brightness(1.1); transform: translateY(-2px); }
+.btn-pickup-change {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 18px; border-radius: 12px; cursor: pointer;
+  border: 1.5px solid rgba(255,255,255,.28); background: rgba(255,255,255,.1);
+  color: #fff; font-size: .88rem; font-weight: 700; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  text-decoration: none; transition: all .2s;
+}
+.btn-pickup-change:hover { background: rgba(255,255,255,.18); }
+
+/* ── SIDEBAR SUMMARY ── */
+.co-summary {
+  background: var(--kb-bg-secondary); border-radius: 20px;
+  border: 1.5px solid var(--kb-border-light);
+  box-shadow: 0 8px 28px rgba(139,69,19,.07);
+  overflow: hidden; position: sticky; top: calc(var(--hdr-h) + 20px);
+}
+.co-summary-head {
+  padding: 22px 24px;
+  background: linear-gradient(135deg, var(--kb-primary-dark) 0%, #5C2E12 100%);
+  color: #fff;
+}
+.co-summary-head-title { font-size: 1.1rem; font-weight: 900; display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.co-summary-head-bakery { font-size: .8rem; font-weight: 600; opacity: .85; display: flex; align-items: center; gap: 6px; }
+
+.co-summary-items { padding: 10px 18px; max-height: 260px; overflow-y: auto; }
+.co-summary-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--kb-border-light); }
+.co-summary-item:last-child { border-bottom: none; }
+.co-si-img {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: var(--kb-bg-tertiary); border: 1px solid var(--kb-border-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0; overflow: hidden;
+}
+.co-si-img img { width: 100%; height: 100%; object-fit: cover; }
+.co-si-name { font-size: .83rem; font-weight: 800; color: var(--kb-text-primary); }
+.co-si-qty { font-size: .72rem; color: var(--kb-text-tertiary); font-weight: 600; }
+.co-si-price { font-size: .88rem; font-weight: 900; color: var(--kb-primary-dark); margin-left: auto; white-space: nowrap; }
+
+.co-totals { padding: 18px 22px; background: var(--kb-bg-primary); border-top: 1px solid var(--kb-border-light); }
+.co-total-row { display: flex; justify-content: space-between; padding: 7px 0; font-size: .85rem; font-weight: 600; color: var(--kb-text-secondary); }
+.co-total-row.grand { margin-top: 10px; padding-top: 14px; border-top: 2px dashed var(--kb-border-light); font-size: 1rem; color: var(--kb-text-primary); }
+.co-total-row.grand span:last-child { font-size: 1.6rem; font-weight: 900; color: var(--kb-primary-dark); }
+
+.co-submit-wrap { padding: 20px 22px; background: var(--kb-bg-tertiary); border-top: 1px solid var(--kb-border-light); }
+.co-btn-pay {
+  width: 100%; padding: 16px; border-radius: 14px; border: none;
+  background: linear-gradient(135deg, var(--kb-primary) 0%, var(--kb-primary-dark) 100%);
+  color: #fff; font-size: 1rem; font-weight: 900; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  box-shadow: 0 6px 18px rgba(139,69,19,.25); transition: all .3s;
+}
+.co-btn-pay:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(139,69,19,.35); }
+.co-btn-secure { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; font-size: .72rem; font-weight: 700; color: var(--kb-text-tertiary); }
+.co-btn-secure i { color: #10B981; }
+
+/* ── OVERLAY ── */
+.co-overlay {
+  position: fixed; inset: 0; background: rgba(250,247,242,.94);
+  backdrop-filter: blur(4px); z-index: 9999;
+  display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+}
+.co-overlay.active { display: flex; }
+.co-overlay-icon {
+  width: 68px; height: 68px; border-radius: 50%;
+  background: var(--kb-primary-dark); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+  animation: pulse 1.8s ease-in-out infinite;
+  box-shadow: 0 4px 20px rgba(139,69,19,.35);
+}
+@keyframes pulse { 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }
+.co-overlay-text { font-size: .95rem; font-weight: 700; color: var(--kb-text-primary); }
+.co-overlay-sub { font-size: .8rem; color: var(--kb-text-tertiary); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1050px) { .co-layout { grid-template-columns: 1fr; } }
+@media (max-width: 768px) {
+  .co-container { padding: 0 16px; }
+  .co-page { padding: 20px 0 80px; }
+  .co-page-title { font-size: 1.5rem; }
+  .pickup-banner-actions { flex-direction: column; }
+  .btn-pickup-primary { min-width: unset; }
+}
+@media (max-width: 480px) {
+  .co-delivery-toggles { grid-template-columns: 1fr; }
+  .co-address-form { grid-template-columns: 1fr; }
+  .co-address-full { grid-column: span 1; }
+}
 </style>
 </head>
 <body>
-<div class="page">
 
+<!-- Header -->
+<header class="kb-header">
+  <div class="kb-header-logo"><i class="fas fa-bread-slice"></i> KwetoBread</div>
+  <div class="kb-header-spacer"></div>
+  <a href="#" class="kb-header-back"><i class="fas fa-arrow-left"></i> Voltar</a>
+</header>
 
+<!-- Overlay de processamento -->
+<div class="co-overlay" id="coOverlay">
+  <div class="co-overlay-icon"><i class="fas fa-credit-card"></i></div>
+  <div class="co-overlay-text">A processar o pagamento...</div>
+  <div class="co-overlay-sub">Por favor, aguarde</div>
+</div>
 
-  <div class="page-header">
-   
-    
+<div class="co-page">
+  <div class="co-container">
+
+    <h1 class="co-page-title">
+      <i class="fas fa-credit-card"></i> Finalizar Pedido
+    </h1>
+
+    <form method="POST" id="checkoutForm">
+      <div class="co-layout">
+
+        <!-- ── Coluna principal ── -->
+        <div class="co-main">
+
+          <!-- 1. Entrega -->
+          <div class="co-card">
+            <div class="co-card-head">
+              <div class="co-card-head-icon"><i class="fas fa-truck"></i></div>
+              <span class="co-card-head-title">Informações de Entrega</span>
+            </div>
+            <div class="co-card-body">
+              <div class="co-delivery-toggles">
+                <label class="co-delivery-toggle selected" data-type="pickup">
+                  <input type="radio" name="delivery_type" value="pickup" checked>
+                  <i class="fas fa-store"></i>
+                  <span>Levantar na loja</span>
+                </label>
+                <label class="co-delivery-toggle" data-type="delivery">
+                  <input type="radio" name="delivery_type" value="delivery">
+                  <i class="fas fa-motorcycle"></i>
+                  <span>Entrega ao domicílio</span>
+                </label>
+              </div>
+              <div id="shipAddress" style="display:none; animation: fadeUp .3s ease;">
+                <div class="co-section-header">
+                  <i class="fas fa-location-dot"></i><h2>Endereço de Entrega</h2>
+                </div>
+                <div class="co-address-form">
+                  <div class="co-input-group"><label>Cidade</label><input type="text" name="addr_city" class="co-input" placeholder="ex: Maputo"></div>
+                  <div class="co-input-group"><label>Bairro</label><input type="text" name="addr_neighborhood" class="co-input" placeholder="ex: Polana"></div>
+                  <div class="co-input-group co-address-full"><label>Rua / Morada</label><input type="text" name="addr_street" class="co-input" placeholder="ex: Av. 25 de Setembro, 1234"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ════ SECÇÃO: Horários de Levantamento ════ -->
+          <div class="pickup-section-banner">
+            <div class="pickup-banner-top">
+              <div>
+                <div style="font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; opacity:.6; margin-bottom:6px;">Horários de Levantamento</div>
+                <div class="pickup-banner-text">
+                  <h3><i class="fas fa-clock" style="font-size:.95rem; margin-right:7px;"></i>Retirada no Estabelecimento</h3>
+                  <p id="pickupSubtitle">Escolha quando quer ir buscar os seus produtos.</p>
+                </div>
+              </div>
+              <div class="pickup-banner-icon"><i class="fas fa-bag-shopping"></i></div>
+            </div>
+
+            <!-- Estado: sem horários -->
+            <div class="pickup-empty-state" id="pickupEmptyState">
+              <div class="pickup-empty-icon"><i class="fas fa-calendar-xmark"></i></div>
+              <div class="pickup-empty-text">
+                <strong>Sem horários confirmados</strong>
+                Ainda não escolheu um horário de levantamento. Clique abaixo para seleccionar.
+              </div>
+            </div>
+
+            <!-- Estado: confirmado -->
+            <div class="pickup-confirmed-state" id="pickupConfirmedState">
+              <div class="pickup-confirmed-rows" id="pickupConfirmedRows"></div>
+              <div class="pickup-ready-bar" id="pickupReadyBar">
+                <i class="fas fa-circle-check"></i>
+                <span>Os pedidos estarão disponíveis para retirada às <strong id="pickupReadyTime">—</strong></span>
+              </div>
+            </div>
+
+            <!-- Botões -->
+            <div class="pickup-banner-actions">
+              <a href="time.html" class="btn-pickup-primary" id="btnPickupAction">
+                <i class="fas fa-plus" id="btnPickupIcon"></i>
+                <span id="btnPickupLabel">Seleccionar Horário</span>
+              </a>
+              <a href="time.html" class="btn-pickup-change" id="btnPickupBack" style="display:none;">
+                <i class="fas fa-arrow-left"></i> Voltar
+              </a>
+            </div>
+          </div>
+
+          <!-- 2. Pagamento -->
+          <div class="co-card">
+            <div class="co-card-head">
+              <div class="co-card-head-icon"><i class="fas fa-wallet"></i></div>
+              <span class="co-card-head-title">Forma de Pagamento</span>
+            </div>
+            <div class="co-card-body">
+              <div class="co-pay-methods" id="payMethods">
+                <label class="co-pay-method" data-method="mpesa">
+                  <input type="radio" name="operator" value="mpesa">
+                  <span class="co-pay-radio"></span>
+                  <span class="co-pay-logo"><i class="fas fa-mobile-screen-button"></i></span>
+                  <span><div class="co-pay-name">M-Pesa</div><div class="co-pay-desc">Vodacom · 84, 85</div></span>
+                </label>
+                <label class="co-pay-method" data-method="emola">
+                  <input type="radio" name="operator" value="emola">
+                  <span class="co-pay-radio"></span>
+                  <span class="co-pay-logo"><i class="fas fa-mobile-screen-button"></i></span>
+                  <span><div class="co-pay-name">e-Mola</div><div class="co-pay-desc">Movitel · 86, 87</div></span>
+                </label>
+                <label class="co-pay-method" data-method="mkesh">
+                  <input type="radio" name="operator" value="mkesh">
+                  <span class="co-pay-radio"></span>
+                  <span class="co-pay-logo"><i class="fas fa-mobile-screen-button"></i></span>
+                  <span><div class="co-pay-name">mKesh</div><div class="co-pay-desc">mCel · 82, 83</div></span>
+                </label>
+                <label class="co-pay-method" data-method="imali">
+                  <input type="radio" name="operator" value="imali">
+                  <span class="co-pay-radio"></span>
+                  <span class="co-pay-logo"><i class="fas fa-credit-card"></i></span>
+                  <span><div class="co-pay-name">iMali</div><div class="co-pay-desc">Conta iMali</div></span>
+                </label>
+              </div>
+
+              <div class="co-phone-wrap" id="phoneWrap" style="display:none;">
+                <label class="co-phone-label" id="phoneLabel">Número de Telefone</label>
+                <div class="co-phone-row">
+                  <span class="co-phone-prefix">🇲🇿 +258</span>
+                  <input type="tel" name="phone" id="phoneInput" class="co-phone-input"
+                         placeholder="84XXXXXXX" maxlength="9" inputmode="numeric" disabled>
+                </div>
+                <p class="co-phone-hint" id="phoneHint"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Notas -->
+          <div class="co-card">
+            <div class="co-card-head">
+              <div class="co-card-head-icon"><i class="fas fa-comment-dots"></i></div>
+              <span class="co-card-head-title">Notas e Dados</span>
+            </div>
+            <div class="co-card-body">
+              <div class="co-input-group" style="margin-bottom:20px;">
+                <label>Observações do Pedido</label>
+                <textarea name="customer_notes" class="co-input co-textarea" placeholder="ex: Sem sal, embrulhado separado..."></textarea>
+              </div>
+              <div class="co-section-header" style="border-bottom:none;">
+                <i class="fas fa-user-check"></i><h2>Dados da Conta</h2>
+              </div>
+              <div class="co-client-row">
+                <div class="co-client-avatar">A</div>
+                <div>
+                  <div class="co-client-name">Ana Machava</div>
+                  <div class="co-client-email">ana.machava@email.com</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /.co-main -->
+
+        <!-- ── Sidebar ── -->
+        <aside class="co-sidebar">
+          <div class="co-summary">
+            <div class="co-summary-head">
+              <div class="co-summary-head-title"><i class="fas fa-receipt"></i> Resumo do Pedido</div>
+              <div class="co-summary-head-bakery"><i class="fas fa-store"></i> Padaria Central</div>
+            </div>
+            <div class="co-summary-items">
+              <div class="co-summary-item">
+                <div class="co-si-img">🍞</div>
+                <div style="flex:1;">
+                  <div class="co-si-name">Pão Quente</div>
+                  <div class="co-si-qty">2× 35,00 MT</div>
+                </div>
+                <div class="co-si-price">70,00 MT</div>
+              </div>
+              <div class="co-summary-item">
+                <div class="co-si-img">🎂</div>
+                <div style="flex:1;">
+                  <div class="co-si-name">Bolo de Ananás</div>
+                  <div class="co-si-qty">1× 180,00 MT</div>
+                </div>
+                <div class="co-si-price">180,00 MT</div>
+              </div>
+              <div class="co-summary-item">
+                <div class="co-si-img">🥖</div>
+                <div style="flex:1;">
+                  <div class="co-si-name">Arrofada</div>
+                  <div class="co-si-qty">1× 90,00 MT</div>
+                </div>
+                <div class="co-si-price">90,00 MT</div>
+              </div>
+            </div>
+            <div class="co-totals">
+              <div class="co-total-row">
+                <span>Subtotal (4 itens)</span>
+                <span id="subtotalAmount" data-val="340">340,00 MT</span>
+              </div>
+              <div class="co-total-row">
+                <span>Entrega</span>
+                <span id="deliveryAmt">0,00 MT</span>
+              </div>
+              <div class="co-total-row grand">
+                <span>Total</span>
+                <span id="grandTotalAmt">340,00 MT</span>
+              </div>
+            </div>
+            <div class="co-submit-wrap">
+              <button type="submit" class="co-btn-pay" id="submitBtn">
+                <i class="fas fa-lock"></i> Pagar 340,00 MT
+              </button>
+              <div class="co-btn-secure">
+                <i class="fas fa-shield-halved"></i> Pagamento 100% seguro
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </form>
   </div>
-    <div id="back-container"></div>
-  <div id="content"></div>
-
 </div>
 
 <script>
-  // Map product names to emojis
-  const EMOJIS = {
-    'pão':      '',
-    'arrofada': '',
-    'bolo':     '',
-    'sanduíche':'',
-  };
-  function emojiFor(name) {
-    const lower = name.toLowerCase();
-    for (const [key, emoji] of Object.entries(EMOJIS)) {
-      if (lower.includes(key)) return emoji;
-    }
+(function () {
+'use strict';
+
+// ── Pickup section ──
+(function loadPickupState() {
+  const raw = localStorage.getItem('kweto_horarios');
+  const emptyState     = document.getElementById('pickupEmptyState');
+  const confirmedState = document.getElementById('pickupConfirmedState');
+  const confirmedRows  = document.getElementById('pickupConfirmedRows');
+  const readyTime      = document.getElementById('pickupReadyTime');
+  const btnIcon        = document.getElementById('btnPickupIcon');
+  const btnLabel       = document.getElementById('btnPickupLabel');
+  const subtitle       = document.getElementById('pickupSubtitle');
+
+  const EMOJIS = { 'pão':'🍞','arrofada':'🥖','bolo':'🎂','sanduíche':'🥪' };
+  function emojiFor(n) {
+    const l = n.toLowerCase();
+    for (const [k,v] of Object.entries(EMOJIS)) if (l.includes(k)) return v;
     return '🛍️';
   }
-
-  // Format ISO date → DD/MM/AA
   function fmtDate(iso) {
     if (!iso) return '—';
-    const [y, m, d] = iso.split('-');
+    const [y,m,d] = iso.split('-');
     return `${d}/${m}/${y.slice(2)}`;
   }
 
- 
+  if (!raw) return; // fica no estado vazio
+  const data = JSON.parse(raw);
+  const sels = data.selections || [];
+  if (!sels.length) return;
 
-  const content  = document.getElementById('content');
+  // Tem horários — mostrar estado confirmado
+  emptyState.style.display = 'none';
+  confirmedState.style.display = 'block';
+  subtitle.textContent = 'Os seus horários de levantamento estão confirmados.';
+  btnIcon.className = 'fas fa-pen-to-square';
+  btnLabel.textContent = 'Alterar Horários';
 
-
-  const raw = localStorage.getItem('kweto_horarios');
-
-  if (!raw) {
-    // Empty state
- 
-    content.innerHTML = `
-      <div class="empty-state">
-        <i class="fa-regular fa-file"></i> <br>
-        <h2>Sem horários confirmados</h2> <br>
-        <p>Ainda não seleccionou nenhum horário de levantamento. Volte ao menu e escolha quando quer ir buscar os seus produtos.</p>
-        <a class="btn-go" href="time.html">Seleccionar horário</a>
-      </div>`;
-  } else {
-    const data = JSON.parse(raw);
-    const { selections, prontoAte, confirmedAt } = data;
-   document.getElementById('back-container').innerHTML = 
-    `<a class="back-link" href="time.html">← Voltar</a>`;
-
-
-  
-
-    // Group selections by date
-    const byDate = {};
-    selections.forEach(s => {
-      const key = s.data || 'sem-data';
-      if (!byDate[key]) byDate[key] = [];
-      byDate[key].push(s);
-    });
-
-    // Render one card per date group
-    Object.entries(byDate).forEach(([dateKey, items]) => {
-      const card = document.createElement('div');
-      card.className = 'order-card';
-
-      // Header
-      const hdr = document.createElement('div');
-      hdr.className = 'order-card-header';
-      const dateDisplay = dateKey !== 'sem-data' ? fmtDate(dateKey) : '—';
-      hdr.innerHTML = `
+  sels.forEach(s => {
+    const row = document.createElement('div');
+    row.className = 'pickup-conf-item';
+    row.innerHTML = `
+      <div class="pickup-conf-left">
+        <span class="pickup-conf-emoji">${emojiFor(s.nome)}</span>
         <div>
-          <div class="label">Data de levantamento</div>
-          <div class="date-val">${dateDisplay}</div>
+          <div class="pickup-conf-name">${s.nome}</div>
+          <div class="pickup-conf-date">${fmtDate(s.data)}</div>
         </div>
-        <div class="order-status">Confirmado</div>`;
-      card.appendChild(hdr);
+      </div>
+      <div class="pickup-conf-time">${s.horario}</div>`;
+    confirmedRows.appendChild(row);
+  });
 
-      // Body — one row per product
-      const body = document.createElement('div');
-      body.className = 'order-body';
+  if (data.prontoAte) readyTime.textContent = data.prontoAte;
 
-      items.forEach((item, idx) => {
-        const row = document.createElement('div');
-        row.className = 'product-row';
-        row.innerHTML = `
-          <div class="product-row-left">
-            <div class="prod-icon">${emojiFor(item.nome)}</div>
-            <div>
-              <div class="prod-name">${item.nome}</div>
-              <div class="prod-num">Produto ${idx + 1}</div>
-            </div>
-          </div>
-          <div class="horario-pill">${item.horario}</div>`;
-        body.appendChild(row);
-      });
+  // Mostrar botão voltar, mudar botão principal para "Alterar"
+  document.getElementById('btnPickupBack').style.display = 'inline-flex';
+  btnIcon.className = 'fas fa-pen-to-square';
+  btnLabel.textContent = 'Alterar Horários';
+})();
 
-      card.appendChild(body);
+// ── Payment methods ──
+const PAY_CFG = {
+  mpesa: { name:'M-Pesa',  hint:'Vodacom: 84XXXXXXX ou 85XXXXXXX', prefixes:['84','85'], maxLen:9 },
+  emola: { name:'e-Mola',  hint:'Movitel: 86XXXXXXX ou 87XXXXXXX', prefixes:['86','87'], maxLen:9 },
+  mkesh: { name:'mKesh',   hint:'mCel: 82XXXXXXX ou 83XXXXXXX',    prefixes:['82','83'], maxLen:9 },
+  imali: { name:'iMali',   hint:'Conta (ex: 210000004) ou telefone', prefixes:[], maxLen:12 },
+};
+let selectedMethod = null;
+const phoneWrap  = document.getElementById('phoneWrap');
+const phoneLabel = document.getElementById('phoneLabel');
+const phoneInput = document.getElementById('phoneInput');
+const phoneHint  = document.getElementById('phoneHint');
+const submitBtn  = document.getElementById('submitBtn');
 
-      // Footer — "prontos até às X"
-      const footer = document.createElement('div');
-      footer.className = 'order-footer';
-      footer.innerHTML = `
-        <i class="fa-solid fa-circle-info"></i>
-        <div class="ready-text">
-          Os produtos estarão disponíveis para retirada às <span>${prontoAte}</span>
-        </div>`;
-      card.appendChild(footer);
+function selectMethod(el) {
+  const m = el.dataset.method;
+  if (!m || !PAY_CFG[m]) return;
+  const cfg = PAY_CFG[m];
+  document.querySelectorAll('.co-pay-method').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  const radio = el.querySelector('input[type="radio"]');
+  if (radio) radio.checked = true;
+  selectedMethod = m;
+  phoneWrap.style.display = 'block';
+  phoneInput.disabled = false;
+  phoneInput.setAttribute('required', 'required');
+  phoneInput.setAttribute('maxlength', cfg.maxLen);
+  if (m !== 'imali') phoneInput.setAttribute('pattern', '8[2-7][0-9]{7}');
+  else phoneInput.removeAttribute('pattern');
+  phoneLabel.textContent = 'Número ' + cfg.name;
+  phoneHint.textContent = cfg.hint;
+  phoneHint.style.color = '';
+  phoneInput.focus();
+}
 
-      content.appendChild(card);
-    });
+document.getElementById('payMethods').addEventListener('click', function(e) {
+  const el = e.target.closest('.co-pay-method');
+  if (el) selectMethod(el);
+}, true);
+
+if (phoneInput) {
+  phoneInput.addEventListener('input', function() {
+    let v = this.value.replace(/\D/g,'');
+    const cfg = selectedMethod ? PAY_CFG[selectedMethod] : null;
+    if (v.length > (cfg ? cfg.maxLen : 9)) v = v.slice(0, cfg.maxLen);
+    this.value = v;
+    if (!cfg) return;
+    if (selectedMethod === 'imali') {
+      phoneHint.style.color = v.length >= 6 ? '#16A34A' : '';
+      phoneHint.textContent = v.length >= 6 ? '✓ Formato válido para iMali' : cfg.hint;
+    } else if (v.length >= 2) {
+      const p = v.substring(0,2);
+      if (cfg.prefixes.length && !cfg.prefixes.includes(p)) {
+        phoneHint.style.color = '#DC2626';
+        phoneHint.textContent = '⚠ ' + cfg.hint;
+      } else if (v.length === 9) {
+        phoneHint.style.color = '#16A34A';
+        phoneHint.textContent = '✓ ' + cfg.name + ' detectado';
+      } else { phoneHint.style.color = ''; phoneHint.textContent = cfg.hint; }
+    }
+  });
+}
+
+// ── Delivery toggle ──
+const delToggles = document.querySelectorAll('.co-delivery-toggle');
+const shipAddress = document.getElementById('shipAddress');
+const subtotalEl = document.getElementById('subtotalAmount');
+const deliveryEl = document.getElementById('deliveryAmt');
+const grandEl    = document.getElementById('grandTotalAmt');
+
+delToggles.forEach(t => {
+  t.addEventListener('click', () => {
+    delToggles.forEach(el => el.classList.remove('selected'));
+    t.classList.add('selected');
+    const input = t.querySelector('input');
+    if (input) input.checked = true;
+    const isDelivery = t.dataset.type === 'delivery';
+    shipAddress.style.display = isDelivery ? 'block' : 'none';
+    const sub = parseFloat(subtotalEl.dataset.val);
+    const df  = isDelivery ? 150 : 0;
+    const tot = sub + df;
+    deliveryEl.textContent = df.toFixed(2).replace('.',',') + ' MT';
+    grandEl.textContent    = tot.toFixed(2).replace('.',',') + ' MT';
+    submitBtn.innerHTML = `<i class="fas fa-lock"></i> Pagar ${tot.toFixed(2).replace('.',',')} MT`;
+  });
+});
+
+// ── Form submit ──
+document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+  const op = document.querySelector('input[name="operator"]:checked');
+  if (!op) { e.preventDefault(); alert('Selecione uma forma de pagamento.'); return; }
+  const phone = (phoneInput ? phoneInput.value : '').replace(/\D/g,'');
+  if (op.value === 'imali') {
+    if (!/^\d{6,12}$/.test(phone)) { e.preventDefault(); alert('Para iMali, insira a conta (mínimo 6 dígitos).'); return; }
+  } else {
+    if (!/^8[2-7]\d{7}$/.test(phone)) { e.preventDefault(); alert('Número inválido. Use 9 dígitos começando com 82–87.'); return; }
   }
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> A processar...';
+  document.getElementById('coOverlay').classList.add('active');
+});
+
+})();
 </script>
 </body>
 </html>
