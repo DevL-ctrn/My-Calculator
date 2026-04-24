@@ -511,7 +511,7 @@ function render() {
         box.className='slot-box'+(isSel?' selected':'')+(isAvail?'':' unavailable');
         box.innerHTML=`
           <span class="slot-time-text">${slot.range}</span>
-          <span class="slot-count-label">${isAvail?slot.count+'Disponível ':'Indisponível'}</span>`;
+          <span class="slot-count-label">${'Disponível ':'Indisponível'}</span>`;
         if(isAvail) {
           box.addEventListener('click', () => {
             state.selectedSlot[pi]=si; openPopup(pi,si); render();
