@@ -504,7 +504,7 @@ function render() {
         const si=row*COLS+col; const td=document.createElement('td');
         if(si>=slots.length) { td.className='empty'; tr.appendChild(td); continue; }
         const slot=slots[si];
-        const isAvail=slot.count>0;
+       
         const isSel=state.selectedSlot[pi]===si;
         td.className=isAvail?'available':'unavailable';
         const box=document.createElement('button'); box.type='button';
