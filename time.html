@@ -98,7 +98,6 @@ body {
   font-size: .85rem; font-weight: 700; padding: 8px 12px;
   border-radius: 10px; border: 1.5px solid var(--kb-border-light);
   background: var(--kb-bg-tertiary); color: var(--kb-primary-dark);
-  
   transition: all .2s;
 }
 .date-row input[type=date]:focus {
@@ -108,7 +107,6 @@ body {
   font-size: .85rem; font-weight: 700; padding: 8px 12px;
   border-radius: 10px; border: 1.5px solid var(--kb-border-light);
   background: var(--kb-bg-tertiary); color: var(--kb-primary-dark);
-  
 }
 
 /* ── SECTION LABEL ── */
@@ -147,13 +145,13 @@ td.unavailable         { background: var(--red-bg); }
 .slot-box.selected::after  { content:''; position:absolute; inset:0; border:2.5px solid var(--kb-primary-dark); pointer-events:none; }
 
 .slot-time-text {
-  
   font-size: .78rem; font-weight: 700; color: var(--kb-text-primary); line-height: 1.3; text-align: center;
 }
 .slot-count-label {
-  position: absolute; bottom: 4px; right: 5px;
-  font-size: .6rem; font-weight: 600; color: var(--kb-text-secondary);
-  text-align: right; line-height: 1.2; white-space: nowrap;
+  position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
+  font-size: .52rem; font-weight: 600; color: var(--kb-text-secondary);
+  text-align: center; line-height: 1.2; white-space: nowrap;
+  width: 90%; overflow: hidden; text-overflow: ellipsis;
 }
 
 /* ── RESULT MSG ── */
@@ -228,7 +226,6 @@ td.unavailable         { background: var(--red-bg); }
   padding: 6px 12px; border-radius: 8px;
   border: 1.5px solid transparent; cursor: pointer;
   font-size: .8rem; font-weight: 700;
- 
   transition: filter .1s;
 }
 .time-btn.available { background: var(--green-bg); border-color: var(--green-bd); color: var(--kb-text-primary); }
@@ -249,7 +246,7 @@ td.unavailable         { background: var(--red-bg); }
 @media (max-width: 600px) {
   .slot-box { min-height: 60px; padding: 6px 4px 26px 4px; }
   .slot-time-text { font-size: .65rem; }
-  .slot-count-label { font-size: .55rem; }
+  .slot-count-label { font-size: .48rem; }
   .confirm-bar { flex-direction: column; align-items: stretch; gap: 10px; }
   .btn-confirm { justify-content: center; }
 }
@@ -259,16 +256,16 @@ td.unavailable         { background: var(--red-bg); }
 
 <!-- Header -->
 <header class="kb-header">
-  
- 
-</header> <br> 
+  <div class="kb-header-spacer"></div>
+</header>
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <div class="page">
-  
- <a href="index.html" class="kb-header-back"><i class="fas fa-arrow-left"></i> Voltar para o Checkout</a> <br><br>
+
+  <a href="index.html" class="kb-header-back"><i class="fas fa-arrow-left"></i> Voltar para o Checkout</a> <br><br>
+
   <div class="page-title-row">
     <div class="page-title-icon"><i class="fas fa-clock"></i></div>
     <div class="page-title">
@@ -522,4 +519,4 @@ function render() {
 render();
 </script>
 </body>
-</html> 
+</html>
