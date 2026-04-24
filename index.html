@@ -200,7 +200,7 @@ body {
 .co-section-header h2 { font-size: 1rem; font-weight: 900; color: var(--kb-text-primary); text-transform: uppercase; letter-spacing: .05em; }
 
 /* ════════════════════════════════════════════
-   ── PICKUP SECTION ──
+   ── PICKUP SECTION (Levantamento) ──
    ════════════════════════════════════════════ */
 .pickup-section-banner {
   background: linear-gradient(135deg, var(--kb-primary-dark) 0%, #6B3010 100%);
@@ -269,7 +269,7 @@ body {
 }
 .pickup-ready-bar i { color: #6EE7B7; font-size: .9rem; flex-shrink: 0; }
 .pickup-ready-bar span { font-size: .82rem; font-weight: 600; color: #D1FAE5; line-height: 1.4; }
-.pickup-ready-bar strong {  font-weight: 800; color: #fff; }
+.pickup-ready-bar strong { font-weight: 800; color: #fff; }
 
 /* ── Botão ── */
 .pickup-banner-actions { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -282,14 +282,91 @@ body {
   box-shadow: 0 4px 14px rgba(212,160,23,.3);
 }
 .btn-pickup-primary:hover { filter: brightness(1.1); transform: translateY(-2px); }
-.btn-pickup-change {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 12px 18px; border-radius: 12px; cursor: pointer;
-  border: 1.5px solid rgba(255,255,255,.28); background: rgba(255,255,255,.1);
-  color: #fff; font-size: .88rem; font-weight: 700; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  text-decoration: none; transition: all .2s;
+
+/* ════════════════════════════════════════════
+   ── DELIVERY SCHEDULE SECTION (Entrega) ──
+   ════════════════════════════════════════════ */
+.delivery-section-banner {
+  background: linear-gradient(135deg, #1A6B3C 0%, #0F4A2A 100%);
+  border-radius: 20px; padding: 24px 24px 20px;
+  color: #fff; margin-bottom: 20px;
+  position: relative; overflow: hidden;
+  display: none; /* hidden by default — shown when delivery is selected */
 }
-.btn-pickup-change:hover { background: rgba(255,255,255,.18); }
+.delivery-section-banner::before {
+  content: ""; position: absolute; top: -30px; right: -30px;
+  width: 160px; height: 160px; border-radius: 50%; background: rgba(255,255,255,.05);
+}
+.delivery-section-banner::after {
+  content: ""; position: absolute; bottom: -20px; right: 60px;
+  width: 80px; height: 80px; border-radius: 50%; background: rgba(52,211,153,.12);
+}
+.delivery-banner-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.delivery-banner-icon {
+  width: 48px; height: 48px; border-radius: 13px;
+  background: rgba(52,211,153,.2); border: 1.5px solid rgba(52,211,153,.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: #6EE7B7; flex-shrink: 0;
+}
+.delivery-banner-text h3 { font-size: 1.1rem; font-weight: 900; margin-bottom: 3px; }
+.delivery-banner-text p { font-size: .82rem; font-weight: 500; opacity: .8; line-height: 1.5; }
+
+/* ── Estado vazio (entrega) ── */
+.delivery-empty-state {
+  background: rgba(255,255,255,.08); border-radius: 14px;
+  border: 1.5px dashed rgba(255,255,255,.25);
+  padding: 20px 16px; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 14px;
+}
+.delivery-empty-icon {
+  width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem; opacity: .7;
+}
+.delivery-empty-text { font-size: .85rem; font-weight: 600; opacity: .75; line-height: 1.5; }
+.delivery-empty-text strong { display: block; font-size: .92rem; font-weight: 800; opacity: 1; margin-bottom: 2px; }
+
+/* ── Estado confirmado (entrega) ── */
+.delivery-confirmed-state {
+  background: rgba(255,255,255,.09); border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.18);
+  margin-bottom: 16px; overflow: hidden; display: none;
+}
+.delivery-confirmed-rows { padding: 4px 16px; }
+.delivery-conf-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,.1); gap: 12px;
+}
+.delivery-conf-item:last-child { border-bottom: none; }
+.delivery-conf-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.delivery-conf-emoji { font-size: 1.15rem; }
+.delivery-conf-name { font-size: .85rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.delivery-conf-date { font-size: .7rem; opacity: .6; font-weight: 500; }
+.delivery-conf-time {
+  font-size: .85rem; font-weight: 700;
+  background: rgba(52,211,153,.25); color: #6EE7B7;
+  border: 1px solid rgba(52,211,153,.4);
+  padding: 4px 11px; border-radius: 8px; white-space: nowrap; flex-shrink: 0;
+}
+.delivery-ready-bar {
+  background: rgba(16,185,129,.15); border-top: 1px solid rgba(16,185,129,.3);
+  padding: 12px 16px; display: flex; align-items: center; gap: 10px;
+}
+.delivery-ready-bar i { color: #6EE7B7; font-size: .9rem; flex-shrink: 0; }
+.delivery-ready-bar span { font-size: .82rem; font-weight: 600; color: #D1FAE5; line-height: 1.4; }
+.delivery-ready-bar strong { font-weight: 800; color: #fff; }
+
+/* ── Botão entrega ── */
+.delivery-banner-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-delivery-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 22px; border-radius: 12px; border: none; cursor: pointer;
+  background: #34D399; color: #064E3B;
+  font-size: .88rem; font-weight: 800; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  text-decoration: none; transition: all .2s;
+  box-shadow: 0 4px 14px rgba(52,211,153,.3);
+}
+.btn-delivery-primary:hover { filter: brightness(1.1); transform: translateY(-2px); }
 
 /* ── SIDEBAR SUMMARY ── */
 .co-summary {
@@ -362,11 +439,10 @@ body {
   .co-container { padding: 0 16px; }
   .co-page { padding: 20px 0 80px; }
   .co-page-title { font-size: 1.5rem; }
-  .pickup-banner-actions { flex-direction: column; }
-  .btn-pickup-primary { min-width: unset; }
+  .pickup-banner-actions, .delivery-banner-actions { flex-direction: column; }
+  .btn-pickup-primary, .btn-delivery-primary { min-width: unset; }
 }
 @media (max-width: 480px) {
-  .co-delivery-toggles { grid-template-columns: 1fr; }
   .co-address-form { grid-template-columns: 1fr; }
   .co-address-full { grid-column: span 1; }
 }
@@ -376,9 +452,7 @@ body {
 
 <!-- Header -->
 <header class="kb-header">
-  <div class="kb-header-logo"><i class="fas fa-bread-slice"></i> KwetoBread</div>
   <div class="kb-header-spacer"></div>
-  <a href="#" class="kb-header-back"><i class="fas fa-arrow-left"></i> Voltar</a>
 </header>
 
 <!-- Overlay de processamento -->
@@ -405,19 +479,19 @@ body {
           <div class="co-card">
             <div class="co-card-head">
               <div class="co-card-head-icon"><i class="fas fa-truck"></i></div>
-              <span class="co-card-head-title">Informações de Entrega</span>
+              <span class="co-card-head-title">Informações de Envio</span>
             </div>
             <div class="co-card-body">
               <div class="co-delivery-toggles">
                 <label class="co-delivery-toggle selected" data-type="pickup">
                   <input type="radio" name="delivery_type" value="pickup" checked>
                   <i class="fas fa-store"></i>
-                  <span>Levantar na loja</span>
+                  <span>Levantamento</span>
                 </label>
                 <label class="co-delivery-toggle" data-type="delivery">
                   <input type="radio" name="delivery_type" value="delivery">
                   <i class="fas fa-motorcycle"></i>
-                  <span>Entrega ao domicílio</span>
+                  <span>Entrega</span>
                 </label>
               </div>
               <div id="shipAddress" style="display:none; animation: fadeUp .3s ease;">
@@ -433,8 +507,8 @@ body {
             </div>
           </div>
 
-          <!-- ════ SECÇÃO: Horários de Levantamento ════ -->
-          <div class="pickup-section-banner">
+          <!-- ════ SECÇÃO: Horários de Levantamento (visível quando pickup) ════ -->
+          <div class="pickup-section-banner" id="pickupSection">
             <div class="pickup-banner-top">
               <div>
                 <div style="font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; opacity:.6; margin-bottom:6px;">Horários de Levantamento</div>
@@ -470,8 +544,45 @@ body {
                 <i class="fas fa-plus" id="btnPickupIcon"></i>
                 <span id="btnPickupLabel">Seleccionar Horário</span>
               </a>
-              <a href="time.html" class="btn-pickup-change" id="btnPickupBack" style="display:none;">
-                <i class="fas fa-arrow-left"></i> Voltar
+            </div>
+          </div>
+
+          <!-- ════ SECÇÃO: Horários de Entrega (visível quando delivery) ════ -->
+          <div class="delivery-section-banner" id="deliverySection">
+            <div class="delivery-banner-top">
+              <div>
+                <div style="font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; opacity:.6; margin-bottom:6px;">Horários de Entrega</div>
+                <div class="delivery-banner-text">
+                  <h3><i class="fas fa-motorcycle" style="font-size:.95rem; margin-right:7px;"></i>Entrega ao Domicílio</h3>
+                  <p id="deliverySubtitle">Escolha quando quer receber os seus produtos em casa.</p>
+                </div>
+              </div>
+              <div class="delivery-banner-icon"><i class="fas fa-motorcycle"></i></div>
+            </div>
+
+            <!-- Estado: sem horários -->
+            <div class="delivery-empty-state" id="deliveryEmptyState">
+              <div class="delivery-empty-icon"><i class="fas fa-calendar-xmark"></i></div>
+              <div class="delivery-empty-text">
+                <strong>Sem horário de entrega confirmado</strong>
+                Ainda não escolheu um horário de entrega. Clique abaixo para seleccionar.
+              </div>
+            </div>
+
+            <!-- Estado: confirmado -->
+            <div class="delivery-confirmed-state" id="deliveryConfirmedState">
+              <div class="delivery-confirmed-rows" id="deliveryConfirmedRows"></div>
+              <div class="delivery-ready-bar" id="deliveryReadyBar">
+                <i class="fas fa-circle-check"></i>
+                <span>A entrega está prevista para as <strong id="deliveryReadyTime">—</strong></span>
+              </div>
+            </div>
+
+            <!-- Botões -->
+            <div class="delivery-banner-actions">
+              <a href="entrega.html" class="btn-delivery-primary" id="btnDeliveryAction">
+                <i class="fas fa-plus" id="btnDeliveryIcon"></i>
+                <span id="btnDeliveryLabel">Seleccionar Horário de Entrega</span>
               </a>
             </div>
           </div>
@@ -557,7 +668,7 @@ body {
             </div>
             <div class="co-summary-items">
               <div class="co-summary-item">
-                <div class="co-si-img">🍞</div>
+                <div class="co-si-img"></div>
                 <div style="flex:1;">
                   <div class="co-si-name">Pão Quente</div>
                   <div class="co-si-qty">2× 35,00 MT</div>
@@ -565,17 +676,17 @@ body {
                 <div class="co-si-price">70,00 MT</div>
               </div>
               <div class="co-summary-item">
-                <div class="co-si-img">🎂</div>
+                <div class="co-si-img"></div>
                 <div style="flex:1;">
-                  <div class="co-si-name">Bolo de Ananás</div>
+                  <div class="co-si-name">Arrofada</div>
                   <div class="co-si-qty">1× 180,00 MT</div>
                 </div>
                 <div class="co-si-price">180,00 MT</div>
               </div>
               <div class="co-summary-item">
-                <div class="co-si-img">🥖</div>
+                <div class="co-si-img"></div>
                 <div style="flex:1;">
-                  <div class="co-si-name">Arrofada</div>
+                  <div class="co-si-name">Bolo de Ananás</div>
                   <div class="co-si-qty">1× 90,00 MT</div>
                 </div>
                 <div class="co-si-price">90,00 MT</div>
@@ -615,7 +726,7 @@ body {
 (function () {
 'use strict';
 
-// ── Pickup section ──
+// ── Pickup section state ──────────────────────────────────────
 (function loadPickupState() {
   const raw = localStorage.getItem('kweto_horarios');
   const emptyState     = document.getElementById('pickupEmptyState');
@@ -626,7 +737,7 @@ body {
   const btnLabel       = document.getElementById('btnPickupLabel');
   const subtitle       = document.getElementById('pickupSubtitle');
 
-  const EMOJIS = { 'pão':'🍞','arrofada':'🥖','bolo':'🎂','sanduíche':'🥪' };
+  const EMOJIS = { 'pão':'🍞','arrofada':'🍰','bolo':'🎂','sanduíche':'🥪' };
   function emojiFor(n) {
     const l = n.toLowerCase();
     for (const [k,v] of Object.entries(EMOJIS)) if (l.includes(k)) return v;
@@ -638,12 +749,11 @@ body {
     return `${d}/${m}/${y.slice(2)}`;
   }
 
-  if (!raw) return; // fica no estado vazio
+  if (!raw) return;
   const data = JSON.parse(raw);
   const sels = data.selections || [];
   if (!sels.length) return;
 
-  // Tem horários — mostrar estado confirmado
   emptyState.style.display = 'none';
   confirmedState.style.display = 'block';
   subtitle.textContent = 'Os seus horários de levantamento estão confirmados.';
@@ -666,14 +776,61 @@ body {
   });
 
   if (data.prontoAte) readyTime.textContent = data.prontoAte;
-
-  // Mostrar botão voltar, mudar botão principal para "Alterar"
-  document.getElementById('btnPickupBack').style.display = 'inline-flex';
-  btnIcon.className = 'fas fa-pen-to-square';
-  btnLabel.textContent = 'Alterar Horários';
 })();
 
-// ── Payment methods ──
+// ── Delivery schedule section state ──────────────────────────
+(function loadDeliveryState() {
+  const raw = localStorage.getItem('kweto_horarios_entrega');
+  const emptyState     = document.getElementById('deliveryEmptyState');
+  const confirmedState = document.getElementById('deliveryConfirmedState');
+  const confirmedRows  = document.getElementById('deliveryConfirmedRows');
+  const readyTime      = document.getElementById('deliveryReadyTime');
+  const btnIcon        = document.getElementById('btnDeliveryIcon');
+  const btnLabel       = document.getElementById('btnDeliveryLabel');
+  const subtitle       = document.getElementById('deliverySubtitle');
+
+  const EMOJIS = { 'pão':'🍞','arrofada':'🍰','bolo':'🎂','sanduíche':'🥪' };
+  function emojiFor(n) {
+    const l = n.toLowerCase();
+    for (const [k,v] of Object.entries(EMOJIS)) if (l.includes(k)) return v;
+    return '🛍️';
+  }
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    const [y,m,d] = iso.split('-');
+    return `${d}/${m}/${y.slice(2)}`;
+  }
+
+  if (!raw) return;
+  const data = JSON.parse(raw);
+  const sels = data.selections || [];
+  if (!sels.length) return;
+
+  emptyState.style.display = 'none';
+  confirmedState.style.display = 'block';
+  subtitle.textContent = 'O seu horário de entrega está confirmado.';
+  btnIcon.className = 'fas fa-pen-to-square';
+  btnLabel.textContent = 'Alterar Horário de Entrega';
+
+  sels.forEach(s => {
+    const row = document.createElement('div');
+    row.className = 'delivery-conf-item';
+    row.innerHTML = `
+      <div class="delivery-conf-left">
+        <span class="delivery-conf-emoji">${emojiFor(s.nome)}</span>
+        <div>
+          <div class="delivery-conf-name">${s.nome}</div>
+          <div class="delivery-conf-date">${fmtDate(s.data)}</div>
+        </div>
+      </div>
+      <div class="delivery-conf-time">${s.horario}</div>`;
+    confirmedRows.appendChild(row);
+  });
+
+  if (data.prontoAte) readyTime.textContent = data.prontoAte;
+})();
+
+// ── Payment methods ──────────────────────────────────────────
 const PAY_CFG = {
   mpesa: { name:'M-Pesa',  hint:'Vodacom: 84XXXXXXX ou 85XXXXXXX', prefixes:['84','85'], maxLen:9 },
   emola: { name:'e-Mola',  hint:'Movitel: 86XXXXXXX ou 87XXXXXXX', prefixes:['86','87'], maxLen:9 },
@@ -736,12 +893,14 @@ if (phoneInput) {
   });
 }
 
-// ── Delivery toggle ──
-const delToggles = document.querySelectorAll('.co-delivery-toggle');
-const shipAddress = document.getElementById('shipAddress');
-const subtotalEl = document.getElementById('subtotalAmount');
-const deliveryEl = document.getElementById('deliveryAmt');
-const grandEl    = document.getElementById('grandTotalAmt');
+// ── Delivery toggle ──────────────────────────────────────────
+const delToggles    = document.querySelectorAll('.co-delivery-toggle');
+const shipAddress   = document.getElementById('shipAddress');
+const pickupSection = document.getElementById('pickupSection');
+const deliverySection = document.getElementById('deliverySection');
+const subtotalEl    = document.getElementById('subtotalAmount');
+const deliveryEl    = document.getElementById('deliveryAmt');
+const grandEl       = document.getElementById('grandTotalAmt');
 
 delToggles.forEach(t => {
   t.addEventListener('click', () => {
@@ -750,7 +909,15 @@ delToggles.forEach(t => {
     const input = t.querySelector('input');
     if (input) input.checked = true;
     const isDelivery = t.dataset.type === 'delivery';
+
+    // Address form
     shipAddress.style.display = isDelivery ? 'block' : 'none';
+
+    // Toggle schedule sections
+    pickupSection.style.display  = isDelivery ? 'none' : 'block';
+    deliverySection.style.display = isDelivery ? 'block' : 'none';
+
+    // Totals
     const sub = parseFloat(subtotalEl.dataset.val);
     const df  = isDelivery ? 150 : 0;
     const tot = sub + df;
@@ -760,7 +927,7 @@ delToggles.forEach(t => {
   });
 });
 
-// ── Form submit ──
+// ── Form submit ──────────────────────────────────────────────
 document.getElementById('checkoutForm').addEventListener('submit', function(e) {
   const op = document.querySelector('input[name="operator"]:checked');
   if (!op) { e.preventDefault(); alert('Selecione uma forma de pagamento.'); return; }
