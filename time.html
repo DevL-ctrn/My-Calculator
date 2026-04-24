@@ -38,7 +38,7 @@ body {
 .kb-header {
   height: 60px; background: var(--kb-bg-secondary);
   border-bottom: 1.5px solid var(--kb-border-light);
-  display: flex; align-items: center; padding: 0 28px; gap: 16px;
+  display: flex; align-items: center; padding: 0 28px; 
   position: sticky; top: 0; z-index: 100;
   box-shadow: 0 2px 12px rgba(139,69,19,.06);
 }
@@ -259,15 +259,16 @@ td.unavailable         { background: var(--red-bg); }
 
 <!-- Header -->
 <header class="kb-header">
-  <div class="kb-header-logo"><i class="fas fa-bread-slice"></i> KwetoBread</div>
-  <div class="kb-header-spacer"></div>
-  <a href="checkout.html" class="kb-header-back"><i class="fas fa-arrow-left"></i> Checkout</a>
-</header>
+  
+ 
+</header> <br> 
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <div class="page">
+  
+ <a href="index.html" class="kb-header-back"><i class="fas fa-arrow-left"></i> Voltar para o Checkout</a> <br><br>
   <div class="page-title-row">
     <div class="page-title-icon"><i class="fas fa-clock"></i></div>
     <div class="page-title">
@@ -521,4 +522,4 @@ function render() {
 render();
 </script>
 </body>
-</html>
+</html> 
