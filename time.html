@@ -42,24 +42,14 @@ body {
   position: sticky; top: 0; z-index: 100;
   box-shadow: 0 2px 12px rgba(139,69,19,.06);
 }
-.kb-header-logo { font-size: 1.2rem; font-weight: 900; color: var(--kb-primary-dark); display: flex; align-items: center; gap: 8px; }
-.kb-header-logo i { color: var(--kb-primary); }
 .kb-header-spacer { flex: 1; }
-.kb-header-back {
-  display: flex; align-items: center; gap: 8px;
-  font-size: .82rem; font-weight: 700; color: var(--kb-text-secondary);
-  text-decoration: none; padding: 8px 14px; border-radius: 10px;
-  border: 1.5px solid var(--kb-border-light); background: var(--kb-bg-tertiary);
-  transition: all .15s;
-}
-.kb-header-back:hover { border-color: var(--kb-primary); color: var(--kb-primary-dark); }
 
 /* ── PAGE ── */
 .page { max-width: 980px; margin: 0 auto; padding: 32px 20px 60px; }
 
 /* ── PAGE TITLE ── */
 .page-title-row {
-  display: flex; align-items: center; gap: 14px; margin-bottom: 28px;
+  display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
 }
 .page-title-icon {
   width: 48px; height: 48px; border-radius: 12px;
@@ -69,6 +59,46 @@ body {
 }
 .page-title h1 { font-size: 1.5rem; font-weight: 900; color: var(--kb-text-primary); letter-spacing: -.4px; }
 .page-title p { font-size: .82rem; color: var(--kb-text-tertiary); font-weight: 500; margin-top: 2px; }
+
+/* ── DATE PICKER BLOCK ── */
+.date-block {
+  background: var(--kb-bg-secondary);
+  border: 1.5px solid var(--kb-border-light);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 10px rgba(139,69,19,.04);
+}
+.date-block-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--kb-bg-tertiary);
+  border: 1.5px solid var(--kb-border-light);
+  color: var(--kb-primary-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9rem; flex-shrink: 0;
+}
+.date-block-label {
+  font-size: .78rem; font-weight: 700; color: var(--kb-text-tertiary);
+  text-transform: uppercase; letter-spacing: .05em;
+  white-space: nowrap;
+}
+.date-block input[type=date] {
+  font-size: .88rem; font-weight: 700; padding: 8px 13px;
+  border-radius: 10px; border: 1.5px solid var(--kb-border-light);
+  background: var(--kb-bg-tertiary); color: var(--kb-primary-dark);
+  transition: all .2s; cursor: pointer;
+}
+.date-block input[type=date]:focus {
+  outline: none;
+  border-color: var(--kb-primary); box-shadow: 0 0 0 3px rgba(212,160,23,.12);
+}
+.date-block-hint {
+  font-size: .75rem; color: var(--kb-text-tertiary); font-weight: 500;
+  margin-left: auto;
+}
 
 /* ── PRODUCT CARD ── */
 .product-card {
@@ -90,24 +120,6 @@ body {
   padding: 4px 11px; font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
 }
 .product-name { font-size: .95rem; font-weight: 800; color: var(--kb-text-primary); }
-
-/* ── DATE ROW ── */
-.date-row { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
-.date-row label { font-size: .78rem; font-weight: 700; color: var(--kb-text-tertiary); text-transform: uppercase; letter-spacing: .05em; }
-.date-row input[type=date] {
-  font-size: .85rem; font-weight: 700; padding: 8px 12px;
-  border-radius: 10px; border: 1.5px solid var(--kb-border-light);
-  background: var(--kb-bg-tertiary); color: var(--kb-primary-dark);
-  transition: all .2s;
-}
-.date-row input[type=date]:focus {
-  border-color: var(--kb-primary); box-shadow: 0 0 0 3px rgba(212,160,23,.12);
-}
-.date-display {
-  font-size: .85rem; font-weight: 700; padding: 8px 12px;
-  border-radius: 10px; border: 1.5px solid var(--kb-border-light);
-  background: var(--kb-bg-tertiary); color: var(--kb-primary-dark);
-}
 
 /* ── SECTION LABEL ── */
 .section-label {
@@ -249,6 +261,8 @@ td.unavailable         { background: var(--red-bg); }
   .slot-count-label { font-size: .36rem; }
   .confirm-bar { flex-direction: column; align-items: stretch; gap: 10px; }
   .btn-confirm { justify-content: center; }
+  .date-block-hint { display: none; }
+  .date-block { flex-wrap: wrap; }
 }
 </style>
 </head>
@@ -264,7 +278,9 @@ td.unavailable         { background: var(--red-bg); }
 
 <div class="page">
 
-  <a href="index.html" class="kb-header-back"><i class="fas fa-arrow-left"></i> Voltar para o Checkout</a> <br><br>
+  <a href="index.html" class="kb-header-back" style="display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:700;color:var(--kb-text-secondary);text-decoration:none;padding:8px 14px;border-radius:10px;border:1.5px solid var(--kb-border-light);background:var(--kb-bg-tertiary);transition:all .15s;margin-bottom:28px;">
+    <i class="fas fa-arrow-left"></i> Voltar para o Checkout
+  </a>
 
   <div class="page-title-row">
     <div class="page-title-icon"><i class="fas fa-clock"></i></div>
@@ -272,6 +288,14 @@ td.unavailable         { background: var(--red-bg); }
       <h1>Horários de Levantamento</h1>
       <p>Escolha quando quer retirar cada produto na loja.</p>
     </div>
+  </div>
+
+  <!-- DATE BLOCK — fora dos cards -->
+  <div class="date-block">
+    <div class="date-block-icon"><i class="fas fa-calendar-alt"></i></div>
+    <span class="date-block-label">Data de levantamento</span>
+    <input type="date" id="global-date-input" />
+    <span class="date-block-hint">Válido para todos os produtos</span>
   </div>
 
   <div id="products-container"></div>
@@ -309,31 +333,64 @@ function toMins(t) { const [h,m] = t.split(':').map(Number); return h*60+m; }
 function toISO(d) { return d.toISOString().split('T')[0]; }
 function getMinDate() { return toISO(new Date()); }
 function getMaxDate() { const d = new Date(); d.setDate(d.getDate()+7); return toISO(d); }
-function fmtDateBR(iso) { if(!iso) return '—'; const [y,m,d] = iso.split('-'); return `${d}/${m}/${y.slice(2)}`; }
 
 // ── Build Slots ────────────────────────────────────────────────
-function buildSlots(sh,sm,ch,cm,slotMin,unavailIdx=[]) {
+// durations: array of minute durations per slot (e.g. [24, 37, 15, ...])
+// If durations runs out, the last value repeats until closing time.
+// unavailIdx: slot indices that are fully unavailable.
+function buildSlots(sh, sm, ch, cm, durations, unavailIdx=[]) {
   const slots=[]; let cur=sh*60+sm; const closing=ch*60+cm; let idx=0;
-  while(cur+slotMin<=closing) {
-    const range=fmt(cur)+'-'+fmt(cur+slotMin);
-    const isUnavail=unavailIdx.includes(idx);
-    const count=isUnavail?0:Math.floor(Math.random()*7)+1;
-    const unavail=isUnavail?[]:genTimes(range).filter(()=>Math.random()<.2);
-    slots.push({range,count,unavail}); cur+=slotMin; idx++;
+  while(cur < closing) {
+    const dur = durations[Math.min(idx, durations.length-1)];
+    const end = Math.min(cur+dur, closing);
+    if (end <= cur) break;
+    const range = fmt(cur)+'-'+fmt(end);
+    const isUnavail = unavailIdx.includes(idx);
+    const count = isUnavail ? 0 : Math.floor(Math.random()*7)+1;
+    const unavail = isUnavail ? [] : genTimes(range).filter(()=>Math.random()<.2);
+    slots.push({range, dur: end-cur, count, unavail});
+    cur = end; idx++;
   }
   return slots;
 }
-function getUnavail(slot) { return slot.count===0?genTimes(slot.range):slot.unavail; }
+function getUnavail(slot) { return slot.count===0 ? genTimes(slot.range) : slot.unavail; }
 
 // ── Data ──────────────────────────────────────────────────────
+// Each product defines its own irregular slot durations (in minutes).
 const PRODUCTS = [
-  { id:0, name:'Pão Quente',     slots: buildSlots(8, 0, 19,0, 15, [2,7,14,21,28,35]) },
-  { id:1, name:'Arrofada',       slots: buildSlots(8,30, 19,0, 20, [1,5,12,18,22])    },
-  { id:2, name:'Bolo de Ananás', slots: buildSlots(9, 0, 19,0, 12, [3,8,15,20,27,33]) },
+  {
+    id:0, name:'Pão Quente',
+    slots: buildSlots(8, 0, 19, 0,
+      [24, 18, 37, 15, 30, 22, 45, 12, 28, 33, 19, 40, 17, 25, 31, 20, 14, 36, 27, 23],
+      [2, 7, 14])
+  },
+  {
+    id:1, name:'Arrofada',
+    slots: buildSlots(8, 30, 19, 0,
+      [30, 45, 20, 37, 15, 28, 50, 22, 33, 17, 40, 25, 18, 42, 29, 13, 35],
+      [1, 5, 12])
+  },
+  {
+    id:2, name:'Bolo de Ananás',
+    slots: buildSlots(9, 0, 19, 0,
+      [20, 35, 27, 15, 42, 18, 30, 24, 38, 16, 45, 22, 31, 19, 28, 40, 13, 33],
+      [3, 8, 15])
+  },
 ];
 
-const state = { dates:{}, selectedSlot:{}, selectedTime:{} };
+const state = { date:'', selectedSlot:{}, selectedTime:{} };
 
+// ── Global date input ──────────────────────────────────────────
+const globalDateInput = document.getElementById('global-date-input');
+globalDateInput.min = getMinDate();
+globalDateInput.max = getMaxDate();
+globalDateInput.value = state.date;
+globalDateInput.addEventListener('change', e => {
+  state.date = e.target.value;
+  updateConfirm();
+});
+
+// ── Closest time helper ────────────────────────────────────────
 function findClosestTime(refTime, pid) {
   const ref = toMins(refTime); const p = PRODUCTS[pid];
   let best=null, bestDiff=Infinity;
@@ -402,7 +459,7 @@ function updateConfirm() {
   const btn=document.getElementById('btn-confirm');
   const info=document.getElementById('info');
   const times=Object.values(state.selectedTime);
-  const hasDate = state.dates[0] && state.dates[0]!=='';
+  const hasDate = state.date !== '';
   if (times.length>0 && hasDate) {
     btn.disabled=false;
     info.textContent=`${times.length} produto(s) com horário: ${times.join(', ')}`;
@@ -418,7 +475,7 @@ document.getElementById('btn-confirm').addEventListener('click', function() {
   const selections = PRODUCTS.map((prod,pi) => ({
     id:prod.id, nome:prod.name,
     horario:state.selectedTime[pi]||null,
-    data:state.dates[pi]||state.dates[0]||null
+    data:state.date||null
   })).filter(s=>s.horario);
   const times = selections.map(s=>toMins(s.horario));
   const maxTime = Math.max(...times);
@@ -432,7 +489,6 @@ document.getElementById('btn-confirm').addEventListener('click', function() {
 function render() {
   const container = document.getElementById('products-container');
   container.innerHTML='';
-  const minDate=getMinDate(), maxDate=getMaxDate();
 
   PRODUCTS.forEach((prod,pi) => {
     const card=document.createElement('div'); card.className='product-card';
@@ -445,22 +501,6 @@ function render() {
         <span class="product-name">${prod.name}</span>
       </div>`;
     card.appendChild(hdr);
-
-    // Date row
-    const dateRow=document.createElement('div'); dateRow.className='date-row';
-    if (pi===0) {
-      const lbl=document.createElement('label'); lbl.textContent='Data de levantamento:';
-      const inp=document.createElement('input'); inp.type='date';
-      inp.min=minDate; inp.max=maxDate; inp.value=state.dates[0]||'';
-      inp.addEventListener('change', e => { state.dates[0]=e.target.value; render(); });
-      dateRow.appendChild(lbl); dateRow.appendChild(inp);
-    } else {
-      const lbl=document.createElement('label'); lbl.textContent='Data:';
-      const disp=document.createElement('span'); disp.className='date-display';
-      disp.textContent=fmtDateBR(state.dates[0]);
-      dateRow.appendChild(lbl); dateRow.appendChild(disp);
-    }
-    card.appendChild(dateRow);
 
     // Section label
     const slbl=document.createElement('div'); slbl.className='section-label';
