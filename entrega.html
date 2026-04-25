@@ -12,7 +12,6 @@
 :root {
   --kb-primary:       #D4A017;
   --kb-primary-dark:  #8B4513;
-  --kb-primary-light: #E8B84B;
   --kb-bg-primary:    #FAF7F2;
   --kb-bg-secondary:  #FFFFFF;
   --kb-bg-tertiary:   #F5EFE6;
@@ -20,8 +19,6 @@
   --kb-text-primary:  #1C0F05;
   --kb-text-secondary:#4A2E18;
   --kb-text-tertiary: #9A7A5A;
-
-  /* Delivery green palette */
   --dv-green:         #34D399;
   --dv-green-dark:    #1A6B3C;
   --dv-green-bg:      #D1FAE5;
@@ -47,68 +44,75 @@ body {
   box-shadow: 0 2px 12px rgba(139,69,19,.06);
 }
 .kb-header-spacer { flex: 1; }
-.kb-header-back {
-  display: flex; align-items: center; gap: 8px;
-  font-size: .82rem; font-weight: 700; color: var(--kb-text-secondary);
-  text-decoration: none; padding: 8px 14px; border-radius: 10px;
-  border: 1.5px solid var(--kb-border-light); background: var(--kb-bg-tertiary);
-  transition: all .15s;
-}
-.kb-header-back:hover { border-color: var(--dv-green-dark); color: var(--dv-green-dark); }
 
 /* ── PAGE ── */
 .page { max-width: 980px; margin: 0 auto; padding: 32px 20px 60px; }
 
 /* ── PAGE TITLE ── */
-.page-title-row {
-  display: flex; align-items: center; gap: 14px; margin-bottom: 28px;
-}
+.page-title-row { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
 .page-title-icon {
-  width: 48px; height: 48px; border-radius: 12px;
+  width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
   background: linear-gradient(135deg, var(--dv-green) 0%, var(--dv-green-dark) 100%);
   color: #fff; display: flex; align-items: center; justify-content: center;
   font-size: 1.2rem; box-shadow: 0 4px 14px rgba(52,211,153,.3);
 }
 .page-title h1 { font-size: 1.5rem; font-weight: 900; color: var(--kb-text-primary); letter-spacing: -.4px; }
-.page-title p { font-size: .82rem; color: var(--kb-text-tertiary); font-weight: 500; margin-top: 2px; }
+.page-title p  { font-size: .82rem; color: var(--kb-text-tertiary); font-weight: 500; margin-top: 2px; }
 
-/* ── PRODUCT CARD ── */
-.product-card {
+/* ── INFO BANNER ── */
+.delivery-info-banner {
+  background: linear-gradient(135deg, var(--dv-green-dark) 0%, #0F4A2A 100%);
+  border-radius: 16px; padding: 18px 20px;
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 20px; color: #fff;
+}
+.delivery-info-icon {
+  width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+  background: rgba(52,211,153,.2); border: 1.5px solid rgba(52,211,153,.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; color: var(--dv-green);
+}
+.delivery-info-text { font-size: .82rem; font-weight: 500; opacity: .85; line-height: 1.5; }
+.delivery-info-text strong { display: block; font-size: .9rem; font-weight: 800; opacity: 1; margin-bottom: 2px; }
+
+/* ── DATE BLOCK ── */
+.date-block {
+  background: var(--kb-bg-secondary);
+  border: 1.5px solid var(--kb-border-light);
+  border-radius: 16px; padding: 16px 20px;
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 10px rgba(139,69,19,.04);
+}
+.date-block-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--kb-bg-tertiary); border: 1.5px solid var(--kb-border-light);
+  color: var(--dv-green-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9rem; flex-shrink: 0;
+}
+.date-block-label {
+  font-size: .78rem; font-weight: 700; color: var(--kb-text-tertiary);
+  text-transform: uppercase; letter-spacing: .05em; white-space: nowrap;
+}
+.date-block input[type=date] {
+  font-size: .88rem; font-weight: 700; padding: 8px 13px;
+  border-radius: 10px; border: 1.5px solid var(--kb-border-light);
+  background: var(--kb-bg-tertiary); color: var(--dv-green-dark);
+  transition: all .2s; cursor: pointer;
+}
+.date-block input[type=date]:focus {
+  outline: none;
+  border-color: var(--dv-green); box-shadow: 0 0 0 3px rgba(52,211,153,.15);
+}
+.date-block-hint { font-size: .75rem; color: var(--kb-text-tertiary); font-weight: 500; margin-left: auto; }
+
+/* ── SLOTS CARD ── */
+.slots-card {
   background: var(--kb-bg-secondary);
   border: 1.5px solid var(--kb-border-light);
   border-radius: 20px; padding: 22px;
-  margin-bottom: 20px;
   box-shadow: 0 4px 18px rgba(139,69,19,.05);
-}
-
-.product-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 18px;
-}
-.product-header-left { display: flex; align-items: center; gap: 10px; }
-.product-badge {
-  background: var(--kb-bg-tertiary); color: var(--kb-primary-dark);
-  border: 1.5px solid var(--kb-border-light); border-radius: 8px;
-  padding: 4px 11px; font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
-}
-.product-name { font-size: .95rem; font-weight: 800; color: var(--kb-text-primary); }
-
-/* ── DATE ROW ── */
-.date-row { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
-.date-row label { font-size: .78rem; font-weight: 700; color: var(--kb-text-tertiary); text-transform: uppercase; letter-spacing: .05em; }
-.date-row input[type=date] {
-  font-size: .85rem; font-weight: 700; padding: 8px 12px;
-  border-radius: 10px; border: 1.5px solid var(--kb-border-light);
-  background: var(--kb-bg-tertiary); color: var(--dv-green-dark);
-  transition: all .2s;
-}
-.date-row input[type=date]:focus {
-  border-color: var(--dv-green); box-shadow: 0 0 0 3px rgba(52,211,153,.15);
-}
-.date-display {
-  font-size: .85rem; font-weight: 700; padding: 8px 12px;
-  border-radius: 10px; border: 1.5px solid var(--kb-border-light);
-  background: var(--kb-bg-tertiary); color: var(--dv-green-dark);
 }
 
 /* ── SECTION LABEL ── */
@@ -124,30 +128,30 @@ body {
   width: 100%; border-collapse: collapse;
   border: 1.5px solid var(--kb-border-light);
   border-radius: 14px; overflow: hidden;
-  margin-bottom: 18px; table-layout: fixed;
+  table-layout: fixed;
 }
 .slots-table td {
   width: 20%; border: 1px solid var(--kb-border-light);
   padding: 0; vertical-align: top;
 }
-.slots-table td.empty    { background: var(--kb-bg-tertiary); }
-td.available             { background: var(--dv-green-bg); }
-td.unavailable           { background: var(--red-bg); }
+.slots-table td.empty { background: var(--kb-bg-tertiary); }
+td.available          { background: var(--dv-green-bg); }
+td.unavailable        { background: var(--red-bg); }
 
 .slot-box {
   width: 100%; min-height: 78px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   padding: 8px 6px 26px 6px; position: relative;
   cursor: pointer; border: none; background: transparent;
-  text-align: center; font-family: 'Sora', sans-serif; transition: filter .12s;
+  text-align: center; font-family: inherit; transition: filter .12s;
 }
-.slot-box:hover            { filter: brightness(.93); }
-.slot-box:active           { filter: brightness(.85); }
-.slot-box.unavailable      { cursor: not-allowed; }
-.slot-box.selected::after  { content:''; position:absolute; inset:0; border:2.5px solid var(--dv-green-dark); pointer-events:none; }
+.slot-box:hover           { filter: brightness(.93); }
+.slot-box:active          { filter: brightness(.85); }
+.slot-box.unavailable     { cursor: not-allowed; }
+.slot-box.selected::after { content:''; position:absolute; inset:0; border:2.5px solid var(--dv-green-dark); pointer-events:none; }
 
 .slot-time-text {
-  font-size: .78rem; font-weight: 700; color: var(--kb-text-primary); line-height: 1.3; text-align: center;
+  font-size: .78rem; font-weight: 700; color: var(--kb-text-primary); line-height: 1.3;
 }
 .slot-count-label {
   position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
@@ -159,58 +163,18 @@ td.unavailable           { background: var(--red-bg); }
 /* ── RESULT MSG ── */
 .result-msg {
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  font-size: .85rem; font-weight: 600; margin-top: 10px;
+  font-size: .85rem; font-weight: 600; margin-top: 16px;
   padding: 12px 16px; background: var(--kb-bg-tertiary);
   border-left: 3px solid var(--dv-green); border-radius: 0 12px 12px 0;
 }
 .result-msg strong { color: var(--dv-green-dark); font-weight: 800; }
-.auto-tag {
-  font-size: .65rem; font-weight: 800;
-  background: rgba(52,211,153,.15); color: var(--dv-green-dark);
-  border-radius: 6px; padding: 2px 8px; letter-spacing: .04em;
-}
 .edit-btn {
   font-size: .75rem; font-weight: 700; color: var(--dv-green-dark);
   background: none; border: 1.5px solid var(--kb-border-light);
   border-radius: 8px; padding: 3px 10px; cursor: pointer;
-  font-family: 'Sora', sans-serif; margin-left: 4px; transition: all .15s;
+  font-family: inherit; margin-left: 4px; transition: all .15s;
 }
 .edit-btn:hover { background: var(--kb-bg-tertiary); border-color: var(--dv-green); }
-
-/* ── DELIVERY INFO BANNER ── */
-.delivery-info-banner {
-  background: linear-gradient(135deg, var(--dv-green-dark) 0%, #0F4A2A 100%);
-  border-radius: 16px; padding: 18px 20px;
-  display: flex; align-items: center; gap: 14px;
-  margin-bottom: 24px; color: #fff;
-}
-.delivery-info-icon {
-  width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
-  background: rgba(52,211,153,.2); border: 1.5px solid rgba(52,211,153,.35);
-  display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--dv-green);
-}
-.delivery-info-text { font-size: .82rem; font-weight: 500; opacity: .85; line-height: 1.5; }
-.delivery-info-text strong { display: block; font-size: .9rem; font-weight: 800; opacity: 1; margin-bottom: 2px; }
-
-/* ── CONFIRM BAR ── */
-.confirm-bar {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: var(--kb-bg-secondary); border-top: 1.5px solid var(--kb-border-light);
-  padding: 14px 24px;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  box-shadow: 0 -4px 20px rgba(139,69,19,.09); z-index: 200;
-}
-.confirm-summary { font-size: .8rem; font-weight: 600; color: var(--kb-text-tertiary); line-height: 1.4; }
-.btn-confirm {
-  display: flex; align-items: center; gap: 8px;
-  background: linear-gradient(135deg, var(--dv-green) 0%, var(--dv-green-dark) 100%);
-  color: #fff; border: none; padding: 13px 24px; border-radius: 12px;
-  font-size: .9rem; font-weight: 800;
-  cursor: pointer; white-space: nowrap;
-  box-shadow: 0 4px 14px rgba(52,211,153,.3); transition: all .18s;
-}
-.btn-confirm:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(52,211,153,.4); }
-.btn-confirm:disabled { opacity: .45; cursor: not-allowed; transform: none; }
 
 /* ── POPUP ── */
 .popup-overlay {
@@ -220,8 +184,7 @@ td.unavailable           { background: var(--red-bg); }
 }
 .popup-overlay.open { display: flex; }
 .popup-box {
-  background: var(--kb-bg-secondary);
-  border: 1.5px solid var(--kb-border-light);
+  background: var(--kb-bg-secondary); border: 1.5px solid var(--kb-border-light);
   border-radius: 20px; padding: 24px;
   width: 90%; max-width: 520px; max-height: 80vh; overflow-y: auto;
   box-shadow: 0 16px 48px rgba(28,15,5,.18); position: relative;
@@ -237,18 +200,34 @@ td.unavailable           { background: var(--red-bg); }
   transition: all .15s;
 }
 .popup-close:hover { background: var(--kb-border-light); color: var(--kb-text-primary); }
-
 .times-grid { display: flex; flex-wrap: wrap; gap: 6px; }
 .time-btn {
-  padding: 6px 12px; border-radius: 8px;
-  border: 1.5px solid transparent; cursor: pointer;
-  font-size: .8rem; font-weight: 700;
-  transition: filter .1s;
+  padding: 6px 12px; border-radius: 8px; border: 1.5px solid transparent;
+  cursor: pointer; font-size: .8rem; font-weight: 700; transition: filter .1s;
 }
-.time-btn.available { background: var(--dv-green-bg); border-color: var(--dv-green-border); color: var(--kb-text-primary); }
+.time-btn.available   { background: var(--dv-green-bg); border-color: var(--dv-green-border); color: var(--kb-text-primary); }
 .time-btn.unavailable { background: var(--red-bg); border-color: var(--red-bd); color: var(--kb-text-secondary); cursor: not-allowed; opacity: .7; }
 .time-btn.available:hover { filter: brightness(.9); }
 .time-btn.selected { outline: 2.5px solid var(--dv-green-dark); outline-offset: 1px; }
+
+/* ── CONFIRM BAR ── */
+.confirm-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--kb-bg-secondary); border-top: 1.5px solid var(--kb-border-light);
+  padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  box-shadow: 0 -4px 20px rgba(139,69,19,.09); z-index: 200;
+}
+.confirm-summary { font-size: .8rem; font-weight: 600; color: var(--kb-text-tertiary); line-height: 1.4; }
+.btn-confirm {
+  display: flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--dv-green) 0%, var(--dv-green-dark) 100%);
+  color: #fff; border: none; padding: 13px 24px; border-radius: 12px;
+  font-size: .9rem; font-weight: 800; cursor: pointer; white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(52,211,153,.3); transition: all .18s;
+}
+.btn-confirm:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(52,211,153,.4); }
+.btn-confirm:disabled { opacity: .45; cursor: not-allowed; transform: none; }
 
 /* ── TOAST ── */
 .toast {
@@ -263,7 +242,8 @@ td.unavailable           { background: var(--red-bg); }
 @media (max-width: 600px) {
   .slot-box { min-height: 60px; padding: 6px 4px 26px 4px; }
   .slot-time-text { font-size: .65rem; }
-  .slot-count-label { font-size: .55rem; }
+  .slot-count-label { font-size: .45rem; }
+  .date-block-hint { display: none; }
   .confirm-bar { flex-direction: column; align-items: stretch; gap: 10px; }
   .btn-confirm { justify-content: center; }
 }
@@ -271,36 +251,49 @@ td.unavailable           { background: var(--red-bg); }
 </head>
 <body>
 
-<!-- Header -->
 <header class="kb-header">
   <div class="kb-header-spacer"></div>
 </header>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <div class="page">
 
-  <a href="index.html" class="kb-header-back"><i class="fas fa-arrow-left"></i> Voltar para o Checkout</a><br><br>
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:700;color:var(--kb-text-secondary);text-decoration:none;padding:8px 14px;border-radius:10px;border:1.5px solid var(--kb-border-light);background:var(--kb-bg-tertiary);margin-bottom:28px;">
+    <i class="fas fa-arrow-left"></i> Voltar para o Checkout
+  </a>
 
   <div class="page-title-row">
     <div class="page-title-icon"><i class="fas fa-motorcycle"></i></div>
     <div class="page-title">
       <h1>Horários de Entrega</h1>
-      <p>Escolha quando quer receber cada produto em casa.</p>
+      <p>Escolha quando quer receber os seus produtos em casa.</p>
     </div>
   </div>
 
-  <!-- Info banner -->
   <div class="delivery-info-banner">
     <div class="delivery-info-icon"><i class="fas fa-circle-info"></i></div>
     <div class="delivery-info-text">
       <strong>Entrega ao Domicílio</strong>
-      Seleccione uma janela horária para a entrega dos seus produtos. O estafeta irá ao endereço indicado no checkout.
+      Seleccione uma janela horária. O estafeta entregará todos os produtos no endereço indicado no checkout.
     </div>
   </div>
 
-  <div id="products-container"></div>
+  <!-- Data global -->
+  <div class="date-block">
+    <div class="date-block-icon"><i class="fas fa-calendar-alt"></i></div>
+    <span class="date-block-label">Data de entrega</span>
+    <input type="date" id="global-date-input" />
+    <span class="date-block-hint">Válido para todos os produtos</span>
+  </div>
+
+  <!-- Tabela de slots -->
+  <div class="slots-card">
+    <div class="section-label" id="slots-label"></div>
+    <table class="slots-table" id="slots-table"><tbody></tbody></table>
+    <div id="result-area"></div>
+  </div>
+
 </div>
 
 <!-- Popup -->
@@ -321,7 +314,7 @@ td.unavailable           { background: var(--red-bg); }
 </div>
 
 <script>
-// ── Utils ──────────────────────────────────────────────────────
+// ── Utils ──
 function fmt(m) { return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'); }
 function genTimes(range) {
   const [s,e] = range.split('-');
@@ -335,46 +328,38 @@ function toMins(t) { const [h,m] = t.split(':').map(Number); return h*60+m; }
 function toISO(d) { return d.toISOString().split('T')[0]; }
 function getMinDate() { return toISO(new Date()); }
 function getMaxDate() { const d = new Date(); d.setDate(d.getDate()+7); return toISO(d); }
-function fmtDateBR(iso) { if(!iso) return '—'; const [y,m,d] = iso.split('-'); return `${d}/${m}/${y.slice(2)}`; }
 
-// ── Build Slots ──
-// Delivery windows are wider (30 min slots) to reflect door-to-door logistics
-function buildSlots(sh,sm,ch,cm,slotMin,unavailIdx=[]) {
+// ── Build Slots (variable durations) ──
+function buildSlots(sh, sm, ch, cm, durations, unavailIdx=[]) {
   const slots=[]; let cur=sh*60+sm; const closing=ch*60+cm; let idx=0;
-  while(cur+slotMin<=closing) {
-    const range=fmt(cur)+'-'+fmt(cur+slotMin);
-    const isUnavail=unavailIdx.includes(idx);
-    const allTimes=genTimes(range);
-    const unavail=isUnavail?allTimes:allTimes.filter(()=>Math.random()<.2);
-    const count=allTimes.length-unavail.length;
-    slots.push({range,count,unavail}); cur+=slotMin; idx++;
+  while(cur < closing) {
+    const dur = durations[Math.min(idx, durations.length-1)];
+    const end = Math.min(cur+dur, closing);
+    if (end <= cur) break;
+    const range = fmt(cur)+'-'+fmt(end);
+    const isUnavail = unavailIdx.includes(idx);
+    const count = isUnavail ? 0 : Math.floor(Math.random()*7)+1;
+    const unavail = isUnavail ? [] : genTimes(range).filter(()=>Math.random()<.2);
+    slots.push({range, count, unavail});
+    cur = end; idx++;
   }
   return slots;
 }
-function getUnavail(slot) { return slot.count===0?genTimes(slot.range):slot.unavail; }
+function getUnavail(slot) { return slot.count===0 ? genTimes(slot.range) : slot.unavail; }
 
-// ── Data — delivery slots (30 min windows, starts a bit later than pickup) ──
-const PRODUCTS = [
-  { id:0, name:'Pão Quente',     slots: buildSlots(9, 0, 20, 0, 30, [1,5,8,13]) },
-  { id:1, name:'Arrofada',       slots: buildSlots(9,30, 20, 0, 30, [2,6,10,15]) },
-  { id:2, name:'Bolo de Ananás', slots: buildSlots(10,0, 20, 0, 30, [0,4,9,14]) },
-];
+// ── Single shared delivery schedule ──
+const SLOTS = buildSlots(9, 0, 20, 0,
+  [30, 45, 30, 60, 30, 45, 30, 30, 60, 45, 30, 30, 45, 30, 60, 30, 45, 30],
+  [1, 4, 9, 13]
+);
 
-const state = { dates:{}, selectedSlot:{}, selectedTime:{} };
+const state = { date:'', selectedSlot: null, selectedTime: null };
 
-function findClosestTime(refTime, pid) {
-  const ref = toMins(refTime); const p = PRODUCTS[pid];
-  let best=null, bestDiff=Infinity;
-  p.slots.forEach((slot,si) => {
-    const unavail = getUnavail(slot);
-    genTimes(slot.range).forEach(t => {
-      if (unavail.includes(t)) return;
-      const d = Math.abs(toMins(t)-ref);
-      if (d < bestDiff) { bestDiff=d; best={slotIdx:si,time:t}; }
-    });
-  });
-  return best;
-}
+// ── Global date ──
+const globalDateInput = document.getElementById('global-date-input');
+globalDateInput.min = getMinDate();
+globalDateInput.max = getMaxDate();
+globalDateInput.addEventListener('change', e => { state.date = e.target.value; updateConfirm(); });
 
 // ── Popup ──
 const overlay  = document.getElementById('popup-overlay');
@@ -387,30 +372,25 @@ popClose.addEventListener('click', closePopup);
 overlay.addEventListener('click', e => { if(e.target===overlay) closePopup(); });
 document.addEventListener('keydown', e => { if(e.key==='Escape') closePopup(); });
 
-function openPopup(pi, si) {
-  const slot = PRODUCTS[pi].slots[si];
+function openPopup(si) {
+  const slot = SLOTS[si];
   const times = genTimes(slot.range);
   const unavail = getUnavail(slot);
-  popTitle.innerHTML = `<i class="fas fa-motorcycle" style="color:var(--dv-green);margin-right:6px;"></i> Janelas de entrega — ${slot.range}`;
+  popTitle.innerHTML = `<i class="fas fa-motorcycle" style="color:var(--dv-green);margin-right:6px;"></i> Horários disponíveis — ${slot.range}`;
   popGrid.innerHTML = '';
   times.forEach(t => {
     const avail = !unavail.includes(t);
     const tb = document.createElement('button');
-    tb.type='button';
-    tb.className='time-btn '+(avail?'available':'unavailable');
-    if (state.selectedTime[pi]===t) tb.classList.add('selected');
-    tb.textContent=t;
+    tb.type = 'button';
+    tb.className = 'time-btn ' + (avail ? 'available' : 'unavailable');
+    if (state.selectedTime === t) tb.classList.add('selected');
+    tb.textContent = t;
     if (avail) {
       tb.addEventListener('click', () => {
-        state.selectedTime[pi]=t; state.selectedSlot[pi]=si;
-        if (pi===0) {
-          PRODUCTS.forEach((_,i) => {
-            if(i===0) return;
-            const c=findClosestTime(t,i);
-            if(c) { state.selectedSlot[i]=c.slotIdx; state.selectedTime[i]=c.time; }
-          });
-        }
-        closePopup(); render();
+        state.selectedSlot = si;
+        state.selectedTime = t;
+        closePopup();
+        render();
       });
     }
     popGrid.appendChild(tb);
@@ -420,127 +400,90 @@ function openPopup(pi, si) {
 
 // ── Toast ──
 function showToast(msg) {
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2400);
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
 }
 
 // ── Confirm bar ──
 function updateConfirm() {
-  const btn=document.getElementById('btn-confirm');
-  const info=document.getElementById('info');
-  const times=Object.values(state.selectedTime);
-  const hasDate = state.dates[0] && state.dates[0]!=='';
-  if (times.length>0 && hasDate) {
-    btn.disabled=false;
-    info.textContent=`${times.length} produto(s) com horário de entrega: ${times.join(', ')}`;
-  } else if (times.length>0) {
-    btn.disabled=true; info.textContent='Seleccione uma data para confirmar';
+  const btn  = document.getElementById('btn-confirm');
+  const info = document.getElementById('info');
+  const hasTime = state.selectedTime !== null;
+  const hasDate = state.date !== '';
+  if (hasTime && hasDate) {
+    btn.disabled = false;
+    info.textContent = `Entrega às ${state.selectedTime} — ${state.date.split('-').reverse().join('/')}`;
+  } else if (hasTime) {
+    btn.disabled = true;
+    info.textContent = 'Seleccione uma data para confirmar';
   } else {
-    btn.disabled=true; info.textContent='Nenhum horário de entrega selecionado';
+    btn.disabled = true;
+    info.textContent = 'Nenhum horário de entrega selecionado';
   }
 }
 
 document.getElementById('btn-confirm').addEventListener('click', function() {
   if (this.disabled) return;
-  const selections = PRODUCTS.map((prod,pi) => ({
-    id:prod.id, nome:prod.name,
-    horario:state.selectedTime[pi]||null,
-    data:state.dates[pi]||state.dates[0]||null
-  })).filter(s=>s.horario);
-  const times = selections.map(s=>toMins(s.horario));
-  const maxTime = Math.max(...times);
-  const prontoAte = fmt(maxTime);
-  // Save with a different key so pickup and delivery states are independent
-  localStorage.setItem('kweto_horarios_entrega', JSON.stringify({ selections, prontoAte, confirmedAt:new Date().toISOString() }));
+  localStorage.setItem('kweto_horarios_entrega', JSON.stringify({
+    horario: state.selectedTime,
+    data: state.date,
+    confirmedAt: new Date().toISOString()
+  }));
   showToast('✓ Horário de entrega guardado!');
-  setTimeout(() => { window.location.href='index.html'; }, 1400);
+  setTimeout(() => { window.location.href = 'index.html'; }, 1400);
 });
 
 // ── Render ──
 function render() {
-  const container = document.getElementById('products-container');
-  container.innerHTML='';
-  const minDate=getMinDate(), maxDate=getMaxDate();
+  document.getElementById('slots-label').textContent =
+    `${SLOTS.length} janelas de entrega disponíveis`;
 
-  PRODUCTS.forEach((prod,pi) => {
-    const card=document.createElement('div'); card.className='product-card';
+  const tbody = document.querySelector('#slots-table tbody');
+  tbody.innerHTML = '';
+  const COLS = 5;
 
-    // Header
-    const hdr=document.createElement('div'); hdr.className='product-header';
-    hdr.innerHTML=`
-      <div class="product-header-left">
-        <span class="product-badge">Produto ${pi+1}</span>
-        <span class="product-name">${prod.name}</span>
-      </div>`;
-    card.appendChild(hdr);
-
-    // Date row
-    const dateRow=document.createElement('div'); dateRow.className='date-row';
-    if (pi===0) {
-      const lbl=document.createElement('label'); lbl.textContent='Data de entrega:';
-      const inp=document.createElement('input'); inp.type='date';
-      inp.min=minDate; inp.max=maxDate; inp.value=state.dates[0]||'';
-      inp.addEventListener('change', e => { state.dates[0]=e.target.value; render(); });
-      dateRow.appendChild(lbl); dateRow.appendChild(inp);
-    } else {
-      const lbl=document.createElement('label'); lbl.textContent='Data:';
-      const disp=document.createElement('span'); disp.className='date-display';
-      disp.textContent=fmtDateBR(state.dates[0]);
-      dateRow.appendChild(lbl); dateRow.appendChild(disp);
-    }
-    card.appendChild(dateRow);
-
-    // Section label
-    const slbl=document.createElement('div'); slbl.className='section-label';
-    slbl.textContent=`${prod.slots.length} janelas de entrega disponíveis`;
-    card.appendChild(slbl);
-
-    // Slots table
-    const table=document.createElement('table'); table.className='slots-table';
-    const tbody=document.createElement('tbody');
-    const COLS=5; const slots=prod.slots;
-    for(let row=0;row<Math.ceil(slots.length/COLS);row++) {
-      const tr=document.createElement('tr');
-      for(let col=0;col<COLS;col++) {
-        const si=row*COLS+col; const td=document.createElement('td');
-        if(si>=slots.length) { td.className='empty'; tr.appendChild(td); continue; }
-        const slot=slots[si];
-        const isAvail=slot.count>0;
-        const isSel=state.selectedSlot[pi]===si;
-        td.className=isAvail?'available':'unavailable';
-        const box=document.createElement('button'); box.type='button';
-        box.className='slot-box'+(isSel?' selected':'')+(isAvail?'':' unavailable');
-        box.innerHTML=`
-          <span class="slot-time-text">${slot.range}</span>
-          <span class="slot-count-label">${isAvail?'Disponível':'Indisponível'}</span>`;
-        if(isAvail) {
-          box.addEventListener('click', () => {
-            state.selectedSlot[pi]=si; openPopup(pi,si); render();
-          });
-        }
-        td.appendChild(box); tr.appendChild(td);
+  for (let row = 0; row < Math.ceil(SLOTS.length / COLS); row++) {
+    const tr = document.createElement('tr');
+    for (let col = 0; col < COLS; col++) {
+      const si = row * COLS + col;
+      const td = document.createElement('td');
+      if (si >= SLOTS.length) { td.className = 'empty'; tr.appendChild(td); continue; }
+      const slot = SLOTS[si];
+      const isAvail = slot.count > 0;
+      const isSel = state.selectedSlot === si && state.selectedTime !== null;
+      td.className = isAvail ? 'available' : 'unavailable';
+      const box = document.createElement('button');
+      box.type = 'button';
+      box.className = 'slot-box' + (isSel ? ' selected' : '') + (isAvail ? '' : ' unavailable');
+      box.innerHTML = `
+        <span class="slot-time-text">${slot.range}</span>
+        <span class="slot-count-label">${isAvail ? slot.count + ' entregas restantes' : 'Indisponível'}</span>`;
+      if (isAvail) {
+        box.addEventListener('click', () => {
+          state.selectedSlot = si;
+          openPopup(si);
+          render();
+        });
       }
-      tbody.appendChild(tr);
+      td.appendChild(box);
+      tr.appendChild(td);
     }
-    table.appendChild(tbody); card.appendChild(table);
+    tbody.appendChild(tr);
+  }
 
-    // Result
-    const selTime=state.selectedTime[pi];
-    if(selTime) {
-      const isAuto=pi!==0&&state.selectedTime[0];
-      const msg=document.createElement('div'); msg.className='result-msg';
-      msg.innerHTML=`<i class="fas fa-check-circle" style="color:var(--dv-green);"></i> Horário de entrega: <strong>${selTime}</strong>${isAuto?' <span class="auto-tag">AUTO</span>':''}`;
-      if(pi!==0) {
-        const eb=document.createElement('button'); eb.className='edit-btn'; eb.textContent='Alterar';
-        eb.addEventListener('click', ()=>openPopup(pi,state.selectedSlot[pi]));
-        msg.appendChild(eb);
-      }
-      card.appendChild(msg);
-    }
-
-    container.appendChild(card);
-  });
+  const resultArea = document.getElementById('result-area');
+  resultArea.innerHTML = '';
+  if (state.selectedTime) {
+    const msg = document.createElement('div');
+    msg.className = 'result-msg';
+    msg.innerHTML = `<i class="fas fa-check-circle" style="color:var(--dv-green);"></i> Entrega definida para as <strong>${state.selectedTime}</strong>`;
+    const eb = document.createElement('button');
+    eb.className = 'edit-btn'; eb.textContent = 'Alterar';
+    eb.addEventListener('click', () => openPopup(state.selectedSlot));
+    msg.appendChild(eb);
+    resultArea.appendChild(msg);
+  }
 
   updateConfirm();
 }
