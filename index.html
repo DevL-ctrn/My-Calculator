@@ -656,8 +656,13 @@ function iconFor(n) {
   document.getElementById('btnDeliveryIcon').className = 'fas fa-pen-to-square';
   document.getElementById('btnDeliveryLabel').textContent = 'Alterar Horário de Entrega';
 
-  // List each product in the order with the shared delivery time
+  // List each product with a random prep-ready time (independent of delivery time)
   const PRODUCTS = ['Pão Quente', 'Arrofada', 'Bolo de Ananás'];
+  function randomPrepTime() {
+    const h = 8 + Math.floor(Math.random() * 10); // 08h–17h
+    const m = Math.floor(Math.random() * 60);
+    return String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
+  }
   const rows = document.getElementById('deliveryConfirmedRows');
   PRODUCTS.forEach(nome => {
     const row = document.createElement('div');
@@ -667,7 +672,7 @@ function iconFor(n) {
         <div class="delivery-conf-icon"><i class="fas ${iconFor(nome)}"></i></div>
         <div>
           <div class="delivery-conf-name">${nome}</div>
-          <div class="delivery-conf-date">${fmtDate(dataSel)}</div>
+          <div class="delivery-conf-date">Pronto às ${randomPrepTime()}</div>
         </div>
       </div>
       <div class="delivery-conf-time">${horario}</div>`;
