@@ -436,7 +436,7 @@ body {
               <div class="pickup-confirmed-rows" id="pickupConfirmedRows"></div>
               <div class="pickup-ready-bar">
                 <i class="fas fa-circle-check"></i>
-                <span>Os pedidos estarão disponíveis para retirada no dia <strong id="pickupReadyTime">—</strong></span>
+                <span>Os pedidos estarão disponíveis para retirada no dia <strong id="pickupReadyDate">—</strong> às <strong id="pickupReadyTime">—</strong></span>
               </div>
             </div>
             <div class="pickup-banner-actions">
@@ -638,7 +638,8 @@ function iconFor(n) {
     rows.appendChild(row);
   });
 
-  document.getElementById('pickupReadyTime').textContent = fmtDate(sels[0]?.data);
+  document.getElementById('pickupReadyDate').textContent = fmtDate(sels[0]?.data);
+  document.getElementById('pickupReadyTime').textContent = data.prontoAte || '—';
 })();
 
 // ── Delivery state ──
