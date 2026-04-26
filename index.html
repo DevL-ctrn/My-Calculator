@@ -622,6 +622,8 @@ function iconFor(n) {
 
   const rows = document.getElementById('pickupConfirmedRows');
   sels.forEach(s => {
+    // Prep time = end of the slot range (e.g. "08:00-08:24" → "08:24")
+    const prepTime = s.slotRange ? s.slotRange.split('-')[1] : s.horario;
     const row = document.createElement('div');
     row.className = 'pickup-conf-item';
     row.innerHTML = `
@@ -629,7 +631,7 @@ function iconFor(n) {
         <div class="pickup-conf-icon"><i class="fas ${iconFor(s.nome)}"></i></div>
         <div>
           <div class="pickup-conf-name">${s.nome}</div>
-          <div class="pickup-conf-date">${fmtDate(s.data)}</div>
+          <div class="pickup-conf-date">Pronto às ${prepTime}</div>
         </div>
       </div>
       <div class="pickup-conf-time">${s.horario}</div>`;
