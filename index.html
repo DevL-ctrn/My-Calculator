@@ -168,7 +168,7 @@ body {
 .co-section-header i { color: var(--kb-primary); font-size: 1.1rem; }
 .co-section-header h2 { font-size: 1rem; font-weight: 900; color: var(--kb-text-primary); text-transform: uppercase; letter-spacing: .05em; }
 
-/* ── SCHEDULE BANNERS (shared styles) ── */
+/* ── SCHEDULE BANNERS ── */
 .pickup-section-banner,
 .delivery-section-banner {
   background: linear-gradient(135deg, var(--kb-primary-dark) 0%, #6B3010 100%);
@@ -178,110 +178,85 @@ body {
 }
 .delivery-section-banner { display: none; }
 
-.pickup-section-banner::before,
-.delivery-section-banner::before {
+.pickup-section-banner::before, .delivery-section-banner::before {
   content: ""; position: absolute; top: -30px; right: -30px;
   width: 160px; height: 160px; border-radius: 50%; background: rgba(255,255,255,.05);
 }
-.pickup-section-banner::after,
-.delivery-section-banner::after {
+.pickup-section-banner::after, .delivery-section-banner::after {
   content: ""; position: absolute; bottom: -20px; right: 60px;
   width: 80px; height: 80px; border-radius: 50%; background: rgba(212,160,23,.15);
 }
 
-.pickup-banner-top,
-.delivery-banner-top {
+.pickup-banner-top, .delivery-banner-top {
   display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px;
 }
-.pickup-banner-icon,
-.delivery-banner-icon {
+.pickup-banner-icon, .delivery-banner-icon {
   width: 48px; height: 48px; border-radius: 13px;
   background: rgba(212,160,23,.2); border: 1.5px solid rgba(212,160,23,.4);
   display: flex; align-items: center; justify-content: center;
   font-size: 1.3rem; color: var(--kb-primary); flex-shrink: 0;
 }
-.pickup-banner-text h3,
-.delivery-banner-text h3 { font-size: 1.1rem; font-weight: 900; margin-bottom: 3px; }
-.pickup-banner-text p,
-.delivery-banner-text p { font-size: .82rem; font-weight: 500; opacity: .8; line-height: 1.5; }
+.pickup-banner-text h3, .delivery-banner-text h3 { font-size: 1.1rem; font-weight: 900; margin-bottom: 3px; }
+.pickup-banner-text p, .delivery-banner-text p { font-size: .82rem; font-weight: 500; opacity: .8; line-height: 1.5; }
 
-/* empty state */
-.pickup-empty-state,
-.delivery-empty-state {
+.pickup-empty-state, .delivery-empty-state {
   background: rgba(255,255,255,.08); border-radius: 14px;
   border: 1.5px dashed rgba(255,255,255,.25);
   padding: 20px 16px; margin-bottom: 16px;
   display: flex; align-items: center; gap: 14px;
 }
-.pickup-empty-icon,
-.delivery-empty-icon {
+.pickup-empty-icon, .delivery-empty-icon {
   width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
   background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
   display: flex; align-items: center; justify-content: center; font-size: 1.2rem; opacity: .7;
 }
-.pickup-empty-text,
-.delivery-empty-text { font-size: .85rem; font-weight: 600; opacity: .75; line-height: 1.5; }
-.pickup-empty-text strong,
-.delivery-empty-text strong { display: block; font-size: .92rem; font-weight: 800; opacity: 1; margin-bottom: 2px; }
+.pickup-empty-text, .delivery-empty-text { font-size: .85rem; font-weight: 600; opacity: .75; line-height: 1.5; }
+.pickup-empty-text strong, .delivery-empty-text strong { display: block; font-size: .92rem; font-weight: 800; opacity: 1; margin-bottom: 2px; }
 
-/* confirmed state */
-.pickup-confirmed-state,
-.delivery-confirmed-state {
+.pickup-confirmed-state, .delivery-confirmed-state {
   background: rgba(255,255,255,.09); border-radius: 14px;
   border: 1px solid rgba(255,255,255,.18);
   margin-bottom: 16px; overflow: hidden; display: none;
 }
-.pickup-confirmed-rows,
-.delivery-confirmed-rows { padding: 4px 16px; }
+.pickup-confirmed-rows, .delivery-confirmed-rows { padding: 4px 16px; }
 
-.pickup-conf-item,
-.delivery-conf-item {
+.pickup-conf-item, .delivery-conf-item {
   display: flex; align-items: center; justify-content: space-between;
   padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,.1); gap: 12px;
 }
-.pickup-conf-item:last-child,
-.delivery-conf-item:last-child { border-bottom: none; }
+.pickup-conf-item:last-child, .delivery-conf-item:last-child { border-bottom: none; }
 
-.pickup-conf-left,
-.delivery-conf-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.pickup-conf-left, .delivery-conf-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
 
-.pickup-conf-icon,
-.delivery-conf-icon {
-  width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
-  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: .85rem; color: var(--kb-primary);
+/* ── PRODUCT IMAGE thumbnail ── */
+.conf-img {
+  width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+  object-fit: cover;
+  border: 1.5px solid rgba(255,255,255,.2);
+  background: rgba(255,255,255,.1);
 }
-.pickup-conf-name,
-.delivery-conf-name { font-size: .85rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.pickup-conf-date,
-.delivery-conf-date { font-size: .7rem; opacity: .6; font-weight: 500; }
 
-.pickup-conf-time,
-.delivery-conf-time {
+.pickup-conf-name, .delivery-conf-name { font-size: .85rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pickup-conf-date, .delivery-conf-date { font-size: .7rem; opacity: .6; font-weight: 500; }
+
+.pickup-conf-time, .delivery-conf-time {
   font-size: .85rem; font-weight: 700;
   background: rgba(212,160,23,.3); color: var(--kb-primary);
   border: 1px solid rgba(212,160,23,.45);
   padding: 4px 11px; border-radius: 8px; white-space: nowrap; flex-shrink: 0;
 }
 
-.pickup-ready-bar,
-.delivery-ready-bar {
+.pickup-ready-bar, .delivery-ready-bar {
   background: rgba(212,160,23,.15); border-top: 1px solid rgba(212,160,23,.3);
   padding: 12px 16px; display: flex; align-items: center; gap: 10px;
 }
-.pickup-ready-bar i,
-.delivery-ready-bar i { color: var(--kb-primary); font-size: .9rem; flex-shrink: 0; }
-.pickup-ready-bar span,
-.delivery-ready-bar span { font-size: .82rem; font-weight: 600; color: #FEF3C7; line-height: 1.4; }
-.pickup-ready-bar strong,
-.delivery-ready-bar strong { font-weight: 800; color: #fff; }
+.pickup-ready-bar i, .delivery-ready-bar i { color: var(--kb-primary); font-size: .9rem; flex-shrink: 0; }
+.pickup-ready-bar span, .delivery-ready-bar span { font-size: .82rem; font-weight: 600; color: #FEF3C7; line-height: 1.4; }
+.pickup-ready-bar strong, .delivery-ready-bar strong { font-weight: 800; color: #fff; }
 
-.pickup-banner-actions,
-.delivery-banner-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.pickup-banner-actions, .delivery-banner-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
-.btn-pickup-primary,
-.btn-delivery-primary {
+.btn-pickup-primary, .btn-delivery-primary {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   padding: 12px 22px; border-radius: 12px; border: none; cursor: pointer;
   background: var(--kb-primary); color: #fff;
@@ -289,8 +264,7 @@ body {
   text-decoration: none; transition: all .2s;
   box-shadow: 0 4px 14px rgba(212,160,23,.3);
 }
-.btn-pickup-primary:hover,
-.btn-delivery-primary:hover { filter: brightness(1.1); transform: translateY(-2px); }
+.btn-pickup-primary:hover, .btn-delivery-primary:hover { filter: brightness(1.1); transform: translateY(-2px); }
 
 /* ── SIDEBAR ── */
 .co-summary {
@@ -312,8 +286,9 @@ body {
 .co-si-img {
   width: 44px; height: 44px; border-radius: 10px;
   background: var(--kb-bg-tertiary); border: 1px solid var(--kb-border-light);
-  display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+  overflow: hidden; flex-shrink: 0;
 }
+.co-si-img img { width: 100%; height: 100%; object-fit: cover; }
 .co-si-name { font-size: .83rem; font-weight: 800; color: var(--kb-text-primary); }
 .co-si-qty { font-size: .72rem; color: var(--kb-text-tertiary); font-weight: 600; }
 .co-si-price { font-size: .88rem; font-weight: 900; color: var(--kb-primary-dark); margin-left: auto; white-space: nowrap; }
@@ -470,7 +445,7 @@ body {
               <div class="delivery-confirmed-rows" id="deliveryConfirmedRows"></div>
               <div class="delivery-ready-bar">
                 <i class="fas fa-circle-check"></i>
-                <span id="deliveryReadyBar">A entrega está prevista para o dia <strong id="deliveryReadyDate">—</strong> às <strong id="deliveryReadyTime">—</strong></span>
+                <span>A entrega está prevista para o dia <strong id="deliveryReadyDate">—</strong> às <strong id="deliveryReadyTime">—</strong></span>
               </div>
             </div>
             <div class="delivery-banner-actions">
@@ -559,17 +534,17 @@ body {
             </div>
             <div class="co-summary-items">
               <div class="co-summary-item">
-                <div class="co-si-img"></div>
+                <div class="co-si-img"><img src="https://thumb.dreamstime.com/b/p%C3%A3o-quente-fresco-no-trey-29006342.jpg" alt="Pão Quente" onerror="this.parentNode.innerHTML='🍞'"></div>
                 <div style="flex:1;"><div class="co-si-name">Pão Quente</div><div class="co-si-qty">2× 35,00 MT</div></div>
                 <div class="co-si-price">70,00 MT</div>
               </div>
               <div class="co-summary-item">
-                <div class="co-si-img"></div>
+                <div class="co-si-img"><img src="https://i.pinimg.com/736x/2b/4e/3e/2b4e3e0e8e4e5b5e5e5e5e5e5e5e5e5e.jpg" alt="Arrofada" onerror="this.parentNode.innerHTML='🍰'"></div>
                 <div style="flex:1;"><div class="co-si-name">Arrofada</div><div class="co-si-qty">1× 180,00 MT</div></div>
                 <div class="co-si-price">180,00 MT</div>
               </div>
               <div class="co-summary-item">
-                <div class="co-si-img"></div>
+                <div class="co-si-img"><img src="https://www.ruralea.com/wp-content/uploads/2020/04/bolo-de-ananas-caramelizado.jpg" alt="Bolo de Ananás" onerror="this.parentNode.innerHTML='🎂'"></div>
                 <div style="flex:1;"><div class="co-si-name">Bolo de Ananás</div><div class="co-si-qty">1× 90,00 MT</div></div>
                 <div class="co-si-price">90,00 MT</div>
               </div>
@@ -593,17 +568,27 @@ body {
 </div>
 
 <script>
+// ── Product image map ──
+const PRODUCT_IMGS = {
+  'Pão Quente':     'https://thumb.dreamstime.com/b/p%C3%A3o-quente-fresco-no-trey-29006342.jpg',
+  'Arrofada':       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/320px-Cat03.jpg',
+  'Bolo de Ananás': 'https://www.ruralea.com/wp-content/uploads/2020/04/bolo-de-ananas-caramelizado.jpg',
+};
+function imgFor(nome) {
+  return PRODUCT_IMGS[nome] || '';
+}
+function confImgHTML(nome) {
+  const src = imgFor(nome);
+  return src
+    ? `<img class="conf-img" src="${src}" alt="${nome}" onerror="this.style.display='none'">`
+    : `<div class="conf-img" style="display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--kb-primary)"><i class="fas fa-bread-slice"></i></div>`;
+}
+
 // ── Helpers ──
 function fmtDate(iso) {
   if (!iso) return '—';
   const [y,m,d] = iso.split('-');
   return `${d}/${m}/${y.slice(2)}`;
-}
-const EMOJIS = { 'pão':'fa-bread-slice','arrofada':'fa-cake-candles','bolo':'fa-cake-candles','sanduíche':'fa-sandwich' };
-function iconFor(n) {
-  const l = n.toLowerCase();
-  for (const [k,v] of Object.entries(EMOJIS)) if (l.includes(k)) return v;
-  return 'fa-bag-shopping';
 }
 
 // ── Pickup state ──
@@ -628,7 +613,7 @@ function iconFor(n) {
     row.className = 'pickup-conf-item';
     row.innerHTML = `
       <div class="pickup-conf-left">
-        <div class="pickup-conf-icon"><i class="fas ${iconFor(s.nome)}"></i></div>
+        ${confImgHTML(s.nome)}
         <div>
           <div class="pickup-conf-name">${s.nome}</div>
           <div class="pickup-conf-date">Pronto às ${prepTime}</div>
@@ -643,8 +628,6 @@ function iconFor(n) {
 })();
 
 // ── Delivery state ──
-// Format saved by entrega.html: { horario, data, confirmedAt }
-// Shows each product from the order with the single chosen delivery time
 (function loadDeliveryState() {
   const raw = localStorage.getItem('kweto_horarios_entrega');
   if (!raw) return;
@@ -659,10 +642,9 @@ function iconFor(n) {
   document.getElementById('btnDeliveryIcon').className = 'fas fa-pen-to-square';
   document.getElementById('btnDeliveryLabel').textContent = 'Alterar Horário de Entrega';
 
-  // List each product with a random prep-ready time (independent of delivery time)
   const PRODUCTS = ['Pão Quente', 'Arrofada', 'Bolo de Ananás'];
   function randomPrepTime() {
-    const h = 8 + Math.floor(Math.random() * 10); // 08h–17h
+    const h = 8 + Math.floor(Math.random() * 10);
     const m = Math.floor(Math.random() * 60);
     return String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
   }
@@ -672,7 +654,7 @@ function iconFor(n) {
     row.className = 'delivery-conf-item';
     row.innerHTML = `
       <div class="delivery-conf-left">
-        <div class="delivery-conf-icon"><i class="fas ${iconFor(nome)}"></i></div>
+        ${confImgHTML(nome)}
         <div>
           <div class="delivery-conf-name">${nome}</div>
           <div class="delivery-conf-date">Pronto às ${randomPrepTime()}</div>
