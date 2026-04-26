@@ -436,7 +436,7 @@ body {
               <div class="pickup-confirmed-rows" id="pickupConfirmedRows"></div>
               <div class="pickup-ready-bar">
                 <i class="fas fa-circle-check"></i>
-                <span>Os pedidos estarão disponíveis para retirada às <strong id="pickupReadyTime">—</strong></span>
+                <span>Os pedidos estarão disponíveis para retirada no dia <strong id="pickupReadyTime">—</strong></span>
               </div>
             </div>
             <div class="pickup-banner-actions">
@@ -621,8 +621,8 @@ function iconFor(n) {
   document.getElementById('btnPickupLabel').textContent = 'Alterar Horários';
 
   const rows = document.getElementById('pickupConfirmedRows');
+  const horaRetirada = data.prontoAte || '—';
   sels.forEach(s => {
-    // Prep time = end of the slot range (e.g. "08:00-08:24" → "08:24")
     const prepTime = s.slotRange ? s.slotRange.split('-')[1] : s.horario;
     const row = document.createElement('div');
     row.className = 'pickup-conf-item';
@@ -634,11 +634,11 @@ function iconFor(n) {
           <div class="pickup-conf-date">Pronto às ${prepTime}</div>
         </div>
       </div>
-      <div class="pickup-conf-time">${s.horario}</div>`;
+      <div class="pickup-conf-time">${horaRetirada}</div>`;
     rows.appendChild(row);
   });
 
-  if (data.prontoAte) document.getElementById('pickupReadyTime').textContent = data.prontoAte;
+  document.getElementById('pickupReadyTime').textContent = fmtDate(sels[0]?.data);
 })();
 
 // ── Delivery state ──
